@@ -3,8 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Bad'EPS</title>
+
+    <!-- Support Écran d'accueil & PWA (iPad, iPhone, Android, Tablettes) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bad'EPS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Bad'EPS">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Icônes de raccourci écran d'accueil (logobadeps) -->
+    <link rel="apple-touch-icon" href="logobadeps.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logobadeps.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="logobadeps.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="logobadeps.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="logobadeps.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="logobadeps.png">
+    <link rel="icon" type="image/png" href="logobadeps.png">
+    <link rel="manifest" href="manifest.json">
 
     <style>
         /* =========================================
@@ -33,17 +52,36 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html {
+            height: 100%;
+            height: -webkit-fill-available;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+
         body {
-            background-color: var(--bg-color);
+            background-color: #000000;
             color: var(--text-main);
             display: flex;
             flex-direction: column;
+            width: 100%;
+            height: 100%;
             height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            height: 100dvh;
+            max-height: 100dvh;
             overflow: hidden;
             position: relative;
+            box-sizing: border-box;
+            overscroll-behavior: none;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-left: env(safe-area-inset-left, 0px);
+            padding-right: env(safe-area-inset-right, 0px);
         }
 
-        /* Arrière-plan avec l'image "badeps" du dossier */
+        /* Arrière-plan avec l'image "badeps" - adapté à tous les formats (ordinateur, tablette, smartphone) */
         #background-app {
             position: fixed;
             top: 0;
@@ -52,9 +90,44 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            background: url('badeps.png') center center / cover no-repeat;
+            height: 100dvh;
+            background-color: #000000;
+            background-image: url('badeps.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
             z-index: 0;
             pointer-events: none;
+            transition: background-position 0.25s ease, background-size 0.25s ease;
+        }
+
+        /* Format Portrait : Smartphones & Tablettes (iPad en mode portrait) */
+        @media (orientation: portrait) {
+            #background-app {
+                background-position: center 8%;
+                background-size: 100% auto;
+            }
+
+            #vue-accueil.active {
+                justify-content: flex-end !important;
+                padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)) !important;
+            }
+
+            #box-accueil-actions {
+                margin-bottom: 10px !important;
+            }
+        }
+
+        /* Format Paysage : Ordinateurs, Tablettes (iPad en paysage) & Smartphones horizontaux */
+        @media (orientation: landscape) {
+            #background-app {
+                background-position: center center;
+                background-size: contain;
+            }
+
+            #vue-accueil.active {
+                justify-content: center !important;
+            }
         }
 
         /* =========================================
@@ -94,8 +167,8 @@
 
         #btn-admin-accueil {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: calc(15px + env(safe-area-inset-top, 0px));
+            right: calc(20px + env(safe-area-inset-right, 0px));
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
@@ -115,7 +188,24 @@
             transform: scale(1.05);
         }
 
+        .btn-accueil-action {
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            margin-top: 0;
+            background: rgba(22, 22, 26, 0.82) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 10px !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+            font-weight: 600;
+        }
 
+        .btn-accueil-action:hover {
+            background: rgba(42, 42, 50, 0.92) !important;
+            border-color: var(--accent-color) !important;
+            transform: translateY(-2px);
+        }
 
         /* Barre de navigation horizontale en bas de page */
         nav#bottom-nav {
@@ -126,10 +216,12 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-top: 1px solid var(--glass-border);
-            padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px)) 0;
+            padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)) 12px;
             z-index: 20;
             position: relative;
             flex-shrink: 0;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .nav-btn {
@@ -247,9 +339,15 @@
            VUES ET CONTENUS
            ========================================= */
         main {
-            flex: 1;
+            flex: 1 1 0%;
+            min-height: 0;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
             padding: 20px;
+            padding-top: calc(15px + env(safe-area-inset-top, 0px));
+            padding-left: calc(20px + env(safe-area-inset-left, 0px));
+            padding-right: calc(20px + env(safe-area-inset-right, 0px));
             position: relative;
             z-index: 1;
             display: flex;
@@ -471,7 +569,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: calc(100vh - 170px);
+            min-height: calc(100dvh - 170px);
+            min-height: calc(var(--vh, 1vh) * 100 - 170px);
             text-align: center;
             padding: 20px;
         }
@@ -1740,15 +1839,15 @@
         <section id="vue-accueil" class="vue active">
             <button id="btn-admin-accueil" onclick="ouvrirModaleAdmin()" title="Espace Enseignant">⚙️</button>
             <div id="box-accueil-actions"
-                style="max-width: 280px; width: 100%; background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; display: flex; flex-direction: column; gap: 12px; margin: 0 auto;">
+                style="max-width: 290px; width: 100%; background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; display: flex; flex-direction: column; gap: 12px; margin: 0 auto;">
                 <button class="btn-inscription-gradient" onclick="naviguerVers('vue-inscription')">📝 Inscription des
                     élèves</button>
-                <button class="btn-secondary" style="padding: 12px; font-size: 0.95rem; margin-top: 0;"
-                    onclick="naviguerVers('vue-profil-liste')">👤 Fiches Profils Joueurs</button>
-                <button class="btn-secondary" style="padding: 12px; font-size: 0.95rem; margin-top: 0;"
-                    onclick="naviguerVers('vue-entrainement')">📖 Cahier d'Entraînement</button>
-                <button class="btn-secondary" style="padding: 12px; font-size: 0.95rem; margin-top: 0;"
-                    onclick="naviguerVers('vue-match-config')">🏸 Arbitrage de Match</button>
+                <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-profil-liste')">👤 Fiches
+                    Profils Joueurs</button>
+                <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-entrainement')">📖 Cahier
+                    d'Entraînement</button>
+                <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-match-config')">🏸 Arbitrage
+                    de Match</button>
             </div>
         </section>
 
@@ -3606,6 +3705,25 @@
          ========================================= -->
     <script src="data.js"></script>
     <script>
+        // --- ADAPTATION VIEWPORT IPAD & IOS (Safari et Raccourci Écran d'accueil) ---
+        function ajusterHauteurIpad() {
+            const hauteurReelle = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            const vh = hauteurReelle * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', ajusterHauteurIpad);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(ajusterHauteurIpad, 100);
+            setTimeout(ajusterHauteurIpad, 300);
+        });
+        window.addEventListener('pageshow', ajusterHauteurIpad);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', ajusterHauteurIpad);
+            window.visualViewport.addEventListener('scroll', ajusterHauteurIpad);
+        }
+        document.addEventListener('DOMContentLoaded', ajusterHauteurIpad);
+        ajusterHauteurIpad();
+
         // --- DONNÉES GLOBALES ---
         let joueursInscrits = []; // Stocke nos élèves
         let matchEnCours = { A: { id: null, score: 0 }, B: { id: null, score: 0 } };
@@ -3947,6 +4065,9 @@
             // Remise à zéro du défilement
             const mainContent = document.getElementById('app-content');
             if (mainContent) mainContent.scrollTop = 0;
+
+            // Recalcul du viewport dynamique (iPad Safari & PWA)
+            if (typeof ajusterHauteurIpad === 'function') ajusterHauteurIpad();
 
 
 
