@@ -308,8 +308,8 @@ const situationsApprentissage = [
         "titre": "Smatch facile",
         "theme": "Smatch",
         "evolution": 1,
-        "image_recto": "./smatch.svg",
-        "imageRecto": "./smatch.svg",
+        "image_recto": "./smatch-n1.png",
+        "imageRecto": "./smatch-n1.png",
         "but": "Maîtriser le smatch",
         "materiel": "Pas de matériel nécessaire",
         "organisation": [
@@ -332,8 +332,8 @@ const situationsApprentissage = [
         "titre": "Smatch décisif",
         "theme": "Smatch",
         "evolution": 2,
-        "image_recto": "./smatch.svg",
-        "imageRecto": "./smatch.svg",
+        "image_recto": "./smatch-n2.png",
+        "imageRecto": "./smatch-n2.png",
         "but": "Maîtriser le smatch en situation de match",
         "materiel": "Pas de matériel nécessaire",
         "organisation": [

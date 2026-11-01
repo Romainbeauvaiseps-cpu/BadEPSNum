@@ -109,12 +109,8 @@
             }
 
             #vue-accueil.active {
-                justify-content: flex-end !important;
+                justify-content: center !important;
                 padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)) !important;
-            }
-
-            #box-accueil-actions {
-                margin-bottom: 10px !important;
             }
         }
 
@@ -205,6 +201,113 @@
             background: rgba(42, 42, 50, 0.92) !important;
             border-color: var(--accent-color) !important;
             transform: translateY(-2px);
+        }
+
+        /* Grille 2 lignes x 3 boutons alignée à droite sur la page d'accueil */
+        #box-accueil-actions {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            max-width: 680px;
+            width: 100%;
+            margin: 0 16px 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #box-accueil-actions button {
+            margin: 0 !important;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 14px 12px;
+            font-size: 0.95rem;
+            line-height: 1.25;
+            border-radius: 12px !important;
+        }
+
+        /* Conteneur en bas à droite pour les boutons Charger et Sauvegarder */
+        #accueil-bottom-right-actions {
+            position: absolute;
+            bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+            right: calc(16px + env(safe-area-inset-right, 0px));
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 30;
+        }
+
+        .btn-charger-accueil {
+            width: auto !important;
+            margin: 0 !important;
+            padding: 11px 18px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(255, 109, 0, 0.82) 0%, rgba(255, 160, 0, 0.82) 100%);
+            border: 1.5px solid rgba(255, 213, 79, 0.75);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(255, 109, 0, 0.4);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-charger-accueil:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(255, 109, 0, 0.95) 0%, rgba(255, 160, 0, 0.95) 100%);
+            box-shadow: 0 6px 22px rgba(255, 109, 0, 0.6);
+        }
+
+        .btn-sauvegarder-accueil {
+            width: auto !important;
+            margin: 0 !important;
+            padding: 11px 18px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #E8F5E9;
+            background: rgba(16, 185, 129, 0.32);
+            border: 1.5px solid rgba(52, 211, 153, 0.75);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-sauvegarder-accueil:hover {
+            transform: translateY(-2px);
+            background: rgba(16, 185, 129, 0.48);
+            box-shadow: 0 6px 22px rgba(16, 185, 129, 0.48);
+        }
+
+        @media (max-width: 560px) {
+            #box-accueil-actions {
+                gap: 8px;
+                padding: 0 4px;
+            }
+
+            #box-accueil-actions button {
+                font-size: 0.8rem;
+                padding: 10px 6px;
+                min-height: 56px;
+            }
+
+            .btn-charger-accueil,
+            .btn-sauvegarder-accueil {
+                padding: 9px 13px;
+                font-size: 0.84rem;
+            }
         }
 
         /* Barre de navigation horizontale en bas de page */
@@ -377,7 +480,7 @@
             display: flex !important;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;
             padding: 0;
             position: relative;
         }
@@ -1028,6 +1131,102 @@
             50% {
                 transform: translateY(-8px);
             }
+        }
+
+        /* =========================================
+           STYLES PAGE AIDE VIDÉO (TUTORIELS HORS-LIGNE)
+           ========================================= */
+        .aide-video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+            margin-top: 14px;
+        }
+
+        .video-tuto-card {
+            background: rgba(20, 20, 28, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .video-tuto-card.highlight-video {
+            border-color: #FFD54F;
+            box-shadow: 0 0 28px rgba(255, 213, 79, 0.35);
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-player-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #000;
+        }
+
+        .video-filter-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .video-filter-btn {
+            background: rgba(255, 255, 255, 0.07);
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .video-filter-btn.active {
+            background: linear-gradient(135deg, #FF6D00, #FFA000);
+            color: #121212;
+            border-color: #FFD54F;
+            box-shadow: 0 4px 12px rgba(255, 160, 0, 0.35);
+        }
+
+        .video-tips-list {
+            list-style: none;
+            padding: 10px 12px;
+            margin: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-color);
+            font-size: 0.84rem;
+            color: #ddd;
+            text-align: left;
+        }
+
+        .video-tips-list li {
+            margin-bottom: 5px;
+            line-height: 1.35;
+        }
+
+        .video-tips-list li:last-child {
+            margin-bottom: 0;
         }
 
         .card-validation-exercice {
@@ -2230,18 +2429,35 @@
 
         <section id="vue-accueil" class="vue active">
             <button id="btn-admin-accueil" onclick="ouvrirModaleAdmin()" title="Espace Enseignant">⚙️</button>
-            <div id="box-accueil-actions"
-                style="max-width: 290px; width: 100%; background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; display: flex; flex-direction: column; gap: 12px; margin: 0 auto;">
+
+            <!-- Input caché pour charger un fichier JSON de sauvegarde -->
+            <input type="file" id="input-charger-json-accueil" accept=".json,application/json" style="display: none;"
+                onchange="chargerDonneesJSONAccueil(event)">
+
+            <!-- Grille centrale : 2 lignes de 3 boutons -->
+            <div id="box-accueil-actions">
                 <button class="btn-inscription-gradient" onclick="naviguerVers('vue-inscription')">📝 Inscription des
                     élèves</button>
                 <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-profil-liste')">👤 Fiches
                     Profils Joueurs</button>
                 <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-entrainement')">📖 Cahier
                     d'Entraînement</button>
+                <button class="btn-secondary btn-accueil-action" onclick="ouvrirAideVideo('tous')">🎬 Aide
+                    vidéo</button>
                 <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-match-config')">🏸 Arbitrage
                     de Match</button>
                 <button class="btn-secondary btn-accueil-action" onclick="naviguerVers('vue-auto-evaluation')">📋
                     Auto-évaluation</button>
+            </div>
+
+            <!-- Boutons Charger (orange) et Sauvegarder (vert transparent) en bas à droite -->
+            <div id="accueil-bottom-right-actions">
+                <button type="button" class="btn-charger-accueil" onclick="declencherChargementJSONAccueil()">
+                    📂 Charger
+                </button>
+                <button type="button" class="btn-sauvegarder-accueil" onclick="exporterDonneesJSON()">
+                    💾 Sauvegarder
+                </button>
             </div>
         </section>
 
@@ -2524,6 +2740,20 @@
                         </div>
                         <span class="ex-arrow">➜</span>
                     </button>
+
+                    <button class="btn-exercice-nav"
+                        style="padding: 18px; border-left: 5px solid #FFD54F; background: linear-gradient(135deg, rgba(255, 213, 79, 0.14), rgba(255, 109, 0, 0.08));"
+                        onclick="ouvrirAideVideo('tous')">
+                        <span class="ex-icon"
+                            style="font-size: 1.8rem; width: 46px; height: 46px; background: rgba(255, 213, 79, 0.2); color: #FFD54F;">🎬</span>
+                        <div class="ex-info">
+                            <span class="ex-titre" style="font-size: 1.05rem; color: #FFD54F;">Aide vidéo
+                                (Tutoriels)</span>
+                            <span class="ex-desc">3 vidéos tutoriels consultables hors-ligne : Service court, Service
+                                long et Dégagé</span>
+                        </div>
+                        <span class="ex-arrow" style="color: #FFD54F;">➜</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -2595,8 +2825,14 @@
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement-service-placement')">⬅
                         Retour</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('service')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -2780,8 +3016,14 @@
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement-service-placement')">⬅
                         Retour</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('service')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -2976,8 +3218,14 @@
             <div class="glass-panel">
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement')">⬅ Cahier d'exercices</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('tous')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -3154,8 +3402,14 @@
             <div class="glass-panel">
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement')">⬅ Cahier d'exercices</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('tous')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -3324,8 +3578,14 @@
             <div class="glass-panel">
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement')">⬅ Cahier d'exercices</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('degage')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -3498,8 +3758,14 @@
             <div class="glass-panel">
                 <div class="vue-header-nav">
                     <button class="btn-retour" onclick="naviguerVers('vue-entrainement')">⬅ Cahier d'exercices</button>
-                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
-                        onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,213,79,0.5); color: #FFD54F;"
+                            onclick="ouvrirAideVideo('service')">🎬 Aide vidéo</button>
+                        <button class="btn-secondary"
+                            style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                            onclick="naviguerVers('vue-entrainement')">📖 Sommaire Cahier</button>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 16px;">
@@ -4545,6 +4811,238 @@
             </div>
         </section>
 
+        <!-- ==========================================
+             PAGE AIDE VIDÉO (TUTORIELS EXERCICES & HORS-LIGNE)
+             ========================================== -->
+        <section id="vue-aide-video" class="vue">
+            <div class="glass-panel" style="max-width: 1100px; width: 100%;">
+                <div class="vue-header-nav">
+                    <button class="btn-retour" onclick="naviguerRetour()">⬅ Retour</button>
+                    <button class="btn-secondary" style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem;"
+                        onclick="naviguerVers('vue-entrainement')">📖 Cahier d'exercices</button>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 14px;">
+                    <span
+                        style="font-size: 0.78rem; color: #FFD54F; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Accompagnement
+                        Technique • Bad'EPS</span>
+                    <h2 class="text-gradient-fire" style="font-size: 1.7rem; margin: 4px 0 6px 0;">🎬 Aide vidéo</h2>
+                    <p style="font-size: 0.9rem; color: #ccc; margin: 0 auto; max-width: 560px;">
+                        Consultez les vidéos tutoriels pour observer les bons repères techniques et réussir vos
+                        exercices.
+                    </p>
+                </div>
+
+                <!-- BANDEAU DISPONIBILITÉ HORS-LIGNE DES VIDÉOS -->
+                <div id="bandeau-statut-video-offline"
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.28); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span id="icone-statut-offline-video" style="font-size: 1.3rem;">📦</span>
+                        <div style="text-align: left;">
+                            <div id="titre-statut-offline-video"
+                                style="font-size: 0.88rem; font-weight: 700; color: #fff;">
+                                Mode Hors-Ligne : vérification du cache vidéo...
+                            </div>
+                            <div id="sous-statut-offline-video" style="font-size: 0.76rem; color: #aaa;">
+                                Les 4 vidéos sont conservées dans la mémoire de la tablette pour fonctionner au gymnase
+                                sans connexion.
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="btn-cache-videos-offline" class="btn-secondary"
+                        style="width: auto; margin: 0; padding: 7px 14px; font-size: 0.8rem; border-color: #00E5FF; color: #00E5FF;"
+                        onclick="telechargerVideosHorsLigne(true)">
+                        📥 Enregistrer hors-ligne
+                    </button>
+                </div>
+
+                <!-- FILTRES PAR THÈME -->
+                <div class="video-filter-bar">
+                    <button type="button" class="video-filter-btn active" id="btn-filtre-video-tous"
+                        onclick="filtrerAideVideo('tous')">🎬 Toutes les vidéos (4)</button>
+                    <button type="button" class="video-filter-btn" id="btn-filtre-video-regles"
+                        onclick="filtrerAideVideo('regles')">⚖️ Règles du jeu (1)</button>
+                    <button type="button" class="video-filter-btn" id="btn-filtre-video-service"
+                        onclick="filtrerAideVideo('service')">🏸 Service (2)</button>
+                    <button type="button" class="video-filter-btn" id="btn-filtre-video-degage"
+                        onclick="filtrerAideVideo('degage')">🚀 Dégagé (1)</button>
+                </div>
+
+                <!-- GRILLE DES 4 VIDÉOS TUTORIELS -->
+                <div class="aide-video-grid">
+
+                    <!-- VIDÉO 0 : LES RÈGLES DU BADMINTON -->
+                    <div class="video-tuto-card" id="card-video-reglesbad" data-categorie="regles">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                            <div>
+                                <span
+                                    style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(255, 160, 0, 0.18); color: #FFD54F; border: 1px solid rgba(255, 160, 0, 0.4); margin-bottom: 4px;">
+                                    ⚖️ Règlement & Arbitrage • Match
+                                </span>
+                                <h3 style="font-size: 1.2rem; color: #fff; margin: 0;">Les règles du badminton</h3>
+                            </div>
+                            <span id="badge-offline-reglesbad"
+                                style="font-size: 0.72rem; color: #34D399; font-weight: 700; white-space: nowrap;"></span>
+                        </div>
+
+                        <div class="video-player-wrapper">
+                            <video id="video-el-reglesbad" data-src="./reglesbad.mp4" src="./reglesbad.mp4" controls
+                                playsinline preload="metadata" onplay="gererLectureUniqueVideo(this)">
+                                Votre navigateur ne supporte pas la lecture vidéo.
+                            </video>
+                        </div>
+
+                        <ul class="video-tips-list">
+                            <li>🎯 <strong>Objectif :</strong> Connaître les règles essentielles du badminton pour jouer
+                                et arbitrer correctement un match.</li>
+                            <li>⚖️ <strong>Points clés :</strong> Zones de service (score pair à droite, impair à gauche)
+                                en diagonale, limites du terrain en simple et fautes principales.</li>
+                        </ul>
+
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <button type="button" class="btn-secondary"
+                                style="flex: 1; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pleinEcranVideo('video-el-reglesbad')">
+                                ⛶ Plein écran
+                            </button>
+                            <button type="button" class="btn-action"
+                                style="flex: 1.4; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pauserToutesVideos(); naviguerVers('vue-match-config');">
+                                🏸 Arbitrage de Match ➡
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- VIDÉO 1 : SERVIR COURT -->
+                    <div class="video-tuto-card" id="card-video-servir-court" data-categorie="service">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                            <div>
+                                <span
+                                    style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(0, 229, 255, 0.15); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.35); margin-bottom: 4px;">
+                                    🏸 Thème 1 • Le Service (Niveau 2)
+                                </span>
+                                <h3 style="font-size: 1.2rem; color: #fff; margin: 0;">Servir court</h3>
+                            </div>
+                            <span id="badge-offline-servir-court"
+                                style="font-size: 0.72rem; color: #34D399; font-weight: 700; white-space: nowrap;"></span>
+                        </div>
+
+                        <div class="video-player-wrapper">
+                            <video id="video-el-servir-court" data-src="./servir-court.mp4" src="./servir-court.mp4"
+                                controls playsinline preload="metadata" onplay="gererLectureUniqueVideo(this)">
+                                Votre navigateur ne supporte pas la lecture vidéo.
+                            </video>
+                        </div>
+
+                        <ul class="video-tips-list">
+                            <li>🎯 <strong>Objectif :</strong> Envoyer un volant rasant juste derrière la ligne de
+                                service court pour obliger l'adversaire à avancer.</li>
+                            <li>✋ <strong>Points clés :</strong> Prise de raquette souple, tamis sous la taille, poussée
+                                douce et contrôlée sans grand élan.</li>
+                        </ul>
+
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <button type="button" class="btn-secondary"
+                                style="flex: 1; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pleinEcranVideo('video-el-servir-court')">
+                                ⛶ Plein écran
+                            </button>
+                            <button type="button" class="btn-action"
+                                style="flex: 1.4; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pauserToutesVideos(); ouvrirPageService(2);">
+                                🏸 Exercice Service Niv. 2 ➡
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- VIDÉO 2 : SERVIR LONG -->
+                    <div class="video-tuto-card" id="card-video-servir-long" data-categorie="service">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                            <div>
+                                <span
+                                    style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(0, 229, 255, 0.15); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.35); margin-bottom: 4px;">
+                                    🏸 Thème 1 • Le Service (Niveau 3)
+                                </span>
+                                <h3 style="font-size: 1.2rem; color: #fff; margin: 0;">Servir long</h3>
+                            </div>
+                            <span id="badge-offline-servir-long"
+                                style="font-size: 0.72rem; color: #34D399; font-weight: 700; white-space: nowrap;"></span>
+                        </div>
+
+                        <div class="video-player-wrapper">
+                            <video id="video-el-servir-long" data-src="./servir-long.mp4" src="./servir-long.mp4"
+                                controls playsinline preload="metadata" onplay="gererLectureUniqueVideo(this)">
+                                Votre navigateur ne supporte pas la lecture vidéo.
+                            </video>
+                        </div>
+
+                        <ul class="video-tips-list">
+                            <li>🎯 <strong>Objectif :</strong> Envoyer un volant haut et profond au fond du court
+                                adverse pour faire reculer l'adversaire.</li>
+                            <li>⚡ <strong>Points clés :</strong> Transfert du poids du corps de l'arrière vers l'avant,
+                                fouetté du poignet en fin de geste et trajectoire en cloche.</li>
+                        </ul>
+
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <button type="button" class="btn-secondary"
+                                style="flex: 1; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pleinEcranVideo('video-el-servir-long')">
+                                ⛶ Plein écran
+                            </button>
+                            <button type="button" class="btn-action"
+                                style="flex: 1.4; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pauserToutesVideos(); ouvrirPageService(3);">
+                                🏸 Exercice Service Niv. 3 ➡
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- VIDÉO 3 : TUTORIEL DÉGAGÉ -->
+                    <div class="video-tuto-card" id="card-video-tutodegage" data-categorie="degage">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                            <div>
+                                <span
+                                    style="display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(129, 140, 248, 0.18); color: #818CF8; border: 1px solid rgba(129, 140, 248, 0.35); margin-bottom: 4px;">
+                                    🚀 Thème 4 • Le Dégagé (Niveaux 1 à 3)
+                                </span>
+                                <h3 style="font-size: 1.2rem; color: #fff; margin: 0;">Réussir le dégagé</h3>
+                            </div>
+                            <span id="badge-offline-tutodegage"
+                                style="font-size: 0.72rem; color: #34D399; font-weight: 700; white-space: nowrap;"></span>
+                        </div>
+
+                        <div class="video-player-wrapper">
+                            <video id="video-el-tutodegage" data-src="./tutodegage.mp4" src="./tutodegage.mp4" controls
+                                playsinline preload="metadata" onplay="gererLectureUniqueVideo(this)">
+                                Votre navigateur ne supporte pas la lecture vidéo.
+                            </video>
+                        </div>
+
+                        <ul class="video-tips-list">
+                            <li>🎯 <strong>Objectif :</strong> Frapper le volant haut au-dessus de la tête pour
+                                l'envoyer en fond de terrain adverse.</li>
+                            <li>🚀 <strong>Points clés :</strong> Se placer de profil sous le volant, armer le coude en
+                                arrière (« position du archer ») et frapper au point le plus haut.</li>
+                        </ul>
+
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <button type="button" class="btn-secondary"
+                                style="flex: 1; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pleinEcranVideo('video-el-tutodegage')">
+                                ⛶ Plein écran
+                            </button>
+                            <button type="button" class="btn-action"
+                                style="flex: 1.4; margin: 0; padding: 10px; font-size: 0.84rem;"
+                                onclick="pauserToutesVideos(); ouvrirPageDegage(1);">
+                                🚀 Exercice Dégagé ➡
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- =========================================
@@ -4559,6 +5057,9 @@
         </button>
         <button class="nav-btn" data-target="vue-entrainement">
             <span class="icon">📖</span><span class="label">Entraînement</span>
+        </button>
+        <button class="nav-btn" data-target="vue-aide-video">
+            <span class="icon">🎬</span><span class="label">Aide vidéo</span>
         </button>
         <button class="nav-btn" data-target="vue-match-config">
             <span class="icon">🏸</span><span class="label">Match</span>
@@ -4577,9 +5078,14 @@
             </div>
             <p style="font-size: 0.9rem; margin-bottom: 15px; color: #aaa;">Gestion rapide des données de la tablette
                 pour la classe :</p>
-            <button class="btn-action" style="background: #2196F3; color: white;" onclick="chargerProfilsExemples()">⚡
+            <button class="btn-action"
+                style="background: var(--accent-gradient); color: #121212; font-weight: 800; margin-top: 0; margin-bottom: 12px;"
+                onclick="window.location.href='BadEPSNumProf.html'">
+                👨‍🏫 Ouvrir Bad'EPS Prof (Suivi Classe)
+            </button>
+            <button class="btn-action" style="background: #2196F3; color: white; margin-top: 0;"
+                onclick="chargerProfilsExemples()">⚡
                 Charger des élèves de démonstration</button>
-            <button class="btn-secondary" onclick="exporterDonneesJSON()">📥 Exporter les données (JSON)</button>
             <button class="btn-danger" style="margin-top: 15px;" onclick="reinitialiserToutesDonnees()">⚠️ Réinitialiser
                 tous les élèves</button>
             <button class="btn-secondary" style="margin-top: 15px;" onclick="fermerModaleAdmin()">Fermer</button>
@@ -5277,6 +5783,10 @@
         let historiqueNavigation = ['vue-accueil'];
 
         function naviguerVers(idVue, enregistrerHistorique = true) {
+            if (idVue !== 'vue-aide-video' && typeof pauserToutesVideos === 'function') {
+                pauserToutesVideos();
+            }
+
             if (enregistrerHistorique) {
                 const derniereVue = historiqueNavigation[historiqueNavigation.length - 1];
                 if (derniereVue !== idVue) {
@@ -5307,6 +5817,7 @@
                     (target === 'vue-profil-liste' && idVue === 'vue-profil-detail') ||
                     (target === 'vue-match-config' && idVue === 'vue-match-play') ||
                     (target === 'vue-auto-evaluation' && idVue === 'vue-auto-evaluation') ||
+                    (target === 'vue-aide-video' && idVue === 'vue-aide-video') ||
                     (target === 'vue-entrainement' && (idVue.startsWith('vue-entrainement') || idVue.startsWith('vue-fiche') || idVue.startsWith('vue-exercice')))) {
                     btn.classList.add('active');
                 } else {
@@ -5324,6 +5835,10 @@
                 peuplerSelectsJoueursExercice();
             } else if (idVue === 'vue-auto-evaluation') {
                 initialiserVueAutoEval();
+            } else if (idVue === 'vue-aide-video') {
+                if (typeof verifierStatutCacheVideos === 'function') {
+                    verifierStatutCacheVideos();
+                }
             }
         }
 
@@ -5351,6 +5866,9 @@
 
         function sauvegarderDansLocalStorage() {
             try {
+                if (typeof synchroniserToutesDonneesJoueurs === 'function') {
+                    synchroniserToutesDonneesJoueurs();
+                }
                 localStorage.setItem(CLE_STORAGE_JOUEURS, JSON.stringify(joueursInscrits));
             } catch (err) {
                 console.warn("Erreur lors de la sauvegarde dans le localStorage:", err);
@@ -5404,10 +5922,14 @@
                     contratsValides: 0,
                     matchsArbitres: 0,
                     situationsValidees: [],
+                    evaluationsExercices: {},
+                    medailles: [],
                     historiqueMatchs: [],
                     historiqueArbitrage: []
-                }
+                },
+                evaluation: {}
             };
+            assurerStructureStats(nouveauJoueur);
 
             joueursInscrits.push(nouveauJoueur);
             sauvegarderDansLocalStorage();
@@ -7289,14 +7811,374 @@
             naviguerVers('vue-profil-liste');
         }
 
+        function construireBilanExercicesJoueur(joueur) {
+            assurerStructureStats(joueur);
+            const bilan = {};
+            const themesCles = ['service', 'placement', 'amorti', 'smatch', 'degage', 'strategie'];
+
+            themesCles.forEach(themeKey => {
+                const cfg = (typeof THEMES_CONFIG !== 'undefined' && THEMES_CONFIG[themeKey]) ? THEMES_CONFIG[themeKey] : null;
+                const maxNiv = cfg ? cfg.maxNiveaux : 3;
+                const titreTheme = cfg ? cfg.titre : themeKey;
+                const libelles = (cfg && Array.isArray(cfg.libellesNiveaux)) ? cfg.libellesNiveaux : [];
+
+                let nbValides = 0;
+                const niveauxDetail = [];
+
+                for (let n = 1; n <= maxNiv; n++) {
+                    const ev = joueur.stats.evaluationsExercices[`${themeKey}_${n}`] ||
+                        (themeKey === 'smatch' ? (joueur.stats.evaluationsExercices[`smash_${n}`] || joueur.stats.evaluationsExercices[`smetch_${n}`]) : null);
+                    const reg = typeof getRegexNiveauTheme === 'function' ? getRegexNiveauTheme(themeKey, n) : new RegExp(`${themeKey}\\s*-\\s*niveau\\s*${n}\\b`, 'i');
+                    const svEntree = joueur.stats.situationsValidees.find(s => reg.test(s));
+                    const valideViaSituations = Boolean(svEntree && !/non\s*valid[ée]|❌/i.test(svEntree));
+                    const valideDirect = (themeKey === 'amorti' && joueur.stats.situationsValidees.some(s => /l'amorti\s*-\s*fiche\s*technique\s*validée/i.test(s))) ||
+                        (themeKey === 'smatch' && joueur.stats.situationsValidees.some(s => /le\s*smat?ch\s*-\s*fiche\s*technique\s*validée/i.test(s))) ||
+                        (themeKey === 'degage' && joueur.stats.situationsValidees.some(s => /le\s*d[ée]gag[ée]\s*-\s*fiche\s*technique\s*validée/i.test(s)));
+
+                    const estValide = Boolean((ev && ev.valide) || valideViaSituations || valideDirect);
+                    if (estValide) nbValides++;
+
+                    const donneesExo = typeof getExerciceData === 'function' ? getExerciceData(themeKey, n) : null;
+                    const seuilRequis = (ev && ev.seuil) || (donneesExo && donneesExo.seuil) || 800;
+
+                    let scoreObtenu = (ev && typeof ev.score === 'number') ? ev.score : null;
+                    if (scoreObtenu === null && svEntree) {
+                        const matchScore = svEntree.match(/Score:\s*(\d+)\s*pts/i);
+                        if (matchScore) scoreObtenu = parseInt(matchScore[1], 10);
+                    }
+
+                    let statut = 'Non réalisé';
+                    if (estValide) statut = 'Validé';
+                    else if ((ev && !ev.valide) || (svEntree && /non\s*valid[ée]|❌/i.test(svEntree))) statut = 'Non validé';
+
+                    niveauxDetail.push({
+                        niveau: n,
+                        libelle: libelles[n - 1] || `Niveau ${n}`,
+                        titre: (ev && ev.titre) || (donneesExo && donneesExo.titre) || `${titreTheme} - Niveau ${n}`,
+                        statut: statut,
+                        valide: estValide,
+                        score: scoreObtenu,
+                        seuil: seuilRequis,
+                        nbTentatives: (ev && typeof ev.nbTentatives === 'number') ? ev.nbTentatives : null,
+                        repartitionTouches: (ev && ev.repartitionTouches) ? ev.repartitionTouches : null,
+                        date: (ev && ev.date) || null
+                    });
+                }
+
+                bilan[themeKey] = {
+                    theme: titreTheme,
+                    niveauxValides: nbValides,
+                    totalNiveaux: maxNiv,
+                    progression: `${nbValides}/${maxNiv}`,
+                    complet: nbValides === maxNiv,
+                    niveaux: niveauxDetail
+                };
+            });
+
+            return bilan;
+        }
+
+        function construireBilanMedaillesJoueur(joueur) {
+            assurerStructureStats(joueur);
+            if (typeof verifierEtAttribuerMedailles === 'function') {
+                verifierEtAttribuerMedailles(joueur, true);
+            }
+
+            const liste = (typeof CATALOGUE_MEDAILLES !== 'undefined' && Array.isArray(CATALOGUE_MEDAILLES))
+                ? CATALOGUE_MEDAILLES.map(med => {
+                    const medObtenue = joueur.stats.medailles.find(m => (typeof m === 'string' ? m === med.id : m.id === med.id));
+                    const estDebloquee = Boolean(medObtenue);
+                    const prog = med.progression ? med.progression(joueur) : { valide: estDebloquee ? med.totalNiveaux : 0, total: med.totalNiveaux };
+                    return {
+                        id: med.id,
+                        nom: med.nom,
+                        titre: med.titre,
+                        fichierImage: med.fichierSvg,
+                        debloquee: estDebloquee,
+                        dateObtention: (medObtenue && typeof medObtenue === 'object' && medObtenue.date) ? medObtenue.date : null,
+                        niveauxValides: prog.valide,
+                        totalNiveaux: prog.total,
+                        progression: `${prog.valide}/${prog.total}`
+                    };
+                })
+                : [];
+
+            const nbDebloquees = liste.filter(m => m.debloquee).length;
+            return {
+                nbDebloquees: nbDebloquees,
+                totalMedailles: liste.length,
+                progressionGlobale: `${nbDebloquees}/${liste.length}`,
+                detailMedailles: liste
+            };
+        }
+
+        function construireBilanAutoEvaluation(joueur) {
+            assurerStructureStats(joueur);
+            const grilleRef = (typeof activeEvalGrid !== 'undefined' && activeEvalGrid && Array.isArray(activeEvalGrid.rows) && activeEvalGrid.rows.length > 0)
+                ? activeEvalGrid
+                : (typeof GRILLE_DEFAUT_BADMINTON_3E !== 'undefined' ? GRILLE_DEFAUT_BADMINTON_3E : null);
+
+            const selections = (joueur && joueur.evaluation && typeof joueur.evaluation === 'object') ? joueur.evaluation : {};
+
+            if (!grilleRef || !Array.isArray(grilleRef.rows) || grilleRef.rows.length === 0) {
+                return {
+                    noteSur20: null,
+                    noteSur20Texte: "Non évalué",
+                    competencesEvaluees: Object.keys(selections).length,
+                    totalCompetences: 0,
+                    complet: false,
+                    choixParLigne: { ...selections },
+                    detailsCompetences: []
+                };
+            }
+
+            const headers = grilleRef.headers || {};
+            const totalRows = grilleRef.rows.length;
+            let totalWeightedScore = 0;
+            let totalWeightAnswered = 0;
+            let answeredCount = 0;
+
+            const detailsCompetences = grilleRef.rows.map((row, rIdx) => {
+                const rawLevel = selections[rIdx];
+                const selectedLevel = (rawLevel !== undefined && rawLevel !== null) ? Number(rawLevel) : null;
+                const weightRaw = row.poids ? row.poids.toString().replace('%', '').replace(',', '.').trim() : '';
+                const weightNum = parseFloat(weightRaw) || (100 / totalRows);
+
+                let libelleNiveau = "Non renseigné";
+                let descriptifChoisi = null;
+
+                if (selectedLevel >= 1 && selectedLevel <= 4) {
+                    answeredCount++;
+                    totalWeightedScore += (selectedLevel * 5) * (weightNum / 100);
+                    totalWeightAnswered += weightNum;
+                    libelleNiveau = headers[`n${selectedLevel}`] || `Niveau ${selectedLevel}`;
+                    descriptifChoisi = row[`n${selectedLevel}`] || null;
+                }
+
+                return {
+                    numero: rIdx + 1,
+                    code: row.code || '',
+                    intitule: row.intitule || '',
+                    poids: row.poids || '',
+                    niveauChoisi: selectedLevel,
+                    libelleNiveauChoisi: libelleNiveau,
+                    descriptifNiveauChoisi: descriptifChoisi,
+                    noteSur20Competence: selectedLevel ? (selectedLevel * 5) : null
+                };
+            });
+
+            let noteFinale = null;
+            let noteTexte = "Non évalué";
+            if (answeredCount > 0 && totalWeightAnswered > 0) {
+                const val = totalWeightedScore / (totalWeightAnswered / 100);
+                noteFinale = Number(Math.min(20, Math.max(0, val)).toFixed(1));
+                noteTexte = `${noteFinale.toFixed(1)} / 20`;
+            }
+
+            return {
+                noteSur20: noteFinale,
+                noteSur20Texte: noteTexte,
+                competencesEvaluees: answeredCount,
+                totalCompetences: totalRows,
+                complet: answeredCount === totalRows && totalRows > 0,
+                choixParLigne: { ...selections },
+                detailsCompetences: detailsCompetences
+            };
+        }
+
+        function synchroniserToutesDonneesJoueurs() {
+            if (!Array.isArray(joueursInscrits)) return;
+            joueursInscrits.forEach(j => {
+                if (!j) return;
+                assurerStructureStats(j);
+                if (typeof verifierEtAttribuerMedailles === 'function') {
+                    verifierEtAttribuerMedailles(j, true);
+                }
+                j.stats.differentielPoints = (j.stats.pointsMarques || 0) - (j.stats.pointsEncaisses || 0);
+                j.stats.resultatsExercices = construireBilanExercicesJoueur(j);
+                j.stats.bilanMedailles = construireBilanMedaillesJoueur(j);
+                j.autoEvaluation = construireBilanAutoEvaluation(j);
+            });
+        }
+
         function exporterDonneesJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(joueursInscrits, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "badeps_classe_sauvegarde.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+            synchroniserToutesDonneesJoueurs();
+            try {
+                localStorage.setItem(CLE_STORAGE_JOUEURS, JSON.stringify(joueursInscrits));
+            } catch (e) { }
+
+            const maintenant = new Date();
+            const dateLisible = maintenant.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            let totalMatchsJoues = 0;
+            let totalMatchsArbitres = 0;
+            let totalMedailles = 0;
+            let totalExercicesValides = 0;
+            let totalAutoEvalRenseignees = 0;
+
+            joueursInscrits.forEach(j => {
+                totalMatchsJoues += (j.stats?.matchsJoues || 0);
+                totalMatchsArbitres += (j.stats?.matchsArbitres || 0);
+                totalMedailles += (j.stats?.medailles?.length || 0);
+                if (j.stats?.resultatsExercices) {
+                    Object.values(j.stats.resultatsExercices).forEach(th => {
+                        totalExercicesValides += (th.niveauxValides || 0);
+                    });
+                }
+                if (j.autoEvaluation && j.autoEvaluation.competencesEvaluees > 0) {
+                    totalAutoEvalRenseignees++;
+                }
+            });
+
+            const donneesCompletesExport = {
+                application: "Bad'EPS",
+                version: "2.0",
+                dateSauvegarde: dateLisible,
+                dateISO: maintenant.toISOString(),
+                nombreJoueursInscrits: joueursInscrits.length,
+                resumeGlobal: {
+                    nombreJoueurs: joueursInscrits.length,
+                    totalParticipationsMatchs: totalMatchsJoues,
+                    totalMatchsArbitres: totalMatchsArbitres,
+                    totalNiveauxExercicesValides: totalExercicesValides,
+                    totalMedaillesDebloquees: totalMedailles,
+                    nombreJoueursAutoEvalues: totalAutoEvalRenseignees
+                },
+                referentielAutoEvaluation: (typeof activeEvalGrid !== 'undefined' && activeEvalGrid)
+                    ? activeEvalGrid
+                    : (typeof GRILLE_DEFAUT_BADMINTON_3E !== 'undefined' ? GRILLE_DEFAUT_BADMINTON_3E : null),
+                joueurs: joueursInscrits
+            };
+
+            const jsonStr = JSON.stringify(donneesCompletesExport, null, 2);
+            const dateFichier = maintenant.toISOString().slice(0, 10);
+            const nomFichier = `badeps_sauvegarde_${dateFichier}.json`;
+
+            try {
+                const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
+                const urlBlob = URL.createObjectURL(blob);
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", urlBlob);
+                downloadAnchor.setAttribute("download", nomFichier);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+                setTimeout(() => URL.revokeObjectURL(urlBlob), 2000);
+            } catch (err) {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonStr);
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", nomFichier);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+            }
+
+            if (typeof afficherPopupCustom === 'function') {
+                afficherPopupCustom(
+                    `✅ Sauvegarde complète effectuée (${nomFichier}) !\n\n` +
+                    `👤 Joueurs inscrits sauvegardés : ${joueursInscrits.length}\n` +
+                    `🏸 Résultats de matchs & arbitrages : ${totalMatchsJoues} match(s) / ${totalMatchsArbitres} arbitrage(s)\n` +
+                    `🎯 Niveaux d'exercices validés : ${totalExercicesValides}\n` +
+                    `🏅 Médailles débloquées : ${totalMedailles}\n` +
+                    `📋 Auto-évaluations enregistrées : ${totalAutoEvalRenseignees} / ${joueursInscrits.length}`,
+                    { titre: "Données Sauvegardées", icone: "💾" }
+                );
+            }
+        }
+
+        function declencherChargementJSONAccueil() {
+            const input = document.getElementById('input-charger-json-accueil');
+            if (input) {
+                input.value = '';
+                input.click();
+            }
+        }
+
+        async function chargerDonneesJSONAccueil(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            try {
+                const texte = await file.text();
+                const parsed = JSON.parse(texte);
+
+                let joueursCharges = null;
+                if (Array.isArray(parsed)) {
+                    joueursCharges = parsed;
+                } else if (parsed && typeof parsed === 'object') {
+                    if (Array.isArray(parsed.joueurs)) {
+                        joueursCharges = parsed.joueurs;
+                    } else if (Array.isArray(parsed.groupes) && parsed.groupes.length > 0) {
+                        joueursCharges = parsed.groupes.flatMap(g => Array.isArray(g.joueurs) ? g.joueurs : []);
+                    }
+                    if (parsed.referentielAutoEvaluation && Array.isArray(parsed.referentielAutoEvaluation.rows)) {
+                        activeEvalGrid = parsed.referentielAutoEvaluation;
+                        try {
+                            localStorage.setItem('badeps_eval_grid', JSON.stringify(activeEvalGrid));
+                        } catch (e) { }
+                    }
+                }
+
+                if (!Array.isArray(joueursCharges)) {
+                    afficherPopupCustom("⚠️ Ce fichier JSON ne contient pas de liste de joueurs valide.", {
+                        titre: "Format non reconnu",
+                        icone: "⚠️"
+                    });
+                    return;
+                }
+
+                joueursCharges.forEach(j => {
+                    if (!j) return;
+                    if (!j.id) j.id = 'j_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+                    assurerStructureStats(j);
+                    if (Array.isArray(j.stats.medailles)) {
+                        j.stats.medailles.forEach(m => {
+                            if (m && typeof m === 'object' && typeof m.fichierSvg === 'string') {
+                                m.fichierSvg = m.fichierSvg.replace(/\.svg$/i, '.png');
+                            }
+                        });
+                    }
+                    if (typeof verifierEtAttribuerMedailles === 'function') {
+                        verifierEtAttribuerMedailles(j, true);
+                    }
+                });
+
+                joueursInscrits = joueursCharges;
+                profilActifId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+                joueurActifExerciceId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+                evalJoueurActifId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+
+                synchroniserToutesDonneesJoueurs();
+                sauvegarderDansLocalStorage();
+                mettreAJourAffichageInscription();
+                genererBoutonsProfils();
+                peuplerSelectsMatch();
+                peuplerSelectsFichesDirectes();
+                peuplerSelectsJoueursExercice();
+                peuplerSelectJoueurAutoEval();
+
+                afficherPopupCustom(
+                    `✅ Fichier « ${file.name} » chargé avec succès !\n\n` +
+                    `👤 ${joueursInscrits.length} élève(s) restauré(s) avec l'ensemble de leurs résultats de matchs, exercices, médailles et auto-évaluations.`,
+                    { titre: "Données Chargées", icone: "📂" }
+                );
+            } catch (err) {
+                console.error("Erreur lors du chargement du fichier JSON :", err);
+                afficherPopupCustom("⚠️ Impossible de lire ce fichier. Vérifiez qu'il s'agit bien d'un fichier .json exporté depuis Bad'EPS.", {
+                    titre: "Erreur de lecture",
+                    icone: "⚠️"
+                });
+            } finally {
+                event.target.value = '';
+            }
         }
 
         function reinitialiserToutesDonnees() {
@@ -7971,6 +8853,15 @@
             assurerStructureStats(eleve);
             if (!eleve.stats.evaluationsExercices) eleve.stats.evaluationsExercices = {};
 
+            const touchesListe = Array.isArray(obsState.touches) ? obsState.touches : [];
+            const repartitionTouches = {
+                pts1000: touchesListe.filter(t => t.points === 1000).length,
+                pts100: touchesListe.filter(t => t.points === 100).length,
+                pts10: touchesListe.filter(t => t.points === 10).length,
+                pts1: touchesListe.filter(t => t.points === 1).length
+            };
+            const maxTentatives = obsState.maxTentatives || ((themeKey === 'placement') ? 20 : 10);
+
             if (totalScore >= seuil) {
                 // Succès !
                 const libelleValidation = `${cfg.titre} - Niveau ${niveau} (${obsState.titre}) - Score: ${totalScore} pts`;
@@ -7982,6 +8873,10 @@
                     score: totalScore,
                     seuil: seuil,
                     valide: true,
+                    nbTentatives: touchesListe.length,
+                    maxTentatives: maxTentatives,
+                    repartitionTouches: repartitionTouches,
+                    historiqueTentatives: [...touchesListe],
                     date: new Date().toLocaleDateString('fr-FR')
                 };
 
@@ -8057,6 +8952,10 @@
                     score: totalScore,
                     seuil: seuil,
                     valide: dejaValide ? true : false,
+                    nbTentatives: touchesListe.length,
+                    maxTentatives: maxTentatives,
+                    repartitionTouches: repartitionTouches,
+                    historiqueTentatives: [...touchesListe],
                     date: new Date().toLocaleDateString('fr-FR')
                 };
 
@@ -8571,6 +9470,282 @@
             localStorage.setItem('badeps_eval_grid', JSON.stringify(activeEvalGrid));
             renderAutoEvalTable();
             afficherPopupCustom(`Le référentiel d'évaluation a été importé avec succès (${newRows.length} compétences).`, { titre: "Importation Réussie", icone: "✅" });
+        }
+
+        // ========================================================
+        // MODULE AIDE VIDÉO & GESTION DU CACHE HORS-LIGNE (PWA / IDB)
+        // ========================================================
+        const VIDEOS_TUTORIELS = [
+            { id: 'reglesbad', url: './reglesbad.mp4', videoElId: 'video-el-reglesbad', badgeId: 'badge-offline-reglesbad' },
+            { id: 'servir-court', url: './servir-court.mp4', videoElId: 'video-el-servir-court', badgeId: 'badge-offline-servir-court' },
+            { id: 'servir-long', url: './servir-long.mp4', videoElId: 'video-el-servir-long', badgeId: 'badge-offline-servir-long' },
+            { id: 'tutodegage', url: './tutodegage.mp4', videoElId: 'video-el-tutodegage', badgeId: 'badge-offline-tutodegage' }
+        ];
+        const NOM_CACHE_VIDEOS = 'badeps-videos-v1';
+        const NOM_DB_VIDEOS = 'BadEPS_OfflineVideosDB';
+        const STORE_DB_VIDEOS = 'videos';
+        const videoBlobUrls = {};
+
+        function ouvrirDBVideos() {
+            return new Promise((resolve, reject) => {
+                if (!('indexedDB' in window)) return resolve(null);
+                const req = indexedDB.open(NOM_DB_VIDEOS, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_DB_VIDEOS)) {
+                        db.createObjectStore(STORE_DB_VIDEOS, { keyPath: 'id' });
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        async function sauvegarderBlobVideoIDB(id, blob) {
+            const db = await ouvrirDBVideos();
+            if (!db) return false;
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_DB_VIDEOS, 'readwrite');
+                    tx.objectStore(STORE_DB_VIDEOS).put({ id: id, blob: blob, date: Date.now() });
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        async function lireBlobVideoIDB(id) {
+            const db = await ouvrirDBVideos();
+            if (!db) return null;
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_DB_VIDEOS, 'readonly');
+                    const req = tx.objectStore(STORE_DB_VIDEOS).get(id);
+                    req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+                    req.onerror = () => resolve(null);
+                } catch (e) {
+                    resolve(null);
+                }
+            });
+        }
+
+        async function obtenirBlobVideoHorsLigne(v) {
+            // 1. Vérifier dans IndexedDB
+            const idbBlob = await lireBlobVideoIDB(v.id);
+            if (idbBlob && idbBlob.size > 0) return idbBlob;
+
+            // 2. Vérifier dans Cache API
+            if ('caches' in window) {
+                try {
+                    const cache = await caches.open(NOM_CACHE_VIDEOS);
+                    const rep = await cache.match(v.url, { ignoreSearch: true });
+                    if (rep && rep.ok) {
+                        const blob = await rep.blob();
+                        if (blob && blob.size > 0) return blob;
+                    }
+                } catch (e) { }
+            }
+            return null;
+        }
+
+        async function verifierStatutCacheVideos() {
+            let nbEnCache = 0;
+
+            for (const v of VIDEOS_TUTORIELS) {
+                const blob = await obtenirBlobVideoHorsLigne(v);
+                const badgeEl = document.getElementById(v.badgeId);
+                const videoEl = document.getElementById(v.videoElId);
+
+                if (blob) {
+                    nbEnCache++;
+                    if (badgeEl) badgeEl.innerHTML = '✅ Hors-ligne prêt';
+                    if (videoEl && !videoBlobUrls[v.id]) {
+                        videoBlobUrls[v.id] = URL.createObjectURL(blob);
+                        videoEl.src = videoBlobUrls[v.id];
+                    }
+                } else {
+                    if (badgeEl) badgeEl.innerHTML = '';
+                }
+            }
+
+            const bandeau = document.getElementById('bandeau-statut-video-offline');
+            const icone = document.getElementById('icone-statut-offline-video');
+            const titre = document.getElementById('titre-statut-offline-video');
+            const btn = document.getElementById('btn-cache-videos-offline');
+
+            if (nbEnCache === VIDEOS_TUTORIELS.length) {
+                if (bandeau) {
+                    bandeau.style.background = 'rgba(52, 211, 153, 0.12)';
+                    bandeau.style.borderColor = 'rgba(52, 211, 153, 0.4)';
+                }
+                if (icone) icone.textContent = '✅';
+                if (titre) {
+                    titre.style.color = '#34D399';
+                    titre.textContent = `Mode Hors-Ligne actif (${nbEnCache}/${VIDEOS_TUTORIELS.length} vidéos enregistrées sur l'appareil)`;
+                }
+                if (btn) {
+                    btn.textContent = '✓ Vidéos prêtes hors-ligne';
+                    btn.style.borderColor = '#34D399';
+                    btn.style.color = '#34D399';
+                }
+            } else {
+                if (icone) icone.textContent = '📦';
+                if (titre) {
+                    titre.style.color = '#fff';
+                    titre.textContent = `Disponibilité Hors-Ligne : ${nbEnCache} / ${VIDEOS_TUTORIELS.length} vidéo(s) en mémoire locale`;
+                }
+                if (btn) {
+                    btn.textContent = '📥 Enregistrer hors-ligne';
+                }
+            }
+
+            return nbEnCache;
+        }
+
+        async function telechargerVideosHorsLigne(afficherNotification = false) {
+            if (window.location.protocol === 'file:') {
+                // En ouverture locale directe (file://), les vidéos sont déjà sur le stockage local de l'appareil
+                const titre = document.getElementById('titre-statut-offline-video');
+                const icone = document.getElementById('icone-statut-offline-video');
+                const btn = document.getElementById('btn-cache-videos-offline');
+                if (icone) icone.textContent = '✅';
+                if (titre) {
+                    titre.style.color = '#34D399';
+                    titre.textContent = 'Fichiers vidéo locaux détectés : lecture hors-ligne directe activée';
+                }
+                if (btn) btn.style.display = 'none';
+                VIDEOS_TUTORIELS.forEach(v => {
+                    const b = document.getElementById(v.badgeId);
+                    if (b) b.innerHTML = '✅ Fichier local';
+                });
+                if (afficherNotification) {
+                    afficherPopupCustom("Les 4 vidéos sont stockées directement en local avec l'application et sont disponibles hors-ligne.", { titre: "Mode Hors-Ligne Prêt", icone: "✅" });
+                }
+                return;
+            }
+
+            const btn = document.getElementById('btn-cache-videos-offline');
+            const titre = document.getElementById('titre-statut-offline-video');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = '⏳ Mise en cache...';
+            }
+
+            let reussies = 0;
+            for (let i = 0; i < VIDEOS_TUTORIELS.length; i++) {
+                const v = VIDEOS_TUTORIELS[i];
+                if (titre) {
+                    titre.textContent = `⏳ Téléchargement hors-ligne en cours (${i + 1}/${VIDEOS_TUTORIELS.length}) : ${v.url.replace('./', '')}...`;
+                }
+                try {
+                    let dejaBlob = await obtenirBlobVideoHorsLigne(v);
+                    if (!dejaBlob) {
+                        const response = await fetch(v.url);
+                        if (response && response.ok) {
+                            if ('caches' in window) {
+                                try {
+                                    const cache = await caches.open(NOM_CACHE_VIDEOS);
+                                    await cache.put(v.url, response.clone());
+                                } catch (e) { }
+                            }
+                            const blob = await response.blob();
+                            if (blob && blob.size > 0) {
+                                await sauvegarderBlobVideoIDB(v.id, blob);
+                                dejaBlob = blob;
+                            }
+                        }
+                    }
+                    if (dejaBlob) reussies++;
+                } catch (err) {
+                    console.warn("Mise en cache vidéo différée :", v.url, err);
+                }
+            }
+
+            if (btn) btn.disabled = false;
+            await verifierStatutCacheVideos();
+
+            if (afficherNotification) {
+                if (reussies === VIDEOS_TUTORIELS.length) {
+                    afficherPopupCustom("Les 4 vidéos tutoriels ont été enregistrées dans la mémoire de la tablette. Elles sont désormais consultables à tout moment même sans connexion Internet (mode hors-ligne) !", { titre: "Vidéos prêtes Hors-Ligne", icone: "🎬" });
+                } else {
+                    afficherPopupCustom(`${reussies} / ${VIDEOS_TUTORIELS.length} vidéo(s) mise(s) en cache. Vérifiez votre connexion pour pré-charger les vidéos restantes avant de passer hors-ligne.`, { titre: "Statut du cache vidéo", icone: "ℹ️" });
+                }
+            }
+        }
+
+        function ouvrirAideVideo(filtre = 'tous') {
+            naviguerVers('vue-aide-video');
+            filtrerAideVideo(filtre || 'tous');
+        }
+
+        function filtrerAideVideo(categorie) {
+            const cat = categorie || 'tous';
+            ['tous', 'regles', 'service', 'degage'].forEach(c => {
+                const btn = document.getElementById(`btn-filtre-video-${c}`);
+                if (btn) {
+                    if (c === cat) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('#vue-aide-video .video-tuto-card').forEach(card => {
+                const cardCat = card.getAttribute('data-categorie');
+                if (cat === 'tous' || cardCat === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                    const vid = card.querySelector('video');
+                    if (vid && !vid.paused) vid.pause();
+                }
+            });
+        }
+
+        function gererLectureUniqueVideo(videoActive) {
+            document.querySelectorAll('#vue-aide-video video').forEach(vid => {
+                if (vid !== videoActive && !vid.paused) {
+                    vid.pause();
+                }
+            });
+        }
+
+        function pauserToutesVideos() {
+            document.querySelectorAll('#vue-aide-video video').forEach(vid => {
+                if (!vid.paused) {
+                    vid.pause();
+                }
+            });
+        }
+
+        function pleinEcranVideo(idVideo) {
+            const videoEl = document.getElementById(idVideo);
+            if (!videoEl) return;
+            if (videoEl.requestFullscreen) {
+                videoEl.requestFullscreen();
+            } else if (videoEl.webkitEnterFullscreen) {
+                videoEl.webkitEnterFullscreen(); // Support natif iPad / iOS Safari
+            } else if (videoEl.webkitRequestFullscreen) {
+                videoEl.webkitRequestFullscreen();
+            }
+            videoEl.play().catch(() => { });
+        }
+
+        // Enregistrement du Service Worker pour fonctionnement 100% hors-ligne (PWA)
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.protocol === 'http:')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => {
+                    console.warn('Service Worker non enregistré :', err);
+                });
+                // Pré-chargement automatique discret des 3 vidéos pour usage hors-ligne
+                setTimeout(() => {
+                    telechargerVideosHorsLigne(false);
+                }, 1500);
+            });
+        } else {
+            window.addEventListener('load', () => {
+                verifierStatutCacheVideos();
+            });
         }
 
         // Initialisation de l'affichage avec chargement automatique depuis LocalStorage

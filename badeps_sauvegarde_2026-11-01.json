@@ -1,0 +1,2283 @@
+{
+  "application": "Bad'EPS",
+  "version": "2.0",
+  "dateSauvegarde": "01/11/2026 18:13:17",
+  "dateISO": "2026-11-01T17:13:17.337Z",
+  "nombreJoueursInscrits": 4,
+  "resumeGlobal": {
+    "nombreJoueurs": 4,
+    "totalParticipationsMatchs": 1,
+    "totalMatchsArbitres": 0,
+    "totalNiveauxExercicesValides": 35,
+    "totalMedaillesDebloquees": 12,
+    "nombreJoueursAutoEvalues": 0
+  },
+  "referentielAutoEvaluation": {
+    "hasCodeCol": true,
+    "headers": {
+      "code": "Compétences",
+      "intitule": "Intitulé",
+      "n1": "Non Acquis",
+      "n2": "Partiellement maîtrisé",
+      "n3": "Maîtrisé",
+      "n4": "Parfaitement maîtrisé",
+      "poids": "%"
+    },
+    "rows": [
+      {
+        "code": "1.4",
+        "intitule": "Acquérir des techniques spécifiques pour améliorer son efficience.",
+        "n1": "Je ne maîtrise pas les techniques. Mon renvoi du volant est difficile et aléatoire. Mon engagement est aussi fragile.",
+        "n2": "Je maîtrise une seule arme technique me permettant parfois de créer une rupture dans l'échange.",
+        "n3": "Je maîtrise plusieurs armes techniques me permettant de créer de l'incertitude chez mon adversaire.",
+        "n4": "Toutes les armes techniques sont maîtrisées par moi et me confèrent une grande polyvalence technique.",
+        "poids": "20 %"
+      },
+      {
+        "code": "2.1",
+        "intitule": "Préparer-planifier-se représenter une action avant de la réaliser.",
+        "n1": "Je n'ai aucune stratégie : je me contente de renvoyer le volant dans le terrain adverse sans intention tactique.",
+        "n2": "Je tente parfois de mettre mon adversaire en difficulté mais sans notion d'anticipation. Je peux marquer sur « des stratégies éclairs ».",
+        "n3": "J'établis une stratégie au départ et je parviens à marquer avec elle. J'ai quelques difficultés pour m'adapter quand je n'ai pas l'avantage.",
+        "n4": "J'établis une stratégie au départ et je suis capable de m'adapter en cours d'échange en fonction de mon adversaire pour tenter de le mettre constamment en difficulté.",
+        "poids": "20 %"
+      },
+      {
+        "code": "2.4",
+        "intitule": "Utiliser des outils numériques pour analyser et évaluer ses actions et celles des autres.",
+        "n1": "J'utilise la tablette mais pour m'amuser ou rigoler. Je laisse la tablette traîner dans le gymnase.",
+        "n2": "J'utilise la tablette pour arbitrer mais pas pour faire les exercices.",
+        "n3": "J'utilise la tablette pour arbitrer ou faire les exercices, mais j'ai besoin d'être guidé(e) régulièrement sur l'utilisation de l'outil.",
+        "n4": "J'utilise la tablette efficacement pour arbitrer et guider mes apprentissages.",
+        "poids": "20 %"
+      },
+      {
+        "code": "3.1",
+        "intitule": "Respecter, construire et faire respecter règles et règlements.",
+        "n1": "Je n'arbitre pas ou je ne suis pas du tout concentré(e) sur le match.",
+        "n2": "J'arbitre mais je me trompe car je ne connais pas très bien les règles.",
+        "n3": "J'arbitre mais je me trompe parfois par manque de confiance en moi. Je connais les règles principales.",
+        "n4": "J'arbitre efficacement, je connais bien les règles, j'annonce le score et mon arbitrage est fiable.",
+        "poids": "20 %"
+      },
+      {
+        "code": "3.3",
+        "intitule": "Prendre et assumer des responsabilités au sein d'un collectif pour réaliser un projet ou remplir un contrat",
+        "n1": "Je ne joue pas le rôle de coach.",
+        "n2": "Je joue le rôle de coach mais je donne des conseils superficiels ou non pertinents par rapport à la situation.",
+        "n3": "Je joue le rôle de coach et je donne des conseils pertinents pour mon partenaire.",
+        "n4": "Je joue mon rôle de coach : je suis capable d'analyser le rapport de force (mon partenaire et l'adversaire) pour donner des conseils stratégiques pertinents.",
+        "poids": "20 %"
+      }
+    ]
+  },
+  "joueurs": [
+    {
+      "id": "j_1792688012127_457",
+      "nom": "Beauvais",
+      "prenom": "Romain",
+      "age": "36",
+      "niveau": "Expert",
+      "stats": {
+        "matchsJoues": 1,
+        "victoires": 0,
+        "defaites": 1,
+        "egalites": 0,
+        "pointsMarques": 20,
+        "pointsEncaisses": 60,
+        "contratsValides": 2,
+        "matchsArbitres": 0,
+        "situationsValidees": [
+          "Service - Niveau 1 (Le Service • Niveau 1 (Engagement au service)) - Score: 810 pts",
+          "Service - Niveau 2 (Le Service • Niveau 2 (Service court)) - Score: 800 pts",
+          "Service - Niveau 3 (Le Service • Niveau 3 (Service long)) - Score: 900 pts",
+          "Zone Arrière",
+          "Placement du volant - Niveau 1 (Placement du volant • Niveau 1 (Jouer dans la largeur)) - Score: 1620 pts",
+          "Placement du volant - Niveau 2 (Placement du volant • Niveau 2 (Jouer dans la profondeur)) - Score: 1620 pts",
+          "Placement du volant - Niveau 3 (Placement du volant • Niveau 3 (Viser une cible précise)) - Score: 640 pts",
+          "Placement du volant - Niveau 4 (Placement du volant • Niveau 4 (Carré magique)) - Score: 1630 pts",
+          "L'Amorti - Niveau 1 (L'Amorti • Niveau 1 (Amorti facile)) - Score: 1000 pts",
+          "L'Amorti - Niveau 2 (L'Amorti • Niveau 2 (Amorti précis)) - Score: 910 pts",
+          "L'Amorti - Niveau 3 (L'Amorti • Niveau 3 (Amorti ciblé)) - Score: 910 pts",
+          "L'Amorti - Niveau 4 (L'Amorti • Niveau 4 (Amorti filet)) - Score: 910 pts",
+          "Le Smatch (Smash) - Niveau 1 (Le Smatch (Smash) • Niveau 1 (Smatch facile)) - Score: 910 pts",
+          "Le Smatch (Smash) - Niveau 2 (Le Smatch (Smash) • Niveau 2 (Smatch décisif)) - Score: 640 pts",
+          "Stratégie de Jeu - Niveau 1 (Stratégie de Jeu • Niveau 1 (Service stratégique)) - Score: 910 pts",
+          "Le Dégagé - Niveau 1 (Le Dégagé • Niveau 1 (Dégagé facile)) - Score: 820 pts",
+          "Le Dégagé - Niveau 2 (Le Dégagé • Niveau 2 (Dégagé offensif)) - Score: 910 pts",
+          "Le Dégagé - Niveau 3 (Le Dégagé • Niveau 3 (Dégagé précis)) - Score: 820 pts"
+        ],
+        "historiqueMatchs": [
+          {
+            "id": "m_1793032933113_A",
+            "date": "26/10/2026 17:41",
+            "resultat": "Défaite",
+            "pointsMarques": 20,
+            "pointsEncaisses": 60,
+            "adversairePrenom": "Vivien",
+            "adversaireNom": "",
+            "carteUtilisee": {
+              "nom": "Zone Arrière",
+              "niveau": 1,
+              "bonusPts": 10
+            },
+            "contratsReussis": 2,
+            "arbitre": "Dorian",
+            "mode": "terrain"
+          }
+        ],
+        "historiqueArbitrage": [],
+        "medailles": [
+          {
+            "id": "service",
+            "nom": "Service",
+            "titre": "Médaille du Service",
+            "fichierSvg": "./medserv.png",
+            "date": "26/10/2026"
+          },
+          {
+            "id": "amorti",
+            "nom": "Amorti",
+            "titre": "Médaille de l'Amorti",
+            "fichierSvg": "./medamorti.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "smash",
+            "nom": "Smash",
+            "titre": "Médaille du Smash",
+            "fichierSvg": "./medsmatch.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "stratserv",
+            "nom": "Service Stratégique",
+            "titre": "Médaille Service Stratégique",
+            "fichierSvg": "./medstratserv.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "placement",
+            "nom": "Placement du volant",
+            "titre": "Médaille Placement du Volant",
+            "fichierSvg": "./medplacvol.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "degage",
+            "nom": "Dégagé",
+            "titre": "Médaille du Dégagé",
+            "fichierSvg": "./meddegage.png",
+            "date": "31/10/2026"
+          }
+        ],
+        "evaluationsExercices": {
+          "placement_1": {
+            "type": "placement",
+            "niveau": 1,
+            "titre": "Placement du volant • Niveau 1 (Jouer dans la largeur)",
+            "score": 1620,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_2": {
+            "type": "placement",
+            "niveau": 2,
+            "titre": "Placement du volant • Niveau 2 (Jouer dans la profondeur)",
+            "score": 1620,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_3": {
+            "type": "placement",
+            "niveau": 3,
+            "titre": "Placement du volant • Niveau 3 (Viser une cible précise)",
+            "score": 640,
+            "seuil": 500,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_4": {
+            "type": "placement",
+            "niveau": 4,
+            "titre": "Placement du volant • Niveau 4 (Carré magique)",
+            "score": 1630,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_1": {
+            "type": "amorti",
+            "niveau": 1,
+            "titre": "L'Amorti • Niveau 1 (Amorti facile)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_2": {
+            "type": "amorti",
+            "niveau": 2,
+            "titre": "L'Amorti • Niveau 2 (Amorti précis)",
+            "score": 910,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_3": {
+            "type": "amorti",
+            "niveau": 3,
+            "titre": "L'Amorti • Niveau 3 (Amorti ciblé)",
+            "score": 910,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_4": {
+            "type": "amorti",
+            "niveau": 4,
+            "titre": "L'Amorti • Niveau 4 (Amorti filet)",
+            "score": 910,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "smatch_1": {
+            "type": "smatch",
+            "niveau": 1,
+            "titre": "Le Smatch (Smash) • Niveau 1 (Smatch facile)",
+            "score": 910,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "smatch_2": {
+            "type": "smatch",
+            "niveau": 2,
+            "titre": "Le Smatch (Smash) • Niveau 2 (Smatch décisif)",
+            "score": 640,
+            "seuil": 550,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "strategie_1": {
+            "type": "strategie",
+            "niveau": 1,
+            "titre": "Stratégie de Jeu • Niveau 1 (Service stratégique)",
+            "score": 910,
+            "seuil": 700,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "degage_1": {
+            "type": "degage",
+            "niveau": 1,
+            "titre": "Le Dégagé • Niveau 1 (Dégagé facile)",
+            "score": 820,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "degage_2": {
+            "type": "degage",
+            "niveau": 2,
+            "titre": "Le Dégagé • Niveau 2 (Dégagé offensif)",
+            "score": 910,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "degage_3": {
+            "type": "degage",
+            "niveau": 3,
+            "titre": "Le Dégagé • Niveau 3 (Dégagé précis)",
+            "score": 820,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          }
+        },
+        "differentielPoints": -40,
+        "resultatsExercices": {
+          "service": {
+            "theme": "Le Service",
+            "niveauxValides": 3,
+            "totalNiveaux": 3,
+            "progression": "3/3",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Engagement",
+                "titre": "Engagement au service",
+                "statut": "Validé",
+                "valide": true,
+                "score": 810,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Service court",
+                "titre": "Service court",
+                "statut": "Validé",
+                "valide": true,
+                "score": 800,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Service long",
+                "titre": "Service long",
+                "statut": "Validé",
+                "valide": true,
+                "score": 900,
+                "seuil": 730,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "placement": {
+            "theme": "Placement du volant",
+            "niveauxValides": 4,
+            "totalNiveaux": 4,
+            "progression": "4/4",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Découverte",
+                "titre": "Placement du volant • Niveau 1 (Jouer dans la largeur)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1620,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Couloirs",
+                "titre": "Placement du volant • Niveau 2 (Jouer dans la profondeur)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1620,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Profondeur",
+                "titre": "Placement du volant • Niveau 3 (Viser une cible précise)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 640,
+                "seuil": 500,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 4,
+                "libelle": "4 Coins",
+                "titre": "Placement du volant • Niveau 4 (Carré magique)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1630,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "amorti": {
+            "theme": "L'Amorti",
+            "niveauxValides": 4,
+            "totalNiveaux": 4,
+            "progression": "4/4",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "L'Amorti • Niveau 1 (Amorti facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Précis",
+                "titre": "L'Amorti • Niveau 2 (Amorti précis)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Ciblé",
+                "titre": "L'Amorti • Niveau 3 (Amorti ciblé)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 4,
+                "libelle": "Filet",
+                "titre": "L'Amorti • Niveau 4 (Amorti filet)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "smatch": {
+            "theme": "Le Smatch (Smash)",
+            "niveauxValides": 2,
+            "totalNiveaux": 2,
+            "progression": "2/2",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Le Smatch (Smash) • Niveau 1 (Smatch facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Décisif",
+                "titre": "Le Smatch (Smash) • Niveau 2 (Smatch décisif)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 640,
+                "seuil": 550,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "degage": {
+            "theme": "Le Dégagé",
+            "niveauxValides": 3,
+            "totalNiveaux": 3,
+            "progression": "3/3",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Le Dégagé • Niveau 1 (Dégagé facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 820,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Offensif",
+                "titre": "Le Dégagé • Niveau 2 (Dégagé offensif)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Précis",
+                "titre": "Le Dégagé • Niveau 3 (Dégagé précis)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 820,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "strategie": {
+            "theme": "Stratégie de Jeu",
+            "niveauxValides": 1,
+            "totalNiveaux": 3,
+            "progression": "1/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Service strat.",
+                "titre": "Stratégie de Jeu • Niveau 1 (Service stratégique)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 910,
+                "seuil": 700,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Court / Long",
+                "titre": "Alterner jeu court / jeu long",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Espace vide",
+                "titre": "Jouer dans l’espace vide",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          }
+        },
+        "bilanMedailles": {
+          "nbDebloquees": 6,
+          "totalMedailles": 7,
+          "progressionGlobale": "6/7",
+          "detailMedailles": [
+            {
+              "id": "service",
+              "nom": "Service",
+              "titre": "Médaille du Service",
+              "fichierImage": "./medserv.png",
+              "debloquee": true,
+              "dateObtention": "26/10/2026",
+              "niveauxValides": 3,
+              "totalNiveaux": 3,
+              "progression": "3/3"
+            },
+            {
+              "id": "placement",
+              "nom": "Placement du volant",
+              "titre": "Médaille Placement du Volant",
+              "fichierImage": "./medplacvol.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 4,
+              "totalNiveaux": 4,
+              "progression": "4/4"
+            },
+            {
+              "id": "amorti",
+              "nom": "Amorti",
+              "titre": "Médaille de l'Amorti",
+              "fichierImage": "./medamorti.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 4,
+              "totalNiveaux": 4,
+              "progression": "4/4"
+            },
+            {
+              "id": "smash",
+              "nom": "Smash",
+              "titre": "Médaille du Smash",
+              "fichierImage": "./medsmatch.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 2,
+              "totalNiveaux": 2,
+              "progression": "2/2"
+            },
+            {
+              "id": "degage",
+              "nom": "Dégagé",
+              "titre": "Médaille du Dégagé",
+              "fichierImage": "./meddegage.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 3,
+              "totalNiveaux": 3,
+              "progression": "3/3"
+            },
+            {
+              "id": "stratserv",
+              "nom": "Service Stratégique",
+              "titre": "Médaille Service Stratégique",
+              "fichierImage": "./medstratserv.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 1,
+              "totalNiveaux": 1,
+              "progression": "1/1"
+            },
+            {
+              "id": "stratjeu",
+              "nom": "Stratégie de Jeu",
+              "titre": "Médaille Stratégie de Jeu",
+              "fichierImage": "./medstratjeu.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            }
+          ]
+        }
+      },
+      "evaluation": {},
+      "autoEvaluation": {
+        "noteSur20": null,
+        "noteSur20Texte": "Non évalué",
+        "competencesEvaluees": 0,
+        "totalCompetences": 5,
+        "complet": false,
+        "choixParLigne": {},
+        "detailsCompetences": [
+          {
+            "numero": 1,
+            "code": "1.4",
+            "intitule": "Acquérir des techniques spécifiques pour améliorer son efficience.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 2,
+            "code": "2.1",
+            "intitule": "Préparer-planifier-se représenter une action avant de la réaliser.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 3,
+            "code": "2.4",
+            "intitule": "Utiliser des outils numériques pour analyser et évaluer ses actions et celles des autres.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 4,
+            "code": "3.1",
+            "intitule": "Respecter, construire et faire respecter règles et règlements.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 5,
+            "code": "3.3",
+            "intitule": "Prendre et assumer des responsabilités au sein d'un collectif pour réaliser un projet ou remplir un contrat",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "j_1792688031210_591",
+      "nom": "FRANC",
+      "prenom": "Marie",
+      "age": "28",
+      "niveau": "Débrouillé",
+      "stats": {
+        "matchsJoues": 0,
+        "victoires": 0,
+        "defaites": 0,
+        "egalites": 0,
+        "pointsMarques": 0,
+        "pointsEncaisses": 0,
+        "contratsValides": 0,
+        "matchsArbitres": 0,
+        "situationsValidees": [
+          "Service - Niveau 1 (Le Service • Niveau 1 (Engagement au service)) - Score: 832 pts",
+          "Service - Niveau 2 (Le Service • Niveau 2 (Service court)) - Score: 821 pts",
+          "Service - Niveau 3 (Le Service • Niveau 3 (Service long)) - Score: 334 pts (Objectif : 730 pts - Non validé)",
+          "Le Dégagé - Niveau 1 (Le Dégagé • Niveau 1 (Dégagé facile)) - Score: 1009 pts",
+          "Le Dégagé - Niveau 2 (Le Dégagé • Niveau 2 (Dégagé offensif)) - Score: 900 pts",
+          "Le Dégagé - Niveau 3 (Le Dégagé • Niveau 3 (Dégagé précis)) - Score: 1000 pts",
+          "L'Amorti - Niveau 1 (L'Amorti • Niveau 1 (Amorti facile)) - Score: 1000 pts",
+          "L'Amorti - Niveau 2 (L'Amorti • Niveau 2 (Amorti précis)) - Score: 1000 pts",
+          "L'Amorti - Niveau 3 (L'Amorti • Niveau 3 (Amorti ciblé)) - Score: 1000 pts",
+          "L'Amorti - Niveau 4 (L'Amorti • Niveau 4 (Amorti filet)) - Score: 1000 pts",
+          "Le Smatch (Smash) - Niveau 1 (Le Smatch (Smash) • Niveau 1 (Smatch facile)) - Score: 901 pts",
+          "Le Smatch (Smash) - Niveau 2 (Le Smatch (Smash) • Niveau 2 (Smatch décisif)) - Score: 1000 pts",
+          "Placement du volant - Niveau 1 (Placement du volant • Niveau 1 (Jouer dans la largeur)) - Score: 2000 pts",
+          "Placement du volant - Niveau 2 (Placement du volant • Niveau 2 (Jouer dans la profondeur)) - Score: 1900 pts",
+          "Placement du volant - Niveau 3 (Placement du volant • Niveau 3 (Viser une cible précise)) - Score: 1900 pts",
+          "Placement du volant - Niveau 4 (Placement du volant • Niveau 4 (Carré magique)) - Score: 1900 pts"
+        ],
+        "historiqueMatchs": [],
+        "historiqueArbitrage": [],
+        "medailles": [
+          {
+            "id": "service",
+            "nom": "Service",
+            "titre": "Médaille du Service",
+            "fichierSvg": "./medserv.png",
+            "date": "26/10/2026"
+          },
+          {
+            "id": "degage",
+            "nom": "Dégagé",
+            "titre": "Médaille du Dégagé",
+            "fichierSvg": "./meddegage.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "amorti",
+            "nom": "Amorti",
+            "titre": "Médaille de l'Amorti",
+            "fichierSvg": "./medamorti.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "smash",
+            "nom": "Smash",
+            "titre": "Médaille du Smash",
+            "fichierSvg": "./medsmatch.png",
+            "date": "31/10/2026"
+          },
+          {
+            "id": "placement",
+            "nom": "Placement du volant",
+            "titre": "Médaille Placement du Volant",
+            "fichierSvg": "./medplacvol.png",
+            "date": "31/10/2026"
+          }
+        ],
+        "evaluationsExercices": {
+          "service_3": {
+            "type": "service",
+            "niveau": 3,
+            "titre": "Le Service • Niveau 3 (Service long)",
+            "score": 334,
+            "seuil": 730,
+            "valide": false,
+            "date": "26/10/2026"
+          },
+          "degage_1": {
+            "type": "degage",
+            "niveau": 1,
+            "titre": "Le Dégagé • Niveau 1 (Dégagé facile)",
+            "score": 1009,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "degage_2": {
+            "type": "degage",
+            "niveau": 2,
+            "titre": "Le Dégagé • Niveau 2 (Dégagé offensif)",
+            "score": 900,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "degage_3": {
+            "type": "degage",
+            "niveau": 3,
+            "titre": "Le Dégagé • Niveau 3 (Dégagé précis)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_1": {
+            "type": "amorti",
+            "niveau": 1,
+            "titre": "L'Amorti • Niveau 1 (Amorti facile)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_2": {
+            "type": "amorti",
+            "niveau": 2,
+            "titre": "L'Amorti • Niveau 2 (Amorti précis)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_3": {
+            "type": "amorti",
+            "niveau": 3,
+            "titre": "L'Amorti • Niveau 3 (Amorti ciblé)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "amorti_4": {
+            "type": "amorti",
+            "niveau": 4,
+            "titre": "L'Amorti • Niveau 4 (Amorti filet)",
+            "score": 1000,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "smatch_1": {
+            "type": "smatch",
+            "niveau": 1,
+            "titre": "Le Smatch (Smash) • Niveau 1 (Smatch facile)",
+            "score": 901,
+            "seuil": 800,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "smatch_2": {
+            "type": "smatch",
+            "niveau": 2,
+            "titre": "Le Smatch (Smash) • Niveau 2 (Smatch décisif)",
+            "score": 1000,
+            "seuil": 550,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_1": {
+            "type": "placement",
+            "niveau": 1,
+            "titre": "Placement du volant • Niveau 1 (Jouer dans la largeur)",
+            "score": 2000,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_2": {
+            "type": "placement",
+            "niveau": 2,
+            "titre": "Placement du volant • Niveau 2 (Jouer dans la profondeur)",
+            "score": 1900,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_3": {
+            "type": "placement",
+            "niveau": 3,
+            "titre": "Placement du volant • Niveau 3 (Viser une cible précise)",
+            "score": 1900,
+            "seuil": 500,
+            "valide": true,
+            "date": "31/10/2026"
+          },
+          "placement_4": {
+            "type": "placement",
+            "niveau": 4,
+            "titre": "Placement du volant • Niveau 4 (Carré magique)",
+            "score": 1900,
+            "seuil": 1600,
+            "valide": true,
+            "date": "31/10/2026"
+          }
+        },
+        "differentielPoints": 0,
+        "resultatsExercices": {
+          "service": {
+            "theme": "Le Service",
+            "niveauxValides": 2,
+            "totalNiveaux": 3,
+            "progression": "2/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Engagement",
+                "titre": "Engagement au service",
+                "statut": "Validé",
+                "valide": true,
+                "score": 832,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Service court",
+                "titre": "Service court",
+                "statut": "Validé",
+                "valide": true,
+                "score": 821,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Service long",
+                "titre": "Le Service • Niveau 3 (Service long)",
+                "statut": "Non validé",
+                "valide": false,
+                "score": 334,
+                "seuil": 730,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "26/10/2026"
+              }
+            ]
+          },
+          "placement": {
+            "theme": "Placement du volant",
+            "niveauxValides": 4,
+            "totalNiveaux": 4,
+            "progression": "4/4",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Découverte",
+                "titre": "Placement du volant • Niveau 1 (Jouer dans la largeur)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 2000,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Couloirs",
+                "titre": "Placement du volant • Niveau 2 (Jouer dans la profondeur)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1900,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Profondeur",
+                "titre": "Placement du volant • Niveau 3 (Viser une cible précise)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1900,
+                "seuil": 500,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 4,
+                "libelle": "4 Coins",
+                "titre": "Placement du volant • Niveau 4 (Carré magique)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1900,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "amorti": {
+            "theme": "L'Amorti",
+            "niveauxValides": 4,
+            "totalNiveaux": 4,
+            "progression": "4/4",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "L'Amorti • Niveau 1 (Amorti facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Précis",
+                "titre": "L'Amorti • Niveau 2 (Amorti précis)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Ciblé",
+                "titre": "L'Amorti • Niveau 3 (Amorti ciblé)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 4,
+                "libelle": "Filet",
+                "titre": "L'Amorti • Niveau 4 (Amorti filet)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "smatch": {
+            "theme": "Le Smatch (Smash)",
+            "niveauxValides": 2,
+            "totalNiveaux": 2,
+            "progression": "2/2",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Le Smatch (Smash) • Niveau 1 (Smatch facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 901,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Décisif",
+                "titre": "Le Smatch (Smash) • Niveau 2 (Smatch décisif)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 550,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "degage": {
+            "theme": "Le Dégagé",
+            "niveauxValides": 3,
+            "totalNiveaux": 3,
+            "progression": "3/3",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Le Dégagé • Niveau 1 (Dégagé facile)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1009,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 2,
+                "libelle": "Offensif",
+                "titre": "Le Dégagé • Niveau 2 (Dégagé offensif)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 900,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              },
+              {
+                "niveau": 3,
+                "libelle": "Précis",
+                "titre": "Le Dégagé • Niveau 3 (Dégagé précis)",
+                "statut": "Validé",
+                "valide": true,
+                "score": 1000,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": "31/10/2026"
+              }
+            ]
+          },
+          "strategie": {
+            "theme": "Stratégie de Jeu",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Service strat.",
+                "titre": "Service stratégique",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 700,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Court / Long",
+                "titre": "Alterner jeu court / jeu long",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Espace vide",
+                "titre": "Jouer dans l’espace vide",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          }
+        },
+        "bilanMedailles": {
+          "nbDebloquees": 5,
+          "totalMedailles": 7,
+          "progressionGlobale": "5/7",
+          "detailMedailles": [
+            {
+              "id": "service",
+              "nom": "Service",
+              "titre": "Médaille du Service",
+              "fichierImage": "./medserv.png",
+              "debloquee": true,
+              "dateObtention": "26/10/2026",
+              "niveauxValides": 2,
+              "totalNiveaux": 3,
+              "progression": "2/3"
+            },
+            {
+              "id": "placement",
+              "nom": "Placement du volant",
+              "titre": "Médaille Placement du Volant",
+              "fichierImage": "./medplacvol.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 4,
+              "totalNiveaux": 4,
+              "progression": "4/4"
+            },
+            {
+              "id": "amorti",
+              "nom": "Amorti",
+              "titre": "Médaille de l'Amorti",
+              "fichierImage": "./medamorti.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 4,
+              "totalNiveaux": 4,
+              "progression": "4/4"
+            },
+            {
+              "id": "smash",
+              "nom": "Smash",
+              "titre": "Médaille du Smash",
+              "fichierImage": "./medsmatch.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 2,
+              "totalNiveaux": 2,
+              "progression": "2/2"
+            },
+            {
+              "id": "degage",
+              "nom": "Dégagé",
+              "titre": "Médaille du Dégagé",
+              "fichierImage": "./meddegage.png",
+              "debloquee": true,
+              "dateObtention": "31/10/2026",
+              "niveauxValides": 3,
+              "totalNiveaux": 3,
+              "progression": "3/3"
+            },
+            {
+              "id": "stratserv",
+              "nom": "Service Stratégique",
+              "titre": "Médaille Service Stratégique",
+              "fichierImage": "./medstratserv.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 1,
+              "progression": "0/1"
+            },
+            {
+              "id": "stratjeu",
+              "nom": "Stratégie de Jeu",
+              "titre": "Médaille Stratégie de Jeu",
+              "fichierImage": "./medstratjeu.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            }
+          ]
+        }
+      },
+      "evaluation": {},
+      "autoEvaluation": {
+        "noteSur20": null,
+        "noteSur20Texte": "Non évalué",
+        "competencesEvaluees": 0,
+        "totalCompetences": 5,
+        "complet": false,
+        "choixParLigne": {},
+        "detailsCompetences": [
+          {
+            "numero": 1,
+            "code": "1.4",
+            "intitule": "Acquérir des techniques spécifiques pour améliorer son efficience.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 2,
+            "code": "2.1",
+            "intitule": "Préparer-planifier-se représenter une action avant de la réaliser.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 3,
+            "code": "2.4",
+            "intitule": "Utiliser des outils numériques pour analyser et évaluer ses actions et celles des autres.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 4,
+            "code": "3.1",
+            "intitule": "Respecter, construire et faire respecter règles et règlements.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 5,
+            "code": "3.3",
+            "intitule": "Prendre et assumer des responsabilités au sein d'un collectif pour réaliser un projet ou remplir un contrat",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "j_1792688040393_266",
+      "nom": "Beauvais",
+      "prenom": "Léo",
+      "age": "1",
+      "niveau": "Débutant",
+      "stats": {
+        "matchsJoues": 0,
+        "victoires": 0,
+        "defaites": 0,
+        "egalites": 0,
+        "pointsMarques": 0,
+        "pointsEncaisses": 0,
+        "contratsValides": 0,
+        "matchsArbitres": 0,
+        "situationsValidees": [
+          "Service - Niveau 1 (Le Service • Niveau 1 (Engagement au service)) - Score: 800 pts",
+          "Service - Niveau 2 (Le Service • Niveau 2 (Service court)) - Score: 800 pts",
+          "Service - Niveau 3 (Le Service • Niveau 3 (Service long)) - Score: 800 pts"
+        ],
+        "historiqueMatchs": [],
+        "historiqueArbitrage": [],
+        "medailles": [
+          {
+            "id": "service",
+            "nom": "Service",
+            "titre": "Médaille du Service",
+            "fichierSvg": "./medserv.png",
+            "date": "26/10/2026"
+          }
+        ],
+        "evaluationsExercices": {},
+        "differentielPoints": 0,
+        "resultatsExercices": {
+          "service": {
+            "theme": "Le Service",
+            "niveauxValides": 3,
+            "totalNiveaux": 3,
+            "progression": "3/3",
+            "complet": true,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Engagement",
+                "titre": "Engagement au service",
+                "statut": "Validé",
+                "valide": true,
+                "score": 800,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Service court",
+                "titre": "Service court",
+                "statut": "Validé",
+                "valide": true,
+                "score": 800,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Service long",
+                "titre": "Service long",
+                "statut": "Validé",
+                "valide": true,
+                "score": 800,
+                "seuil": 730,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "placement": {
+            "theme": "Placement du volant",
+            "niveauxValides": 0,
+            "totalNiveaux": 4,
+            "progression": "0/4",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Découverte",
+                "titre": "Jouer dans la largeur",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Couloirs",
+                "titre": "Jouer dans la profondeur",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Profondeur",
+                "titre": "Viser une cible précise",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 500,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 4,
+                "libelle": "4 Coins",
+                "titre": "Carré magique",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "amorti": {
+            "theme": "L'Amorti",
+            "niveauxValides": 0,
+            "totalNiveaux": 4,
+            "progression": "0/4",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Amorti facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Précis",
+                "titre": "Amorti précis",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Ciblé",
+                "titre": "Amorti ciblé",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 4,
+                "libelle": "Filet",
+                "titre": "Amorti filet",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "smatch": {
+            "theme": "Le Smatch (Smash)",
+            "niveauxValides": 0,
+            "totalNiveaux": 2,
+            "progression": "0/2",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Smatch facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Décisif",
+                "titre": "Smatch décisif",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 550,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "degage": {
+            "theme": "Le Dégagé",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Dégagé facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Offensif",
+                "titre": "Dégagé offensif",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Précis",
+                "titre": "Dégagé précis",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "strategie": {
+            "theme": "Stratégie de Jeu",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Service strat.",
+                "titre": "Service stratégique",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 700,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Court / Long",
+                "titre": "Alterner jeu court / jeu long",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Espace vide",
+                "titre": "Jouer dans l’espace vide",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          }
+        },
+        "bilanMedailles": {
+          "nbDebloquees": 1,
+          "totalMedailles": 7,
+          "progressionGlobale": "1/7",
+          "detailMedailles": [
+            {
+              "id": "service",
+              "nom": "Service",
+              "titre": "Médaille du Service",
+              "fichierImage": "./medserv.png",
+              "debloquee": true,
+              "dateObtention": "26/10/2026",
+              "niveauxValides": 3,
+              "totalNiveaux": 3,
+              "progression": "3/3"
+            },
+            {
+              "id": "placement",
+              "nom": "Placement du volant",
+              "titre": "Médaille Placement du Volant",
+              "fichierImage": "./medplacvol.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 4,
+              "progression": "0/4"
+            },
+            {
+              "id": "amorti",
+              "nom": "Amorti",
+              "titre": "Médaille de l'Amorti",
+              "fichierImage": "./medamorti.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 4,
+              "progression": "0/4"
+            },
+            {
+              "id": "smash",
+              "nom": "Smash",
+              "titre": "Médaille du Smash",
+              "fichierImage": "./medsmatch.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            },
+            {
+              "id": "degage",
+              "nom": "Dégagé",
+              "titre": "Médaille du Dégagé",
+              "fichierImage": "./meddegage.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 3,
+              "progression": "0/3"
+            },
+            {
+              "id": "stratserv",
+              "nom": "Service Stratégique",
+              "titre": "Médaille Service Stratégique",
+              "fichierImage": "./medstratserv.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 1,
+              "progression": "0/1"
+            },
+            {
+              "id": "stratjeu",
+              "nom": "Stratégie de Jeu",
+              "titre": "Médaille Stratégie de Jeu",
+              "fichierImage": "./medstratjeu.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            }
+          ]
+        }
+      },
+      "evaluation": {},
+      "autoEvaluation": {
+        "noteSur20": null,
+        "noteSur20Texte": "Non évalué",
+        "competencesEvaluees": 0,
+        "totalCompetences": 5,
+        "complet": false,
+        "choixParLigne": {},
+        "detailsCompetences": [
+          {
+            "numero": 1,
+            "code": "1.4",
+            "intitule": "Acquérir des techniques spécifiques pour améliorer son efficience.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 2,
+            "code": "2.1",
+            "intitule": "Préparer-planifier-se représenter une action avant de la réaliser.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 3,
+            "code": "2.4",
+            "intitule": "Utiliser des outils numériques pour analyser et évaluer ses actions et celles des autres.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 4,
+            "code": "3.1",
+            "intitule": "Respecter, construire et faire respecter règles et règlements.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 5,
+            "code": "3.3",
+            "intitule": "Prendre et assumer des responsabilités au sein d'un collectif pour réaliser un projet ou remplir un contrat",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "j_1792688050376_762",
+      "nom": "Beauvais",
+      "prenom": "Jack",
+      "age": "11",
+      "niveau": "Débrouillé",
+      "stats": {
+        "matchsJoues": 0,
+        "victoires": 0,
+        "defaites": 0,
+        "egalites": 0,
+        "pointsMarques": 0,
+        "pointsEncaisses": 0,
+        "contratsValides": 0,
+        "matchsArbitres": 0,
+        "situationsValidees": [],
+        "historiqueMatchs": [],
+        "historiqueArbitrage": [],
+        "medailles": [],
+        "evaluationsExercices": {},
+        "differentielPoints": 0,
+        "resultatsExercices": {
+          "service": {
+            "theme": "Le Service",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Engagement",
+                "titre": "Engagement au service",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Service court",
+                "titre": "Service court",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Service long",
+                "titre": "Service long",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 730,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "placement": {
+            "theme": "Placement du volant",
+            "niveauxValides": 0,
+            "totalNiveaux": 4,
+            "progression": "0/4",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Découverte",
+                "titre": "Jouer dans la largeur",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Couloirs",
+                "titre": "Jouer dans la profondeur",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Profondeur",
+                "titre": "Viser une cible précise",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 500,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 4,
+                "libelle": "4 Coins",
+                "titre": "Carré magique",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 1600,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "amorti": {
+            "theme": "L'Amorti",
+            "niveauxValides": 0,
+            "totalNiveaux": 4,
+            "progression": "0/4",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Amorti facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Précis",
+                "titre": "Amorti précis",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Ciblé",
+                "titre": "Amorti ciblé",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 4,
+                "libelle": "Filet",
+                "titre": "Amorti filet",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "smatch": {
+            "theme": "Le Smatch (Smash)",
+            "niveauxValides": 0,
+            "totalNiveaux": 2,
+            "progression": "0/2",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Smatch facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Décisif",
+                "titre": "Smatch décisif",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 550,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "degage": {
+            "theme": "Le Dégagé",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Facile",
+                "titre": "Dégagé facile",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Offensif",
+                "titre": "Dégagé offensif",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Précis",
+                "titre": "Dégagé précis",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          },
+          "strategie": {
+            "theme": "Stratégie de Jeu",
+            "niveauxValides": 0,
+            "totalNiveaux": 3,
+            "progression": "0/3",
+            "complet": false,
+            "niveaux": [
+              {
+                "niveau": 1,
+                "libelle": "Service strat.",
+                "titre": "Service stratégique",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 700,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 2,
+                "libelle": "Court / Long",
+                "titre": "Alterner jeu court / jeu long",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              },
+              {
+                "niveau": 3,
+                "libelle": "Espace vide",
+                "titre": "Jouer dans l’espace vide",
+                "statut": "Non réalisé",
+                "valide": false,
+                "score": null,
+                "seuil": 800,
+                "nbTentatives": null,
+                "repartitionTouches": null,
+                "date": null
+              }
+            ]
+          }
+        },
+        "bilanMedailles": {
+          "nbDebloquees": 0,
+          "totalMedailles": 7,
+          "progressionGlobale": "0/7",
+          "detailMedailles": [
+            {
+              "id": "service",
+              "nom": "Service",
+              "titre": "Médaille du Service",
+              "fichierImage": "./medserv.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 3,
+              "progression": "0/3"
+            },
+            {
+              "id": "placement",
+              "nom": "Placement du volant",
+              "titre": "Médaille Placement du Volant",
+              "fichierImage": "./medplacvol.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 4,
+              "progression": "0/4"
+            },
+            {
+              "id": "amorti",
+              "nom": "Amorti",
+              "titre": "Médaille de l'Amorti",
+              "fichierImage": "./medamorti.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 4,
+              "progression": "0/4"
+            },
+            {
+              "id": "smash",
+              "nom": "Smash",
+              "titre": "Médaille du Smash",
+              "fichierImage": "./medsmatch.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            },
+            {
+              "id": "degage",
+              "nom": "Dégagé",
+              "titre": "Médaille du Dégagé",
+              "fichierImage": "./meddegage.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 3,
+              "progression": "0/3"
+            },
+            {
+              "id": "stratserv",
+              "nom": "Service Stratégique",
+              "titre": "Médaille Service Stratégique",
+              "fichierImage": "./medstratserv.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 1,
+              "progression": "0/1"
+            },
+            {
+              "id": "stratjeu",
+              "nom": "Stratégie de Jeu",
+              "titre": "Médaille Stratégie de Jeu",
+              "fichierImage": "./medstratjeu.png",
+              "debloquee": false,
+              "dateObtention": null,
+              "niveauxValides": 0,
+              "totalNiveaux": 2,
+              "progression": "0/2"
+            }
+          ]
+        }
+      },
+      "evaluation": {},
+      "autoEvaluation": {
+        "noteSur20": null,
+        "noteSur20Texte": "Non évalué",
+        "competencesEvaluees": 0,
+        "totalCompetences": 5,
+        "complet": false,
+        "choixParLigne": {},
+        "detailsCompetences": [
+          {
+            "numero": 1,
+            "code": "1.4",
+            "intitule": "Acquérir des techniques spécifiques pour améliorer son efficience.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 2,
+            "code": "2.1",
+            "intitule": "Préparer-planifier-se représenter une action avant de la réaliser.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 3,
+            "code": "2.4",
+            "intitule": "Utiliser des outils numériques pour analyser et évaluer ses actions et celles des autres.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 4,
+            "code": "3.1",
+            "intitule": "Respecter, construire et faire respecter règles et règlements.",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          },
+          {
+            "numero": 5,
+            "code": "3.3",
+            "intitule": "Prendre et assumer des responsabilités au sein d'un collectif pour réaliser un projet ou remplir un contrat",
+            "poids": "20 %",
+            "niveauChoisi": null,
+            "libelleNiveauChoisi": "Non renseigné",
+            "descriptifNiveauChoisi": null,
+            "noteSur20Competence": null
+          }
+        ]
+      }
+    }
+  ]
+}
