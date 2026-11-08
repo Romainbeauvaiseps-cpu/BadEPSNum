@@ -4473,16 +4473,21 @@
              ========================================== -->
         <section id="vue-match-config" class="vue">
 
-            <!-- ÉCRAN D'ACCUEIL MATCH : UNIQUEMENT LE BOUTON DÉBUTER UN MATCH -->
-            <div id="match-demarrage-box">
+            <!-- ÉCRAN D'ACCUEIL MATCH : BOUTONS 1 VS 1 ET 2 VS 2 -->
+            <div id="match-demarrage-box" style="gap: 18px;">
                 <button class="btn-inscription-gradient"
-                    style="font-size: 1.25rem; padding: 20px 36px; border-radius: 16px; max-width: 320px; width: 100%; box-shadow: 0 8px 30px rgba(255, 109, 0, 0.5);"
-                    onclick="ouvrirMenuConfigMatch()">
-                    🏸 Débuter un match
+                    style="font-size: 1.2rem; padding: 20px 32px; border-radius: 16px; max-width: 360px; width: 100%; box-shadow: 0 8px 30px rgba(255, 109, 0, 0.5);"
+                    onclick="ouvrirMenuConfigMatch('1v1')">
+                    🏸 Débuter un match 1 vs 1
+                </button>
+                <button class="btn-inscription-gradient"
+                    style="font-size: 1.2rem; padding: 20px 32px; border-radius: 16px; max-width: 360px; width: 100%; background: linear-gradient(135deg, #FFD600 0%, #FF6D00 50%, #FF1744 100%); color: #121212; box-shadow: 0 8px 30px rgba(255, 160, 0, 0.5);"
+                    onclick="ouvrirMenuConfigMatch('2v2')">
+                    👥 Débuter un match 2 vs 2
                 </button>
             </div>
 
-            <!-- MENU WIZARD CONFIGURATION MATCH (3 ÉTAPES) -->
+            <!-- MENU WIZARD CONFIGURATION MATCH (1v1 : 3 ÉTAPES / 2v2 : 5 ÉTAPES) -->
             <div id="match-wizard-panel" class="glass-panel"
                 style="display: none; max-width: 600px; margin: 0 auto; width: 100%;">
 
@@ -4493,13 +4498,15 @@
                         1/3)</span>
                 </div>
 
-                <!-- ÉTAPE 1 : JOUEUR 1 -->
+                <!-- ÉTAPE 1 : JOUEUR 1 (ou Équipe A - Joueur 1 en 2v2) -->
                 <div id="wizard-step-1" class="wizard-step">
-                    <h2 style="font-size: 1.4rem; margin-bottom: 6px;">👤 Joueur 1</h2>
-                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez le prénom du Joueur 1 et
+                    <h2 id="wizard-title-j1" style="font-size: 1.4rem; margin-bottom: 6px;">👤 Joueur 1</h2>
+                    <p id="wizard-subtitle-j1" style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez
+                        le prénom du Joueur 1 et
                         choisissez sa carte bonus.</p>
 
-                    <label style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
+                    <label id="wizard-label-j1"
+                        style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
                         Joueur 1</label>
                     <input type="text" id="match-prenom-j1" placeholder="Entrez le prénom du Joueur 1"
                         list="liste-joueurs-suggeres" autocomplete="off" oninput="verifierReconnaissanceJoueur(1)"
@@ -4531,17 +4538,20 @@
                         style="margin-top: 12px; font-size: 0.9rem; color: #FFD54F; font-weight: bold; text-align: center; min-height: 24px;">
                     </div>
 
-                    <button class="btn-action" style="margin-top: 20px; padding: 14px; font-size: 1.05rem;"
+                    <button id="btn-valider-j1" class="btn-action"
+                        style="margin-top: 20px; padding: 14px; font-size: 1.05rem;"
                         onclick="validerEtapeJoueur1()">Valider Joueur 1 ➡</button>
                 </div>
 
-                <!-- ÉTAPE 2 : JOUEUR 2 -->
+                <!-- ÉTAPE 2 : JOUEUR 2 (ou Équipe B - Joueur 1 en 2v2) -->
                 <div id="wizard-step-2" class="wizard-step" style="display: none;">
-                    <h2 style="font-size: 1.4rem; margin-bottom: 6px;">👤 Joueur 2</h2>
-                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez le prénom du Joueur 2 et
+                    <h2 id="wizard-title-j2" style="font-size: 1.4rem; margin-bottom: 6px;">👤 Joueur 2</h2>
+                    <p id="wizard-subtitle-j2" style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez
+                        le prénom du Joueur 2 et
                         choisissez sa carte bonus.</p>
 
-                    <label style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
+                    <label id="wizard-label-j2"
+                        style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
                         Joueur 2</label>
                     <input type="text" id="match-prenom-j2" placeholder="Entrez le prénom du Joueur 2"
                         list="liste-joueurs-suggeres" autocomplete="off" oninput="verifierReconnaissanceJoueur(2)"
@@ -4575,16 +4585,114 @@
 
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
                         <button class="btn-retour" style="flex: 1;" onclick="afficherEtapeMatch(1)">⬅ Précédent</button>
-                        <button class="btn-action" style="flex: 2; margin: 0; padding: 14px;"
+                        <button id="btn-valider-j2" class="btn-action" style="flex: 2; margin: 0; padding: 14px;"
                             onclick="validerEtapeJoueur2()">Valider Joueur 2 ➡</button>
                     </div>
                 </div>
 
-                <!-- ÉTAPE 3 : ARBITRE & TYPE D'ARBITRAGE -->
+                <!-- ÉTAPE J3 (2v2 UNIQUEMENT) : ÉQUIPE A - JOUEUR 2 (MANCHE 2) -->
+                <div id="wizard-step-j3" class="wizard-step" style="display: none;">
+                    <h2 style="font-size: 1.4rem; margin-bottom: 6px; color: #FFA000;">🟠 Équipe A — Joueur 2 (Manche 2)
+                    </h2>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Ce joueur prendra le relais pour
+                        l'Équipe A lors de la 2e manche en conservant le score de son coéquipier.</p>
+
+                    <label style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
+                        Joueur 2 (Équipe A)</label>
+                    <input type="text" id="match-prenom-j3" placeholder="Entrez le prénom du Joueur 2 (Équipe A)"
+                        list="liste-joueurs-suggeres" autocomplete="off" oninput="verifierReconnaissanceJoueur(3)"
+                        style="margin-bottom: 8px;">
+                    <div id="badge-reconnaissance-j3" class="badge-reconnaissance-box"></div>
+
+                    <label
+                        style="font-size: 1rem; font-weight: bold; color: var(--accent-color); display: block; margin-bottom: 8px;">Choisir
+                        sa carte bonus personnelle (ou jouer sans bonus) :</label>
+
+                    <button type="button" id="btn-sans-bonus-j3" onclick="selectionnerSansBonus(3)"
+                        style="width: 100%; margin-bottom: 10px; padding: 11px 14px; border-radius: 10px; border: 1.5px dashed rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); color: #e2e8f0; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                        <span>🚫</span>
+                        <span id="txt-sans-bonus-j3">Jouer sans carte bonus (Match classique)</span>
+                    </button>
+
+                    <div class="niveaux-tabs">
+                        <button type="button" class="btn-niveau-tab active" id="btn-tab-j3-1"
+                            onclick="afficherNiveauCartes(3, 1)">Niveau 1 (+10 pts)</button>
+                        <button type="button" class="btn-niveau-tab" id="btn-tab-j3-2"
+                            onclick="afficherNiveauCartes(3, 2)">Niveau 2 (+20 pts)</button>
+                        <button type="button" class="btn-niveau-tab" id="btn-tab-j3-3"
+                            onclick="afficherNiveauCartes(3, 3)">Niveau 3 (+30 pts)</button>
+                    </div>
+
+                    <div id="cartes-grid-j3" class="bonus-cards-grid"></div>
+
+                    <div id="carte-choisie-info-j3"
+                        style="margin-top: 12px; font-size: 0.9rem; color: #FFD54F; font-weight: bold; text-align: center; min-height: 24px;">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn-retour" style="flex: 1;" onclick="afficherEtapeMatch(2)">⬅ Précédent</button>
+                        <button class="btn-action" style="flex: 2; margin: 0; padding: 14px;"
+                            onclick="validerEtapeJoueur3()">Valider Joueur 2 (Éq. A) ➡</button>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE J4 (2v2 UNIQUEMENT) : ÉQUIPE B - JOUEUR 2 (MANCHE 2) -->
+                <div id="wizard-step-j4" class="wizard-step" style="display: none;">
+                    <h2 style="font-size: 1.4rem; margin-bottom: 6px; color: #64B5F6;">🔵 Équipe B — Joueur 2 (Manche 2)
+                    </h2>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Ce joueur prendra le relais pour
+                        l'Équipe B lors de la 2e manche en conservant le score de son coéquipier.</p>
+
+                    <label style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom du
+                        Joueur 2 (Équipe B)</label>
+                    <input type="text" id="match-prenom-j4" placeholder="Entrez le prénom du Joueur 2 (Équipe B)"
+                        list="liste-joueurs-suggeres" autocomplete="off" oninput="verifierReconnaissanceJoueur(4)"
+                        style="margin-bottom: 8px;">
+                    <div id="badge-reconnaissance-j4" class="badge-reconnaissance-box"></div>
+
+                    <label
+                        style="font-size: 1rem; font-weight: bold; color: var(--accent-color); display: block; margin-bottom: 8px;">Choisir
+                        sa carte bonus personnelle (ou jouer sans bonus) :</label>
+
+                    <button type="button" id="btn-sans-bonus-j4" onclick="selectionnerSansBonus(4)"
+                        style="width: 100%; margin-bottom: 10px; padding: 11px 14px; border-radius: 10px; border: 1.5px dashed rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); color: #e2e8f0; font-weight: 700; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                        <span>🚫</span>
+                        <span id="txt-sans-bonus-j4">Jouer sans carte bonus (Match classique)</span>
+                    </button>
+
+                    <div class="niveaux-tabs">
+                        <button type="button" class="btn-niveau-tab active" id="btn-tab-j4-1"
+                            onclick="afficherNiveauCartes(4, 1)">Niveau 1 (+10 pts)</button>
+                        <button type="button" class="btn-niveau-tab" id="btn-tab-j4-2"
+                            onclick="afficherNiveauCartes(4, 2)">Niveau 2 (+20 pts)</button>
+                        <button type="button" class="btn-niveau-tab" id="btn-tab-j4-3"
+                            onclick="afficherNiveauCartes(4, 3)">Niveau 3 (+30 pts)</button>
+                    </div>
+
+                    <div id="cartes-grid-j4" class="bonus-cards-grid"></div>
+
+                    <div id="carte-choisie-info-j4"
+                        style="margin-top: 12px; font-size: 0.9rem; color: #FFD54F; font-weight: bold; text-align: center; min-height: 24px;">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn-retour" style="flex: 1;" onclick="afficherEtapeMatch('j3')">⬅
+                            Précédent</button>
+                        <button class="btn-action" style="flex: 2; margin: 0; padding: 14px;"
+                            onclick="validerEtapeJoueur4()">Valider Joueur 2 (Éq. B) ➡</button>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE FINALE : ARBITRE, MINUTEUR & TYPE D'ARBITRAGE -->
                 <div id="wizard-step-3" class="wizard-step" style="display: none;">
-                    <h2 style="font-size: 1.4rem; margin-bottom: 6px;">👨‍⚖️ Arbitre</h2>
-                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez le prénom de l'arbitre et
+                    <h2 style="font-size: 1.4rem; margin-bottom: 6px;">👨‍⚖️ Arbitre & Paramètres</h2>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Inscrivez le prénom de l'arbitre,
+                        réglez le minuteur et
                         choisissez le mode d'observation.</p>
+
+                    <div id="wizard-recap-2v2"
+                        style="display: none; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem;">
+                    </div>
 
                     <label style="font-size: 0.95rem; font-weight: bold; display: block; margin-bottom: 6px;">Prénom de
                         l'arbitre</label>
@@ -4592,6 +4700,35 @@
                         list="liste-joueurs-suggeres" autocomplete="off" oninput="verifierReconnaissanceArbitre()"
                         style="margin-bottom: 8px;">
                     <div id="badge-reconnaissance-arbitre" class="badge-reconnaissance-box"></div>
+
+                    <!-- Réglage du minuteur par manche -->
+                    <div id="wizard-minuteur-config-box"
+                        style="background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.3); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
+                        <div
+                            style="font-size: 0.92rem; font-weight: bold; color: #00E5FF; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                            <span>⏱️ Durée du minuteur par manche :</span>
+                            <span id="wizard-duree-manche-label"
+                                style="font-size: 1.2rem; font-weight: 900; color: #fff; background: rgba(0,0,0,0.4); padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(0,229,255,0.4);">03:00</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;">
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 6px 10px; font-size: 0.82rem;"
+                                onclick="ajusterDureeMancheWizard(-60)">-1 min</button>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 6px 10px; font-size: 0.82rem;"
+                                onclick="ajusterDureeMancheWizard(-30)">-30 s</button>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 6px 10px; font-size: 0.82rem;"
+                                onclick="ajusterDureeMancheWizard(30)">+30 s</button>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 6px 10px; font-size: 0.82rem;"
+                                onclick="ajusterDureeMancheWizard(60)">+1 min</button>
+                        </div>
+                        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px; text-align: center;">
+                            💡 En match 2 vs 2, le minuteur se réinitialise à la fin de la Manche 1 mais <strong>le
+                                score est conservé</strong> pour la Manche 2.
+                        </div>
+                    </div>
 
                     <label
                         style="font-size: 1rem; font-weight: bold; color: var(--accent-color); display: block; margin-bottom: 8px;">Quel
@@ -4614,7 +4751,8 @@
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 25px;">
-                        <button class="btn-retour" style="flex: 1;" onclick="afficherEtapeMatch(2)">⬅ Précédent</button>
+                        <button class="btn-retour" style="flex: 1;" onclick="retourDepuisEtapeArbitre()">⬅
+                            Précédent</button>
                         <button class="btn-inscription-gradient"
                             style="flex: 2; margin: 0; padding: 14px; font-size: 1.05rem;"
                             onclick="lancerMatchDepuisWizard()">🏸 Démarrer le match</button>
@@ -4630,7 +4768,7 @@
 
                 <!-- Barre de navigation et contrôle supérieure -->
                 <div
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px;">
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px;">
                     <button class="btn-retour" onclick="quitterMatchSansSauver()">⬅ Abandonner</button>
                     <div id="bandeau-arbitre-info"
                         style="font-size: 0.95rem; color: #FFD54F; font-weight: bold; text-align: center;">
@@ -4638,6 +4776,64 @@
                     </div>
                     <button class="btn-danger" style="width: auto; padding: 8px 14px; margin: 0; font-size: 0.9rem;"
                         onclick="reinitialiserMatch()">🔄 Zéro</button>
+                </div>
+
+                <!-- BANDEAU MINUTEUR RÉGLABLE & GESTION DES MANCHES (2 vs 2 Relais) -->
+                <div id="bandeau-minuteur-et-manche"
+                    style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;">
+
+                    <!-- Ligne Minuteur réglable -->
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 700;">⏱️ Minuteur :</span>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 4px 8px; font-size: 0.78rem;"
+                                onclick="ajusterMinuteurEnMatch(-30)" title="Retirer 30 secondes">-30s</button>
+                            <span id="minuteur-match-display"
+                                style="font-family: monospace; font-size: 1.45rem; font-weight: 900; color: #00E5FF; background: rgba(0,0,0,0.5); padding: 2px 10px; border-radius: 8px; border: 1px solid rgba(0,229,255,0.35); min-width: 72px; text-align: center;">03:00</span>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 4px 8px; font-size: 0.78rem;"
+                                onclick="ajusterMinuteurEnMatch(30)" title="Ajouter 30 secondes">+30s</button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <button type="button" id="btn-toggle-minuteur" class="btn-action"
+                                style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.82rem; background: linear-gradient(135deg, #10B981, #059669); color: #fff;"
+                                onclick="toggleMinuteurMatch()">▶️ Démarrer</button>
+                            <button type="button" class="btn-secondary"
+                                style="width: auto; margin: 0; padding: 6px 10px; font-size: 0.8rem;"
+                                onclick="reinitialiserMinuteurSeul()"
+                                title="Réinitialiser uniquement le minuteur (garde le score)">🔄 Reset chrono</button>
+                        </div>
+                    </div>
+
+                    <!-- Section spécifique Relais 2 vs 2 -->
+                    <div id="bandeau-relais-2v2"
+                        style="display: none; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 8px;">
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                            <div>
+                                <div id="badge-manche-2v2" style="font-size: 0.9rem; font-weight: 800; color: #FFD54F;">
+                                    🏁 MANCHE 1 / 2 — Duel 1 vs 1
+                                </div>
+                                <div id="info-relais-2v2" style="font-size: 0.78rem; color: #cbd5e1; margin-top: 2px;">
+                                    Relais Manche 2 : - vs -
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" id="btn-passer-manche-2" class="btn-action"
+                                    style="width: auto; margin: 0; padding: 8px 14px; font-size: 0.85rem; background: linear-gradient(135deg, #FF6D00, #FFA000); color: #121212; font-weight: 800;"
+                                    onclick="passerManche2Relais()">
+                                    ⏭️ Fin Manche 1 ➔ Passer Manche 2 (Relais)
+                                </button>
+                                <button type="button" id="btn-retour-manche-1" class="btn-secondary"
+                                    style="display: none; width: auto; margin: 0; padding: 6px 10px; font-size: 0.78rem;"
+                                    onclick="revenirManche1Relais()">
+                                    ⏮️ Retour Manche 1
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ZONE TERRAIN INTERACTIF (Mode expert / avec schéma) -->
@@ -4895,7 +5091,8 @@
                         <ul class="video-tips-list">
                             <li>🎯 <strong>Objectif :</strong> Connaître les règles essentielles du badminton pour jouer
                                 et arbitrer correctement un match.</li>
-                            <li>⚖️ <strong>Points clés :</strong> Zones de service (score pair à droite, impair à gauche)
+                            <li>⚖️ <strong>Points clés :</strong> Zones de service (score pair à droite, impair à
+                                gauche)
                                 en diagonale, limites du terrain en simple et fautes principales.</li>
                         </ul>
 
@@ -6729,15 +6926,156 @@
         };
 
         let matchWizardState = {
-            j1: { prenom: '', carte: null, niveau: 1, joueurId: null },
-            j2: { prenom: '', carte: null, niveau: 1, joueurId: null },
+            format: '1v1',
+            dureeMancheSec: 180,
+            j1: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
+            j2: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
+            j3: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
+            j4: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
             arbitre: '',
             arbitreId: null,
             modeArbitrage: 'terrain'
         };
 
+        // --- ÉTAT DU MINUTEUR DE MATCH (RÉGLABLE & RÉINITIALISABLE PAR MANCHE) ---
+        let minuteurMatchState = {
+            dureeMancheSec: 180,
+            restantSec: 180,
+            enCours: false,
+            intervalId: null
+        };
+
+        function formaterTempsMinuteur(totalSec) {
+            const sec = Math.max(0, Math.floor(totalSec || 0));
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }
+
+        function actualiserAffichageMinuteurWizard() {
+            const el = document.getElementById('wizard-duree-manche-label');
+            if (el) el.innerText = formaterTempsMinuteur(matchWizardState.dureeMancheSec || 180);
+        }
+
+        function ajusterDureeMancheWizard(deltaSec) {
+            let nouv = (matchWizardState.dureeMancheSec || 180) + deltaSec;
+            if (nouv < 30) nouv = 30;
+            if (nouv > 1800) nouv = 1800;
+            matchWizardState.dureeMancheSec = nouv;
+            actualiserAffichageMinuteurWizard();
+        }
+
+        function actualiserAffichageMinuteurMatch() {
+            const el = document.getElementById('minuteur-match-display');
+            if (el) {
+                el.innerText = formaterTempsMinuteur(minuteurMatchState.restantSec);
+                if (minuteurMatchState.restantSec <= 15 && minuteurMatchState.restantSec > 0) {
+                    el.style.color = '#FF5252';
+                    el.style.borderColor = '#FF5252';
+                } else if (minuteurMatchState.restantSec === 0) {
+                    el.style.color = '#FFD54F';
+                    el.style.borderColor = '#FFD54F';
+                } else {
+                    el.style.color = '#00E5FF';
+                    el.style.borderColor = 'rgba(0,229,255,0.35)';
+                }
+            }
+            const btnToggle = document.getElementById('btn-toggle-minuteur');
+            if (btnToggle) {
+                if (minuteurMatchState.enCours) {
+                    btnToggle.innerText = '⏸️ Pause';
+                    btnToggle.style.background = 'linear-gradient(135deg, #F59E0B, #D97706)';
+                } else {
+                    btnToggle.innerText = '▶️ Démarrer';
+                    btnToggle.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+                }
+            }
+        }
+
+        function arreterMinuteurMatch() {
+            if (minuteurMatchState.intervalId) {
+                clearInterval(minuteurMatchState.intervalId);
+                minuteurMatchState.intervalId = null;
+            }
+            minuteurMatchState.enCours = false;
+            actualiserAffichageMinuteurMatch();
+        }
+
+        function emettreSonFinManche() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                [0, 0.22, 0.44].forEach((delay, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = idx === 2 ? 880 : 660;
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime + delay);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.18);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + delay);
+                    osc.stop(ctx.currentTime + delay + 0.19);
+                });
+            } catch (e) { }
+        }
+
+        function toggleMinuteurMatch() {
+            if (minuteurMatchState.enCours) {
+                arreterMinuteurMatch();
+                return;
+            }
+            if (minuteurMatchState.restantSec <= 0) {
+                minuteurMatchState.restantSec = minuteurMatchState.dureeMancheSec || 180;
+            }
+            minuteurMatchState.enCours = true;
+            actualiserAffichageMinuteurMatch();
+
+            minuteurMatchState.intervalId = setInterval(() => {
+                if (minuteurMatchState.restantSec > 0) {
+                    minuteurMatchState.restantSec -= 1;
+                    actualiserAffichageMinuteurMatch();
+                }
+                if (minuteurMatchState.restantSec <= 0) {
+                    arreterMinuteurMatch();
+                    emettreSonFinManche();
+                    if (matchEnCours && matchEnCours.format === '2v2' && matchEnCours.mancheActuelle === 1) {
+                        afficherConfirmationCustom(
+                            `⏱️ Temps écoulé pour la Manche 1 !\nScore conservé : Équipe A (${matchEnCours.A.score}) - Équipe B (${matchEnCours.B.score}).\n\nPasser à la Manche 2 (Relais : ${matchEnCours.equipeA.j2.prenom} vs ${matchEnCours.equipeB.j2.prenom}) et réinitialiser le minuteur ?`,
+                            function () {
+                                executerPassageManche2Relais();
+                            }
+                        );
+                    } else {
+                        alert(`⏱️ Temps de la manche écoulé !\nScore actuel : ${matchEnCours ? matchEnCours.A.score : 0} - ${matchEnCours ? matchEnCours.B.score : 0}`);
+                    }
+                }
+            }, 1000);
+        }
+
+        function ajusterMinuteurEnMatch(deltaSec) {
+            let nouvDuree = (minuteurMatchState.dureeMancheSec || 180) + deltaSec;
+            if (nouvDuree < 15) nouvDuree = 15;
+            if (nouvDuree > 1800) nouvDuree = 1800;
+            minuteurMatchState.dureeMancheSec = nouvDuree;
+
+            let nouvRestant = (minuteurMatchState.restantSec || 0) + deltaSec;
+            if (nouvRestant < 0) nouvRestant = 0;
+            if (nouvRestant > 1800) nouvRestant = 1800;
+            minuteurMatchState.restantSec = nouvRestant;
+            actualiserAffichageMinuteurMatch();
+        }
+
+        function reinitialiserMinuteurSeul() {
+            arreterMinuteurMatch();
+            minuteurMatchState.restantSec = minuteurMatchState.dureeMancheSec || 180;
+            actualiserAffichageMinuteurMatch();
+        }
+
         // --- GESTION DU FLUX DE MATCH ET WIZARD AVEC RECONNAISSANCE ---
         function reinitialiserVueMatchConfig() {
+            arreterMinuteurMatch();
             const boxDemarrage = document.getElementById('match-demarrage-box');
             const wizardPanel = document.getElementById('match-wizard-panel');
             if (boxDemarrage) boxDemarrage.style.display = 'flex';
@@ -6846,29 +7184,74 @@
             }
         }
 
-        function ouvrirMenuConfigMatch() {
+        function ouvrirMenuConfigMatch(format = '1v1') {
+            const formatChoisi = (format === '2v2') ? '2v2' : '1v1';
             document.getElementById('match-demarrage-box').style.display = 'none';
             document.getElementById('match-wizard-panel').style.display = 'block';
 
             matchWizardState = {
+                format: formatChoisi,
+                dureeMancheSec: 180,
                 j1: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
                 j2: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
+                j3: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
+                j4: { prenom: '', carte: null, sansBonus: false, niveau: 1, joueurId: null },
                 arbitre: '',
                 arbitreId: null,
                 modeArbitrage: 'terrain'
             };
 
-            document.getElementById('match-prenom-j1').value = '';
-            document.getElementById('match-prenom-j2').value = '';
-            document.getElementById('match-prenom-arbitre').value = '';
-
-            const b1 = document.getElementById('badge-reconnaissance-j1');
-            const b2 = document.getElementById('badge-reconnaissance-j2');
+            [1, 2, 3, 4].forEach(num => {
+                const inp = document.getElementById('match-prenom-j' + num);
+                if (inp) inp.value = '';
+                const b = document.getElementById('badge-reconnaissance-j' + num);
+                if (b) b.innerHTML = '';
+            });
+            const inpArb = document.getElementById('match-prenom-arbitre');
+            if (inpArb) inpArb.value = '';
             const ba = document.getElementById('badge-reconnaissance-arbitre');
-            if (b1) b1.innerHTML = '';
-            if (b2) b2.innerHTML = '';
             if (ba) ba.innerHTML = '';
 
+            // Adaptation dynamique des libellés selon 1v1 ou 2v2
+            const tJ1 = document.getElementById('wizard-title-j1');
+            const subJ1 = document.getElementById('wizard-subtitle-j1');
+            const lblJ1 = document.getElementById('wizard-label-j1');
+            const inpJ1 = document.getElementById('match-prenom-j1');
+            const btnValJ1 = document.getElementById('btn-valider-j1');
+
+            const tJ2 = document.getElementById('wizard-title-j2');
+            const subJ2 = document.getElementById('wizard-subtitle-j2');
+            const lblJ2 = document.getElementById('wizard-label-j2');
+            const inpJ2 = document.getElementById('match-prenom-j2');
+            const btnValJ2 = document.getElementById('btn-valider-j2');
+
+            if (formatChoisi === '2v2') {
+                if (tJ1) { tJ1.innerText = '🟠 Équipe A — Joueur 1 (Manche 1)'; tJ1.style.color = '#FFA000'; }
+                if (subJ1) subJ1.innerText = "Ce joueur débutera la Manche 1 pour l'Équipe A. Choisissez son prénom et sa carte bonus personnelle.";
+                if (lblJ1) lblJ1.innerText = 'Prénom du Joueur 1 (Équipe A)';
+                if (inpJ1) inpJ1.placeholder = 'Entrez le prénom du Joueur 1 (Équipe A)';
+                if (btnValJ1) btnValJ1.innerText = 'Valider Joueur 1 (Éq. A) ➡';
+
+                if (tJ2) { tJ2.innerText = '🔵 Équipe B — Joueur 1 (Manche 1)'; tJ2.style.color = '#64B5F6'; }
+                if (subJ2) subJ2.innerText = "Ce joueur affrontera le Joueur 1 de l'Équipe A lors de la Manche 1. Choisissez son prénom et sa carte bonus personnelle.";
+                if (lblJ2) lblJ2.innerText = 'Prénom du Joueur 1 (Équipe B)';
+                if (inpJ2) inpJ2.placeholder = 'Entrez le prénom du Joueur 1 (Équipe B)';
+                if (btnValJ2) btnValJ2.innerText = 'Valider Joueur 1 (Éq. B) ➡';
+            } else {
+                if (tJ1) { tJ1.innerText = '👤 Joueur 1'; tJ1.style.color = ''; }
+                if (subJ1) subJ1.innerText = 'Inscrivez le prénom du Joueur 1 et choisissez sa carte bonus.';
+                if (lblJ1) lblJ1.innerText = 'Prénom du Joueur 1';
+                if (inpJ1) inpJ1.placeholder = 'Entrez le prénom du Joueur 1';
+                if (btnValJ1) btnValJ1.innerText = 'Valider Joueur 1 ➡';
+
+                if (tJ2) { tJ2.innerText = '👤 Joueur 2'; tJ2.style.color = ''; }
+                if (subJ2) subJ2.innerText = 'Inscrivez le prénom du Joueur 2 et choisissez sa carte bonus.';
+                if (lblJ2) lblJ2.innerText = 'Prénom du Joueur 2';
+                if (inpJ2) inpJ2.placeholder = 'Entrez le prénom du Joueur 2';
+                if (btnValJ2) btnValJ2.innerText = 'Valider Joueur 2 ➡';
+            }
+
+            actualiserAffichageMinuteurWizard();
             actualiserSuggestionsJoueurs();
             afficherEtapeMatch(1);
             afficherNiveauCartes(1, 1);
@@ -6881,12 +7264,62 @@
         function afficherEtapeMatch(etape) {
             document.getElementById('wizard-step-1').style.display = (etape === 1) ? 'block' : 'none';
             document.getElementById('wizard-step-2').style.display = (etape === 2) ? 'block' : 'none';
+            const stepJ3 = document.getElementById('wizard-step-j3');
+            const stepJ4 = document.getElementById('wizard-step-j4');
+            if (stepJ3) stepJ3.style.display = (etape === 'j3') ? 'block' : 'none';
+            if (stepJ4) stepJ4.style.display = (etape === 'j4') ? 'block' : 'none';
             document.getElementById('wizard-step-3').style.display = (etape === 3) ? 'block' : 'none';
 
             const indicator = document.getElementById('wizard-step-indicator');
-            if (etape === 1) indicator.innerText = "Joueur 1 (Étape 1/3)";
-            else if (etape === 2) indicator.innerText = "Joueur 2 (Étape 2/3)";
-            else if (etape === 3) indicator.innerText = "Arbitrage (Étape 3/3)";
+            const is2v2 = matchWizardState.format === '2v2';
+            if (!is2v2) {
+                if (etape === 1) indicator.innerText = "Joueur 1 (Étape 1/3)";
+                else if (etape === 2) indicator.innerText = "Joueur 2 (Étape 2/3)";
+                else if (etape === 3) indicator.innerText = "Arbitrage (Étape 3/3)";
+            } else {
+                if (etape === 1) indicator.innerText = "Éq. A - Joueur 1 (Étape 1/5)";
+                else if (etape === 2) indicator.innerText = "Éq. B - Joueur 1 (Étape 2/5)";
+                else if (etape === 'j3') indicator.innerText = "Éq. A - Joueur 2 (Étape 3/5)";
+                else if (etape === 'j4') indicator.innerText = "Éq. B - Joueur 2 (Étape 4/5)";
+                else if (etape === 3) indicator.innerText = "Arbitrage & Chrono (Étape 5/5)";
+            }
+
+            // Récapitulatif des équipes en étape finale pour le 2v2
+            const recapBox = document.getElementById('wizard-recap-2v2');
+            if (recapBox) {
+                if (is2v2 && etape === 3) {
+                    const c1 = matchWizardState.j1.carte ? `${matchWizardState.j1.carte.nom} (+${(matchWizardState.j1.niveau || 1) * 10})` : 'Sans bonus';
+                    const c2 = matchWizardState.j2.carte ? `${matchWizardState.j2.carte.nom} (+${(matchWizardState.j2.niveau || 1) * 10})` : 'Sans bonus';
+                    const c3 = matchWizardState.j3.carte ? `${matchWizardState.j3.carte.nom} (+${(matchWizardState.j3.niveau || 1) * 10})` : 'Sans bonus';
+                    const c4 = matchWizardState.j4.carte ? `${matchWizardState.j4.carte.nom} (+${(matchWizardState.j4.niveau || 1) * 10})` : 'Sans bonus';
+                    recapBox.style.display = 'block';
+                    recapBox.innerHTML = `
+                        <div style="font-weight: 800; color: #FFD54F; margin-bottom: 6px;">👥 Récapitulatif du Relais 2 vs 2 :</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div style="background: rgba(255,160,0,0.1); border-left: 3px solid #FFA000; padding: 6px 8px; border-radius: 6px;">
+                                <div style="font-weight: 800; color: #FFA000;">🟠 Équipe A</div>
+                                <div>• M1 : <strong>${matchWizardState.j1.prenom}</strong> <span style="color:#aaa;">(${c1})</span></div>
+                                <div>• M2 : <strong>${matchWizardState.j3.prenom}</strong> <span style="color:#aaa;">(${c3})</span></div>
+                            </div>
+                            <div style="background: rgba(33,150,243,0.1); border-left: 3px solid #64B5F6; padding: 6px 8px; border-radius: 6px;">
+                                <div style="font-weight: 800; color: #64B5F6;">🔵 Équipe B</div>
+                                <div>• M1 : <strong>${matchWizardState.j2.prenom}</strong> <span style="color:#aaa;">(${c2})</span></div>
+                                <div>• M2 : <strong>${matchWizardState.j4.prenom}</strong> <span style="color:#aaa;">(${c4})</span></div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    recapBox.style.display = 'none';
+                }
+            }
+        }
+
+        function retourDepuisEtapeArbitre() {
+            if (matchWizardState.format === '2v2') {
+                afficherEtapeMatch('j4');
+            } else {
+                afficherEtapeMatch(2);
+            }
         }
 
         function afficherNiveauCartes(joueurNum, niveau) {
@@ -6944,7 +7377,7 @@
             if (btnSelect) {
                 btnSelect.style.display = 'block';
                 const estDejaChoisie = matchWizardState['j' + joueurNum].carte && matchWizardState['j' + joueurNum].carte.id === carte.id;
-                btnSelect.innerText = estDejaChoisie ? `✓ Carte déjà sélectionnée (+${bonus} pts)` : `✅ Choisir pour Joueur ${joueurNum} (+${bonus} pts)`;
+                btnSelect.innerText = estDejaChoisie ? `✓ Carte déjà sélectionnée (+${bonus} pts)` : `✅ Choisir cette carte (+${bonus} pts)`;
                 btnSelect.onclick = () => {
                     selectionnerCarte(joueurNum, carte.id, niveau);
                     fermerModaleCarteDetail();
@@ -7011,7 +7444,7 @@
         function validerEtapeJoueur1() {
             const prenom = document.getElementById('match-prenom-j1').value.trim();
             if (!prenom) {
-                alert("Veuillez inscrire le prénom du Joueur 1 !");
+                alert(matchWizardState.format === '2v2' ? "Veuillez inscrire le prénom du Joueur 1 de l'Équipe A !" : "Veuillez inscrire le prénom du Joueur 1 !");
                 document.getElementById('match-prenom-j1').focus();
                 return;
             }
@@ -7021,7 +7454,7 @@
             matchWizardState.j1.prenom = prenom;
             verifierReconnaissanceJoueur(1);
 
-            // Passage au Joueur 2
+            // Passage au Joueur 2 (ou Équipe B - Joueur 1 en 2v2)
             afficherEtapeMatch(2);
             verifierReconnaissanceJoueur(2);
             afficherNiveauCartes(2, matchWizardState.j2.niveau || 1);
@@ -7030,7 +7463,7 @@
         function validerEtapeJoueur2() {
             const prenom = document.getElementById('match-prenom-j2').value.trim();
             if (!prenom) {
-                alert("Veuillez inscrire le prénom du Joueur 2 !");
+                alert(matchWizardState.format === '2v2' ? "Veuillez inscrire le prénom du Joueur 1 de l'Équipe B !" : "Veuillez inscrire le prénom du Joueur 2 !");
                 document.getElementById('match-prenom-j2').focus();
                 return;
             }
@@ -7040,7 +7473,52 @@
             matchWizardState.j2.prenom = prenom;
             verifierReconnaissanceJoueur(2);
 
-            // Passage à l'Arbitre
+            if (matchWizardState.format === '2v2') {
+                // En 2v2, passage au Joueur 2 de l'Équipe A (j3)
+                afficherEtapeMatch('j3');
+                verifierReconnaissanceJoueur(3);
+                afficherNiveauCartes(3, matchWizardState.j3.niveau || 1);
+            } else {
+                // En 1v1, passage direct à l'Arbitre
+                afficherEtapeMatch(3);
+                verifierReconnaissanceArbitre();
+                choisirModeArbitrage(matchWizardState.modeArbitrage || 'terrain');
+            }
+        }
+
+        function validerEtapeJoueur3() {
+            const prenom = document.getElementById('match-prenom-j3').value.trim();
+            if (!prenom) {
+                alert("Veuillez inscrire le prénom du Joueur 2 de l'Équipe A (Manche 2) !");
+                document.getElementById('match-prenom-j3').focus();
+                return;
+            }
+            if (!matchWizardState.j3.carte && !matchWizardState.j3.sansBonus) {
+                matchWizardState.j3.sansBonus = true;
+            }
+            matchWizardState.j3.prenom = prenom;
+            verifierReconnaissanceJoueur(3);
+
+            // Passage au Joueur 2 de l'Équipe B (j4)
+            afficherEtapeMatch('j4');
+            verifierReconnaissanceJoueur(4);
+            afficherNiveauCartes(4, matchWizardState.j4.niveau || 1);
+        }
+
+        function validerEtapeJoueur4() {
+            const prenom = document.getElementById('match-prenom-j4').value.trim();
+            if (!prenom) {
+                alert("Veuillez inscrire le prénom du Joueur 2 de l'Équipe B (Manche 2) !");
+                document.getElementById('match-prenom-j4').focus();
+                return;
+            }
+            if (!matchWizardState.j4.carte && !matchWizardState.j4.sansBonus) {
+                matchWizardState.j4.sansBonus = true;
+            }
+            matchWizardState.j4.prenom = prenom;
+            verifierReconnaissanceJoueur(4);
+
+            // Passage à l'Arbitre & Paramètres
             afficherEtapeMatch(3);
             verifierReconnaissanceArbitre();
             choisirModeArbitrage(matchWizardState.modeArbitrage || 'terrain');
@@ -7062,70 +7540,50 @@
             }
         }
 
-        function lancerMatchDepuisWizard() {
-            let arbitre = document.getElementById('match-prenom-arbitre').value.trim();
-            if (!arbitre) arbitre = "Arbitre";
-            matchWizardState.arbitre = arbitre;
-            verifierReconnaissanceArbitre();
+        // Synchronise les joueurs actifs (A et B) selon la manche actuelle en 2v2 (ou 1v1) sans réinitialiser le score
+        function synchroniserJoueursActifsManche() {
+            if (!matchEnCours) return;
 
-            const niveauA = matchWizardState.j1.niveau || 1;
-            const bonusA = niveauA * 10;
-            const niveauB = matchWizardState.j2.niveau || 1;
-            const bonusB = niveauB * 10;
+            if (matchEnCours.format === '2v2') {
+                const m = matchEnCours.mancheActuelle || 1;
+                const actifA = (m === 1) ? matchEnCours.equipeA.j1 : matchEnCours.equipeA.j2;
+                const actifB = (m === 1) ? matchEnCours.equipeB.j1 : matchEnCours.equipeB.j2;
 
-            const dateStr = new Date().toLocaleDateString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+                matchEnCours.A.id = actifA.id;
+                matchEnCours.A.joueurId = actifA.joueurId;
+                matchEnCours.A.prenom = actifA.prenom;
+                matchEnCours.A.carte = actifA.carte;
+                matchEnCours.A.niveau = actifA.niveau;
+                matchEnCours.A.bonusPts = actifA.bonusPts;
 
-            // Initialisation de la structure du match avec points et identités
-            matchEnCours = {
-                A: {
-                    id: matchWizardState.j1.joueurId || ('match_j1_' + Date.now()),
-                    joueurId: matchWizardState.j1.joueurId,
-                    prenom: matchWizardState.j1.prenom,
-                    carte: matchWizardState.j1.carte,
-                    niveau: niveauA,
-                    bonusPts: bonusA,
-                    score: 0
-                },
-                B: {
-                    id: matchWizardState.j2.joueurId || ('match_j2_' + Date.now()),
-                    joueurId: matchWizardState.j2.joueurId,
-                    prenom: matchWizardState.j2.prenom,
-                    carte: matchWizardState.j2.carte,
-                    niveau: niveauB,
-                    bonusPts: bonusB,
-                    score: 0
-                },
-                arbitre: matchWizardState.arbitre,
-                arbitreId: matchWizardState.arbitreId,
-                mode: matchWizardState.modeArbitrage,
-                date: dateStr
-            };
-            historiquePoints = [];
+                matchEnCours.B.id = actifB.id;
+                matchEnCours.B.joueurId = actifB.joueurId;
+                matchEnCours.B.prenom = actifB.prenom;
+                matchEnCours.B.carte = actifB.carte;
+                matchEnCours.B.niveau = actifB.niveau;
+                matchEnCours.B.bonusPts = actifB.bonusPts;
+            }
 
-            // Injection des noms et cartes dans l'interface de jeu
-            document.getElementById('nom-joueur-a').innerText = matchEnCours.A.prenom;
-            document.getElementById('nom-joueur-b').innerText = matchEnCours.B.prenom;
+            const is2v2 = matchEnCours.format === '2v2';
+            const labelJoueurA = is2v2 ? `Éq. A : ${matchEnCours.A.prenom}` : matchEnCours.A.prenom;
+            const labelJoueurB = is2v2 ? `Éq. B : ${matchEnCours.B.prenom}` : matchEnCours.B.prenom;
+
+            document.getElementById('nom-joueur-a').innerText = labelJoueurA;
+            document.getElementById('nom-joueur-b').innerText = labelJoueurB;
             const tNomA = document.getElementById('terrain-nom-a');
             const tNomB = document.getElementById('terrain-nom-b');
-            if (tNomA) tNomA.innerText = matchEnCours.A.prenom;
-            if (tNomB) tNomB.innerText = matchEnCours.B.prenom;
-            document.getElementById('terrain-nom-a-header').innerText = matchEnCours.A.prenom;
-            document.getElementById('terrain-nom-b-header').innerText = matchEnCours.B.prenom;
+            if (tNomA) tNomA.innerText = labelJoueurA;
+            if (tNomB) tNomB.innerText = labelJoueurB;
+            document.getElementById('terrain-nom-a-header').innerText = labelJoueurA;
+            document.getElementById('terrain-nom-b-header').innerText = labelJoueurB;
 
             const campLabelJ1 = document.getElementById('camp-label-j1');
             const campLabelJ2 = document.getElementById('camp-label-j2');
-            if (campLabelJ1) campLabelJ1.innerText = matchEnCours.A.prenom;
-            if (campLabelJ2) campLabelJ2.innerText = matchEnCours.B.prenom;
+            if (campLabelJ1) campLabelJ1.innerText = labelJoueurA;
+            if (campLabelJ2) campLabelJ2.innerText = labelJoueurB;
 
-            const marker = document.getElementById('terrain-marqueur-impact');
-            if (marker) marker.style.display = 'none';
-
+            const bonusA = matchEnCours.A.bonusPts || 10;
+            const bonusB = matchEnCours.B.bonusPts || 10;
             const carteLabelA = matchEnCours.A.carte ? `${matchEnCours.A.carte.nom} (+${bonusA} pts)` : 'Sans bonus';
             const carteLabelB = matchEnCours.B.carte ? `${matchEnCours.B.carte.nom} (+${bonusB} pts)` : 'Sans bonus';
             document.getElementById('carte-nom-a').innerText = carteLabelA;
@@ -7133,7 +7591,6 @@
             document.getElementById('terrain-carte-nom-a').innerText = carteLabelA;
             document.getElementById('terrain-carte-nom-b').innerText = carteLabelB;
 
-            // Mise à jour des boutons bonus dynamiques (arbitrage sans terrain)
             const btnBonusA = document.getElementById('btn-bonus-a');
             const btnBonusB = document.getElementById('btn-bonus-b');
             if (btnBonusA) {
@@ -7144,6 +7601,182 @@
                 btnBonusB.innerText = `+${bonusB} Bonus`;
                 btnBonusB.style.display = matchEnCours.B.carte ? '' : 'none';
             }
+
+            // Mise à jour du bandeau de relais 2v2
+            const bandeauRelais = document.getElementById('bandeau-relais-2v2');
+            if (bandeauRelais) {
+                if (is2v2) {
+                    bandeauRelais.style.display = 'block';
+                    const badgeManche = document.getElementById('badge-manche-2v2');
+                    const infoRelais = document.getElementById('info-relais-2v2');
+                    const btnPasserM2 = document.getElementById('btn-passer-manche-2');
+                    const btnRetourM1 = document.getElementById('btn-retour-manche-1');
+
+                    if (matchEnCours.mancheActuelle === 1) {
+                        if (badgeManche) {
+                            badgeManche.innerText = `🏁 MANCHE 1 / 2 — ${matchEnCours.equipeA.j1.prenom} (Éq. A) vs ${matchEnCours.equipeB.j1.prenom} (Éq. B)`;
+                            badgeManche.style.color = '#FFD54F';
+                        }
+                        if (infoRelais) {
+                            infoRelais.innerHTML = `Prochain relais en Manche 2 : <strong>${matchEnCours.equipeA.j2.prenom}</strong> (Éq. A) vs <strong>${matchEnCours.equipeB.j2.prenom}</strong> (Éq. B)`;
+                        }
+                        if (btnPasserM2) btnPasserM2.style.display = 'inline-block';
+                        if (btnRetourM1) btnRetourM1.style.display = 'none';
+                    } else {
+                        const sM1A = (matchEnCours.scoreFinManche1 && matchEnCours.scoreFinManche1.A !== null) ? matchEnCours.scoreFinManche1.A : 0;
+                        const sM1B = (matchEnCours.scoreFinManche1 && matchEnCours.scoreFinManche1.B !== null) ? matchEnCours.scoreFinManche1.B : 0;
+                        if (badgeManche) {
+                            badgeManche.innerText = `🔥 MANCHE 2 / 2 (RELAIS) — ${matchEnCours.equipeA.j2.prenom} (Éq. A) vs ${matchEnCours.equipeB.j2.prenom} (Éq. B)`;
+                            badgeManche.style.color = '#34D399';
+                        }
+                        if (infoRelais) {
+                            infoRelais.innerHTML = `Score conservé de la Manche 1 (${matchEnCours.equipeA.j1.prenom} vs ${matchEnCours.equipeB.j1.prenom}) : <strong>${sM1A} - ${sM1B}</strong>`;
+                        }
+                        if (btnPasserM2) btnPasserM2.style.display = 'none';
+                        if (btnRetourM1) btnRetourM1.style.display = 'inline-block';
+                    }
+                } else {
+                    bandeauRelais.style.display = 'none';
+                }
+            }
+        }
+
+        function executerPassageManche2Relais() {
+            if (!matchEnCours || matchEnCours.format !== '2v2') return;
+            matchEnCours.scoreFinManche1 = {
+                A: matchEnCours.A.score,
+                B: matchEnCours.B.score
+            };
+            matchEnCours.mancheActuelle = 2;
+            const marker = document.getElementById('terrain-marqueur-impact');
+            if (marker) marker.style.display = 'none';
+
+            synchroniserJoueursActifsManche();
+            reinitialiserMinuteurSeul();
+            actualiserScoreAffichage();
+        }
+
+        function passerManche2Relais() {
+            if (!matchEnCours || matchEnCours.format !== '2v2' || matchEnCours.mancheActuelle === 2) return;
+            afficherConfirmationCustom(
+                `Terminer la Manche 1 sur le score de ${matchEnCours.A.score} à ${matchEnCours.B.score} ?\n\nLa Manche 2 démarrera à ${matchEnCours.A.score} - ${matchEnCours.B.score} avec ${matchEnCours.equipeA.j2.prenom} (Équipe A) contre ${matchEnCours.equipeB.j2.prenom} (Équipe B), et le minuteur sera réinitialisé.`,
+                function () {
+                    executerPassageManche2Relais();
+                }
+            );
+        }
+
+        function revenirManche1Relais() {
+            if (!matchEnCours || matchEnCours.format !== '2v2' || matchEnCours.mancheActuelle === 1) return;
+            afficherConfirmationCustom(
+                `Revenir aux joueurs de la Manche 1 (${matchEnCours.equipeA.j1.prenom} vs ${matchEnCours.equipeB.j1.prenom}) en conservant le score actuel ?`,
+                function () {
+                    matchEnCours.mancheActuelle = 1;
+                    synchroniserJoueursActifsManche();
+                    actualiserScoreAffichage();
+                }
+            );
+        }
+
+        function lancerMatchDepuisWizard() {
+            let arbitre = document.getElementById('match-prenom-arbitre').value.trim();
+            if (!arbitre) arbitre = "Arbitre";
+            matchWizardState.arbitre = arbitre;
+            verifierReconnaissanceArbitre();
+
+            const niveau1 = matchWizardState.j1.niveau || 1;
+            const bonus1 = niveau1 * 10;
+            const niveau2 = matchWizardState.j2.niveau || 1;
+            const bonus2 = niveau2 * 10;
+            const niveau3 = matchWizardState.j3.niveau || 1;
+            const bonus3 = niveau3 * 10;
+            const niveau4 = matchWizardState.j4.niveau || 1;
+            const bonus4 = niveau4 * 10;
+
+            const dateStr = new Date().toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const is2v2 = matchWizardState.format === '2v2';
+
+            // Initialisation de la structure du match avec points et identités
+            matchEnCours = {
+                format: is2v2 ? '2v2' : '1v1',
+                mancheActuelle: 1,
+                scoreFinManche1: { A: null, B: null },
+                equipeA: is2v2 ? {
+                    j1: {
+                        id: matchWizardState.j1.joueurId || ('match_j1_' + Date.now()),
+                        joueurId: matchWizardState.j1.joueurId,
+                        prenom: matchWizardState.j1.prenom,
+                        carte: matchWizardState.j1.carte,
+                        niveau: niveau1,
+                        bonusPts: bonus1
+                    },
+                    j2: {
+                        id: matchWizardState.j3.joueurId || ('match_j3_' + Date.now()),
+                        joueurId: matchWizardState.j3.joueurId,
+                        prenom: matchWizardState.j3.prenom,
+                        carte: matchWizardState.j3.carte,
+                        niveau: niveau3,
+                        bonusPts: bonus3
+                    }
+                } : null,
+                equipeB: is2v2 ? {
+                    j1: {
+                        id: matchWizardState.j2.joueurId || ('match_j2_' + Date.now()),
+                        joueurId: matchWizardState.j2.joueurId,
+                        prenom: matchWizardState.j2.prenom,
+                        carte: matchWizardState.j2.carte,
+                        niveau: niveau2,
+                        bonusPts: bonus2
+                    },
+                    j2: {
+                        id: matchWizardState.j4.joueurId || ('match_j4_' + Date.now()),
+                        joueurId: matchWizardState.j4.joueurId,
+                        prenom: matchWizardState.j4.prenom,
+                        carte: matchWizardState.j4.carte,
+                        niveau: niveau4,
+                        bonusPts: bonus4
+                    }
+                } : null,
+                A: {
+                    id: matchWizardState.j1.joueurId || ('match_j1_' + Date.now()),
+                    joueurId: matchWizardState.j1.joueurId,
+                    prenom: matchWizardState.j1.prenom,
+                    carte: matchWizardState.j1.carte,
+                    niveau: niveau1,
+                    bonusPts: bonus1,
+                    score: 0
+                },
+                B: {
+                    id: matchWizardState.j2.joueurId || ('match_j2_' + Date.now()),
+                    joueurId: matchWizardState.j2.joueurId,
+                    prenom: matchWizardState.j2.prenom,
+                    carte: matchWizardState.j2.carte,
+                    niveau: niveau2,
+                    bonusPts: bonus2,
+                    score: 0
+                },
+                arbitre: matchWizardState.arbitre,
+                arbitreId: matchWizardState.arbitreId,
+                mode: matchWizardState.modeArbitrage,
+                date: dateStr
+            };
+            historiquePoints = [];
+
+            // Initialisation du minuteur réglable
+            minuteurMatchState.dureeMancheSec = matchWizardState.dureeMancheSec || 180;
+            reinitialiserMinuteurSeul();
+
+            const marker = document.getElementById('terrain-marqueur-impact');
+            if (marker) marker.style.display = 'none';
+
+            synchroniserJoueursActifsManche();
 
             document.getElementById('nom-arbitre-play').innerText = matchEnCours.arbitre;
 
@@ -7186,7 +7819,14 @@
 
         // --- GESTION DU SCORE EN COURS DE MATCH ---
         function ajouterPoint(joueur, valeur) {
-            historiquePoints.push({ joueur: joueur, valeur: valeur });
+            const manche = (matchEnCours && matchEnCours.format === '2v2') ? (matchEnCours.mancheActuelle || 1) : 1;
+            const estBonus = valeur > 1;
+            historiquePoints.push({
+                joueur: joueur,
+                valeur: valeur,
+                manche: manche,
+                estBonus: estBonus
+            });
             matchEnCours[joueur].score += valeur;
             actualiserScoreAffichage();
         }
@@ -7382,10 +8022,16 @@
         }
 
         function reinitialiserMatch() {
-            afficherConfirmationCustom("Remettre les scores du match à zéro ?", function () {
+            afficherConfirmationCustom("Remettre les scores du match et le minuteur à zéro ?", function () {
                 matchEnCours.A.score = 0;
                 matchEnCours.B.score = 0;
                 historiquePoints = [];
+                if (matchEnCours.format === '2v2') {
+                    matchEnCours.mancheActuelle = 1;
+                    matchEnCours.scoreFinManche1 = { A: null, B: null };
+                    synchroniserJoueursActifsManche();
+                }
+                reinitialiserMinuteurSeul();
                 const marker = document.getElementById('terrain-marqueur-impact');
                 if (marker) marker.style.display = 'none';
                 actualiserScoreAffichage();
@@ -7394,22 +8040,19 @@
 
         function quitterMatchSansSauver() {
             afficherConfirmationCustom("Voulez-vous abandonner ce match sans enregistrer les scores ?", function () {
+                arreterMinuteurMatch();
                 reinitialiserVueMatchConfig();
                 naviguerVers('vue-match-config');
             });
         }
 
         function terminerEtEnregistrerMatch() {
-            afficherConfirmationCustom("Clôturer le match et sauvegarder les statistiques dans les profils ?", function () {
+            const msgConfirm = (matchEnCours && matchEnCours.format === '2v2' && matchEnCours.mancheActuelle === 1)
+                ? "⚠️ Attention : vous êtes encore en Manche 1 / 2 du relais 2 vs 2.\nVoulez-vous vraiment clôturer définitivement le match maintenant et sauvegarder les statistiques ?"
+                : "Clôturer le match et sauvegarder les statistiques dans les profils ?";
 
-                // Identification automatique des profils associés via ID ou prénom reconnu
-                let jA = matchEnCours.A.joueurId
-                    ? joueursInscrits.find(j => j.id === matchEnCours.A.joueurId)
-                    : trouverJoueurParNomOuPrenom(matchEnCours.A.prenom);
-
-                let jB = matchEnCours.B.joueurId
-                    ? joueursInscrits.find(j => j.id === matchEnCours.B.joueurId)
-                    : trouverJoueurParNomOuPrenom(matchEnCours.B.prenom);
+            afficherConfirmationCustom(msgConfirm, function () {
+                arreterMinuteurMatch();
 
                 const scoreA = matchEnCours.A.score;
                 const scoreB = matchEnCours.B.score;
@@ -7424,12 +8067,6 @@
                     resultatB = "Victoire";
                 }
 
-                const bonusPtsA = matchEnCours.A.bonusPts || 10;
-                const bonusPtsB = matchEnCours.B.bonusPts || 10;
-
-                const contratsA = matchEnCours.A.carte ? historiquePoints.filter(p => p.joueur === 'A' && p.valeur === bonusPtsA).length : 0;
-                const contratsB = matchEnCours.B.carte ? historiquePoints.filter(p => p.joueur === 'B' && p.valeur === bonusPtsB).length : 0;
-
                 const dateStr = matchEnCours.date || new Date().toLocaleDateString('fr-FR', {
                     day: '2-digit',
                     month: '2-digit',
@@ -7437,6 +8074,134 @@
                     hour: '2-digit',
                     minute: '2-digit'
                 });
+
+                // Identification de l'arbitre
+                let jArbitre = matchEnCours.arbitreId
+                    ? joueursInscrits.find(j => j.id === matchEnCours.arbitreId)
+                    : trouverJoueurParNomOuPrenom(matchEnCours.arbitre);
+
+                // --- CAS 1 : MATCH RELAIS 2 VS 2 ---
+                if (matchEnCours.format === '2v2' && matchEnCours.equipeA && matchEnCours.equipeB) {
+                    const enregistrerSlot2v2 = (slotInfo, camp, mancheNum, resultatEquipe, scorePour, scoreContre, labelAdversaire) => {
+                        let profil = slotInfo.joueurId
+                            ? joueursInscrits.find(j => j.id === slotInfo.joueurId)
+                            : trouverJoueurParNomOuPrenom(slotInfo.prenom);
+
+                        const bonusPts = slotInfo.bonusPts || 10;
+                        const nbContrats = slotInfo.carte
+                            ? historiquePoints.filter(p => p.joueur === camp && (p.manche || 1) === mancheNum && p.valeur === bonusPts).length
+                            : 0;
+
+                        if (profil) {
+                            assurerStructureStats(profil);
+                            profil.stats.matchsJoues += 1;
+                            if (resultatEquipe === 'Victoire') profil.stats.victoires += 1;
+                            else if (resultatEquipe === 'Défaite') profil.stats.defaites += 1;
+                            else profil.stats.egalites += 1;
+
+                            profil.stats.pointsMarques += scorePour;
+                            profil.stats.pointsEncaisses += scoreContre;
+                            profil.stats.contratsValides += nbContrats;
+
+                            if (nbContrats > 0 && slotInfo.carte && slotInfo.carte.nom) {
+                                if (!profil.stats.situationsValidees.includes(slotInfo.carte.nom)) {
+                                    profil.stats.situationsValidees.push(slotInfo.carte.nom);
+                                }
+                            }
+
+                            profil.stats.historiqueMatchs.unshift({
+                                id: 'm2v2_' + Date.now() + '_' + camp + mancheNum,
+                                date: dateStr,
+                                format: '2v2',
+                                resultat: resultatEquipe,
+                                pointsMarques: scorePour,
+                                pointsEncaisses: scoreContre,
+                                adversairePrenom: labelAdversaire,
+                                adversaireNom: '(Match Relais 2 vs 2)',
+                                carteUtilisee: slotInfo.carte ? {
+                                    nom: slotInfo.carte.nom,
+                                    niveau: slotInfo.niveau || 1,
+                                    bonusPts: bonusPts
+                                } : null,
+                                contratsReussis: nbContrats,
+                                arbitre: matchEnCours.arbitre || 'Non précisé',
+                                mode: matchEnCours.mode || 'terrain'
+                            });
+                        }
+
+                        return { profil, nbContrats, slotInfo };
+                    };
+
+                    const labelEqA = `${matchEnCours.equipeA.j1.prenom} & ${matchEnCours.equipeA.j2.prenom}`;
+                    const labelEqB = `${matchEnCours.equipeB.j1.prenom} & ${matchEnCours.equipeB.j2.prenom}`;
+
+                    const resA1 = enregistrerSlot2v2(matchEnCours.equipeA.j1, 'A', 1, resultatA, scoreA, scoreB, `Éq. B (${labelEqB})`);
+                    const resA2 = enregistrerSlot2v2(matchEnCours.equipeA.j2, 'A', 2, resultatA, scoreA, scoreB, `Éq. B (${labelEqB})`);
+                    const resB1 = enregistrerSlot2v2(matchEnCours.equipeB.j1, 'B', 1, resultatB, scoreB, scoreA, `Éq. A (${labelEqA})`);
+                    const resB2 = enregistrerSlot2v2(matchEnCours.equipeB.j2, 'B', 2, resultatB, scoreB, scoreA, `Éq. A (${labelEqA})`);
+
+                    if (jArbitre) {
+                        assurerStructureStats(jArbitre);
+                        jArbitre.stats.matchsArbitres = (jArbitre.stats.matchsArbitres || 0) + 1;
+
+                        let nomVainqueur = 'Égalité';
+                        if (resultatA === 'Victoire') nomVainqueur = `Équipe A : ${labelEqA} (Victoire)`;
+                        else if (resultatB === 'Victoire') nomVainqueur = `Équipe B : ${labelEqB} (Victoire)`;
+
+                        jArbitre.stats.historiqueArbitrage.unshift({
+                            id: 'arb_' + Date.now(),
+                            date: dateStr,
+                            joueur1: `Éq. A (${labelEqA})`,
+                            joueur2: `Éq. B (${labelEqB})`,
+                            scoreJ1: scoreA,
+                            scoreJ2: scoreB,
+                            scoreFinal: `${scoreA} - ${scoreB}`,
+                            vainqueur: nomVainqueur,
+                            mode: (matchEnCours.mode === 'terrain' ? 'Schéma tactile terrain' : 'Comptage direct boutons') + ' (Relais 2v2)'
+                        });
+                    }
+
+                    sauvegarderDansLocalStorage();
+
+                    const formaterLigneResume2v2 = (res, mancheNum) => {
+                        const nomCarte = res.slotInfo.carte ? `${res.slotInfo.carte.nom} (${res.nbContrats} validé(s))` : 'Sans bonus';
+                        if (res.profil) {
+                            return `  ✅ M${mancheNum} - ${res.profil.prenom} ${res.profil.nom} : Carte ${nomCarte}`;
+                        }
+                        return `  👤 M${mancheNum} - ${res.slotInfo.prenom} (Invité) : Carte ${nomCarte}`;
+                    };
+
+                    let msg2v2 = `🎉 Match Relais 2 vs 2 clôturé avec succès !\n`;
+                    msg2v2 += `🏆 Score final : Équipe A (${scoreA}) - Équipe B (${scoreB})\n\n`;
+                    msg2v2 += `🟠 Équipe A (${resultatA}) :\n${formaterLigneResume2v2(resA1, 1)}\n${formaterLigneResume2v2(resA2, 2)}\n\n`;
+                    msg2v2 += `🔵 Équipe B (${resultatB}) :\n${formaterLigneResume2v2(resB1, 1)}\n${formaterLigneResume2v2(resB2, 2)}\n\n`;
+                    if (jArbitre) {
+                        msg2v2 += `👨‍⚖️ Arbitrage enregistré sur le profil de ${jArbitre.prenom} ${jArbitre.nom}`;
+                    } else {
+                        msg2v2 += `👨‍⚖️ Arbitre : ${matchEnCours.arbitre}`;
+                    }
+
+                    alert(msg2v2);
+                    reinitialiserVueMatchConfig();
+                    genererBoutonsProfils();
+                    naviguerVers('vue-profil-liste');
+                    return;
+                }
+
+                // --- CAS 2 : MATCH CLASSIQUE 1 VS 1 ---
+                let jA = matchEnCours.A.joueurId
+                    ? joueursInscrits.find(j => j.id === matchEnCours.A.joueurId)
+                    : trouverJoueurParNomOuPrenom(matchEnCours.A.prenom);
+
+                let jB = matchEnCours.B.joueurId
+                    ? joueursInscrits.find(j => j.id === matchEnCours.B.joueurId)
+                    : trouverJoueurParNomOuPrenom(matchEnCours.B.prenom);
+
+                const bonusPtsA = matchEnCours.A.bonusPts || 10;
+                const bonusPtsB = matchEnCours.B.bonusPts || 10;
+
+                const contratsA = matchEnCours.A.carte ? historiquePoints.filter(p => p.joueur === 'A' && p.valeur === bonusPtsA).length : 0;
+                const contratsB = matchEnCours.B.carte ? historiquePoints.filter(p => p.joueur === 'B' && p.valeur === bonusPtsB).length : 0;
 
                 // Sauvegarde automatique sur la fiche du Joueur 1
                 if (jA) {
@@ -7511,11 +8276,6 @@
                         mode: matchEnCours.mode || 'terrain'
                     });
                 }
-
-                // Identification et sauvegarde automatique pour l'Arbitre (si reconnu comme élève)
-                let jArbitre = matchEnCours.arbitreId
-                    ? joueursInscrits.find(j => j.id === matchEnCours.arbitreId)
-                    : trouverJoueurParNomOuPrenom(matchEnCours.arbitre);
 
                 if (jArbitre) {
                     assurerStructureStats(jArbitre);
