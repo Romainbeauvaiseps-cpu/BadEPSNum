@@ -6868,6 +6868,7 @@
             CATALOGUE_MEDAILLES.forEach(med => {
                 const estDebloquee = joueur.stats.medailles.some(m => (typeof m === 'string' ? m === med.id : m.id === med.id));
                 const prog = med.progression ? med.progression(joueur) : { valide: (estDebloquee ? med.totalNiveaux : 0), total: med.totalNiveaux };
+                const srcMed = (typeof obtenirSrcImageCacheSync === 'function') ? obtenirSrcImageCacheSync(med.fichierSvg) : med.fichierSvg;
 
                 if (estDebloquee) {
                     nbDebloquees++;
@@ -6875,7 +6876,7 @@
                         <div class="carte-medaille-vitrine debloquee" onclick="ouvrirAgrandissementImage('${med.fichierSvg}', '${med.titre}')" title="Cliquer pour admirer la médaille en grand format">
                             <div class="medaille-halo-glow"></div>
                             <div class="medaille-img-wrap">
-                                <img src="${med.fichierSvg}" alt="${med.titre}" class="medaille-img-svg" loading="lazy">
+                                <img src="${srcMed}" data-original-src="${med.fichierSvg}" alt="${med.titre}" class="medaille-img-svg">
                             </div>
                             <div class="medaille-nom-wrap">
                                 <span class="medaille-nom">${med.nom}</span>
@@ -6891,7 +6892,7 @@
                     conteneur.innerHTML += `
                         <div class="carte-medaille-vitrine verrouillee" title="Validez tous les niveaux de cet exercice pour décrocher cette médaille">
                             <div class="medaille-img-wrap">
-                                <img src="${med.fichierSvg}" alt="${med.titre}" class="medaille-img-svg-locked" loading="lazy">
+                                <img src="${srcMed}" data-original-src="${med.fichierSvg}" alt="${med.titre}" class="medaille-img-svg-locked">
                                 <span class="cadenas-overlay">🔒</span>
                             </div>
                             <div class="medaille-nom-wrap">
@@ -9713,7 +9714,12 @@
 
             if (rectoImg) {
                 const srcImg = donnees.image_recto || donnees.imageRecto || cfg.defautImg(niv);
-                rectoImg.src = srcImg;
+                rectoImg.setAttribute('data-original-src', srcImg);
+                if (typeof appliquerImageHorsLigne === 'function') {
+                    appliquerImageHorsLigne(rectoImg, srcImg);
+                } else {
+                    rectoImg.src = srcImg;
+                }
             }
 
             if (rectoBut) {
@@ -9791,7 +9797,7 @@
             const titre = document.getElementById(`recto-${themeKey}-titre`);
             const cfg = THEMES_CONFIG[themeKey];
             const niv = niveauxActuels[themeKey] || 1;
-            const src = img ? img.src : (cfg ? cfg.defautImg(niv) : '');
+            const src = (img && img.getAttribute('data-original-src')) ? img.getAttribute('data-original-src') : (img ? img.src : (cfg ? cfg.defautImg(niv) : ''));
             const titreTxt = titre ? titre.textContent : (cfg ? cfg.titre : "Schéma d'exercice");
             ouvrirAgrandissementImage(src, titreTxt);
         }
@@ -9809,7 +9815,12 @@
             const modalTitre = document.getElementById('modal-zoom-titre');
             if (!modal || !modalImg) return;
 
-            modalImg.src = src || '';
+            modalImg.setAttribute('data-original-src', src || '');
+            if (typeof appliquerImageHorsLigne === 'function' && src) {
+                appliquerImageHorsLigne(modalImg, src);
+            } else {
+                modalImg.src = src || '';
+            }
             if (modalTitre) {
                 modalTitre.textContent = titre || "Schéma d'exercice";
             }
@@ -10743,6 +10754,229 @@
         }
 
         // ========================================================
+        // MODULE CACHE HORS-LIGNE DES IMAGES (EXERCICES, CARTES, MÉDAILLES)
+        // Garantit qu'aucune image ne disparaît (point d'interrogation bleu) sur iPad hors-ligne
+        // ========================================================
+        const IMAGES_HORS_LIGNE = [
+            './schema-n1.png',
+            './service-n2.png',
+            './service-n3.png',
+            './service-n4.png',
+            './placement-n1.png',
+            './placement-n2.png',
+            './placement-n3.png',
+            './placement-n4.png',
+            './amorti.svg',
+            './amorti1.svg',
+            './amorti2.svg',
+            './amorti3.svg',
+            './amorti4.svg',
+            './smatch.svg',
+            './smatch-n1.png',
+            './smatch-n2.png',
+            './degage1.svg',
+            './degage2.svg',
+            './degage3.svg',
+            './degoff.svg',
+            './service.svg',
+            './servstrat.svg',
+            './stratult.svg',
+            './combodec.svg',
+            './zarr.svg',
+            './zav.svg',
+            './zlibre.svg',
+            './terrainbad.svg',
+            './badeps.png',
+            './logobadeps.png',
+            './medserv.png',
+            './medplacvol.png',
+            './medamorti.png',
+            './medsmatch.png',
+            './meddegage.png',
+            './medstratserv.png',
+            './medstratjeu.png'
+        ];
+        const NOM_CACHE_IMAGES = 'badeps-offline-v2';
+        const NOM_DB_IMAGES = 'BadEPS_OfflineImagesDB';
+        const STORE_DB_IMAGES = 'images';
+        const imageBlobUrls = {};
+
+        function normaliserCleImage(src) {
+            if (!src) return '';
+            const clean = String(src).split('?')[0].split('#')[0].trim();
+            const parts = clean.split('/');
+            return parts[parts.length - 1] || clean;
+        }
+
+        function ouvrirDBImages() {
+            return new Promise((resolve) => {
+                if (!('indexedDB' in window)) return resolve(null);
+                try {
+                    const req = indexedDB.open(NOM_DB_IMAGES, 1);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains(STORE_DB_IMAGES)) {
+                            db.createObjectStore(STORE_DB_IMAGES, { keyPath: 'id' });
+                        }
+                    };
+                    req.onsuccess = (e) => resolve(e.target.result);
+                    req.onerror = () => resolve(null);
+                } catch (e) {
+                    resolve(null);
+                }
+            });
+        }
+
+        async function sauvegarderBlobImageIDB(id, blob) {
+            const db = await ouvrirDBImages();
+            if (!db) return false;
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_DB_IMAGES, 'readwrite');
+                    tx.objectStore(STORE_DB_IMAGES).put({ id: id, blob: blob, date: Date.now() });
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        async function lireBlobImageIDB(id) {
+            const db = await ouvrirDBImages();
+            if (!db) return null;
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_DB_IMAGES, 'readonly');
+                    const req = tx.objectStore(STORE_DB_IMAGES).get(id);
+                    req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+                    req.onerror = () => resolve(null);
+                } catch (e) {
+                    resolve(null);
+                }
+            });
+        }
+
+        function obtenirSrcImageCacheSync(src) {
+            const cle = normaliserCleImage(src);
+            if (cle && imageBlobUrls[cle]) {
+                return imageBlobUrls[cle];
+            }
+            return src;
+        }
+
+        async function obtenirBlobImageHorsLigne(src) {
+            const cle = normaliserCleImage(src);
+            if (!cle) return null;
+
+            // 1. Vérifier dans IndexedDB
+            const idbBlob = await lireBlobImageIDB(cle);
+            if (idbBlob && idbBlob.size > 0) return idbBlob;
+
+            // 2. Vérifier dans Cache Storage (tous les caches Bad'EPS)
+            if ('caches' in window) {
+                try {
+                    const rep = await caches.match('./' + cle, { ignoreSearch: true }) ||
+                        await caches.match(cle, { ignoreSearch: true }) ||
+                        await caches.match(src, { ignoreSearch: true });
+                    if (rep && rep.ok) {
+                        const blob = await rep.blob();
+                        if (blob && blob.size > 0) {
+                            await sauvegarderBlobImageIDB(cle, blob);
+                            return blob;
+                        }
+                    }
+                } catch (e) { }
+            }
+            return null;
+        }
+
+        async function appliquerImageHorsLigne(imgEl, src) {
+            if (!imgEl || !src) return;
+            const cle = normaliserCleImage(src);
+            imgEl.setAttribute('data-original-src', src);
+
+            if (cle && imageBlobUrls[cle]) {
+                if (imgEl.src !== imageBlobUrls[cle]) {
+                    imgEl.src = imageBlobUrls[cle];
+                }
+                return;
+            }
+
+            // Afficher immédiatement la source standard pendant la résolution du cache
+            imgEl.src = src;
+
+            const blob = await obtenirBlobImageHorsLigne(src);
+            if (blob && blob.size > 0) {
+                if (!imageBlobUrls[cle]) {
+                    imageBlobUrls[cle] = URL.createObjectURL(blob);
+                }
+                if (imgEl.getAttribute('data-original-src') === src) {
+                    imgEl.src = imageBlobUrls[cle];
+                }
+            }
+        }
+
+        async function prechargerImagesHorsLigne() {
+            if (window.location.protocol === 'file:') return;
+
+            for (const url of IMAGES_HORS_LIGNE) {
+                const cle = normaliserCleImage(url);
+                if (!cle) continue;
+                try {
+                    let blob = await obtenirBlobImageHorsLigne(url);
+                    if (!blob) {
+                        const res = await fetch(url);
+                        if (res && res.ok) {
+                            if ('caches' in window) {
+                                try {
+                                    const cache = await caches.open(NOM_CACHE_IMAGES);
+                                    await cache.put(url, res.clone());
+                                } catch (e) { }
+                            }
+                            blob = await res.blob();
+                            if (blob && blob.size > 0) {
+                                await sauvegarderBlobImageIDB(cle, blob);
+                            }
+                        }
+                    }
+                    if (blob && blob.size > 0 && !imageBlobUrls[cle]) {
+                        imageBlobUrls[cle] = URL.createObjectURL(blob);
+                    }
+                } catch (e) { }
+            }
+
+            // Mettre à jour les balises <img> déjà présentes dans le DOM avec leur Blob URL en mémoire
+            document.querySelectorAll('img').forEach(img => {
+                const orig = img.getAttribute('data-original-src') || img.getAttribute('src');
+                if (!orig || orig.startsWith('blob:') || orig.startsWith('data:')) return;
+                const cle = normaliserCleImage(orig);
+                if (cle && imageBlobUrls[cle]) {
+                    img.setAttribute('data-original-src', orig);
+                    img.src = imageBlobUrls[cle];
+                }
+            });
+        }
+
+        // Récupération automatique si Safari iPad purge une image en arrière-plan hors-ligne
+        window.addEventListener('error', async function (e) {
+            const target = e.target;
+            if (target && target.tagName === 'IMG') {
+                const orig = target.getAttribute('data-original-src') || target.getAttribute('src');
+                if (!orig) return;
+                const cle = normaliserCleImage(orig);
+                if (!cle) return;
+                const blob = await obtenirBlobImageHorsLigne(orig);
+                if (blob && blob.size > 0) {
+                    imageBlobUrls[cle] = URL.createObjectURL(blob);
+                    if (target.src !== imageBlobUrls[cle]) {
+                        target.src = imageBlobUrls[cle];
+                    }
+                }
+            }
+        }, true);
+
+        // ========================================================
         // MODULE AIDE VIDÉO & GESTION DU CACHE HORS-LIGNE (PWA / IDB)
         // ========================================================
         const VIDEOS_TUTORIELS = [
@@ -11003,17 +11237,20 @@
 
         // Enregistrement du Service Worker pour fonctionnement 100% hors-ligne (PWA)
         if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.protocol === 'http:')) {
-            window.addEventListener('load', () => {
+            window.addEventListener('load', async () => {
                 navigator.serviceWorker.register('./sw.js').catch(err => {
                     console.warn('Service Worker non enregistré :', err);
                 });
-                // Pré-chargement automatique discret des 3 vidéos pour usage hors-ligne
+                // 1. Pré-chargement prioritaire de toutes les images d'exercices en mémoire locale (IndexedDB + Cache + Blob URL)
+                await prechargerImagesHorsLigne();
+                // 2. Pré-chargement automatique discret des 4 vidéos pour usage hors-ligne
                 setTimeout(() => {
                     telechargerVideosHorsLigne(false);
-                }, 1500);
+                }, 800);
             });
         } else {
             window.addEventListener('load', () => {
+                prechargerImagesHorsLigne();
                 verifierStatutCacheVideos();
             });
         }
@@ -11025,8 +11262,7 @@
         peuplerSelectsMatch();
         peuplerSelectsFichesDirectes();
         peuplerSelectsJoueursExercice();
-        selectionnerNiveauService(1);
-        selectionnerNiveauPlacement(1);
+        ['service', 'placement', 'amorti', 'smatch', 'degage', 'strategie'].forEach(th => selectionnerNiveauTheme(th, 1));
         peuplerSelectJoueurAutoEval();
         renderAutoEvalTable();
 

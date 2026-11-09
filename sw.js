@@ -1,4 +1,4 @@
-const CACHE_NAME = 'badeps-offline-v1';
+const CACHE_NAME = 'badeps-offline-v2';
 
 const APP_ASSETS = [
     './',
@@ -23,6 +23,8 @@ const APP_ASSETS = [
     './amorti3.svg',
     './amorti4.svg',
     './smatch.svg',
+    './smatch-n1.png',
+    './smatch-n2.png',
     './degage1.svg',
     './degage2.svg',
     './degage3.svg',
@@ -54,19 +56,31 @@ self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then(async (cache) => {
-            try {
-                await cache.addAll(APP_ASSETS);
-            } catch (err) {
-                // Fallback individuel si un fichier optionnel manque
-                for (const url of APP_ASSETS) {
-                    try { await cache.add(url); } catch (e) {}
+            // 1. Mise en cache prioritaire de tous les schémas d'exercices et fichiers de l'application
+            await Promise.allSettled(
+                APP_ASSETS.map(async (url) => {
+                    try {
+                        const req = new Request(url, { cache: 'reload' });
+                        const res = await fetch(req);
+                        if (res && res.ok) {
+                            await cache.put(url, res);
+                        }
+                    } catch (e) {
+                        try { await cache.add(url); } catch (err) {}
+                    }
+                })
+            );
+            // 2. Mise en cache des vidéos en arrière-plan sans bloquer l'activation du Service Worker
+            caches.open('badeps-videos-v1').then(async (videoCache) => {
+                for (const videoUrl of VIDEO_ASSETS) {
+                    try {
+                        const deja = await videoCache.match(videoUrl, { ignoreSearch: true });
+                        if (!deja) {
+                            await videoCache.add(videoUrl);
+                        }
+                    } catch (e) {}
                 }
-            }
-            for (const videoUrl of VIDEO_ASSETS) {
-                try {
-                    await cache.add(videoUrl);
-                } catch (e) {}
-            }
+            });
         })
     );
 });
