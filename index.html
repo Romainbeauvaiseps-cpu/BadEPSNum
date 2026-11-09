@@ -5715,6 +5715,50 @@
         </div>
     </div>
 
+    <!-- MODALE SÉCURITÉ : CODE DE VALIDATION POUR SUPPRIMER UN PROFIL ÉLÈVE -->
+    <div id="modale-code-suppression-profil" class="modale-flottante"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99998; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div class="custom-popup-box"
+            style="background: linear-gradient(160deg, #1C1A2B 0%, #11101B 100%); border: 1.5px solid rgba(239, 68, 68, 0.55); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(239, 68, 68, 0.25); border-radius: 20px; max-width: 440px; width: 100%; padding: 24px 22px; text-align: center; position: relative; animation: popupBounceIn 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-sizing: border-box;">
+
+            <div
+                style="margin: 0 auto 12px auto; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: rgba(239, 68, 68, 0.16); border: 1.5px solid rgba(239, 68, 68, 0.5); box-shadow: 0 0 20px rgba(239, 68, 68, 0.28);">
+                <span>🔒</span>
+            </div>
+
+            <h3 class="text-gradient-fire" style="font-size: 1.35rem; margin: 4px 0 8px 0; font-weight: 800;">
+                Code de sécurité requis
+            </h3>
+
+            <p id="texte-cible-suppression-profil"
+                style="font-size: 0.92rem; color: #E2E8F0; margin: 0 0 14px 0; line-height: 1.45;">
+                Pour supprimer ce profil élève, veuillez saisir le code de validation :
+            </p>
+
+            <div style="margin-bottom: 14px;">
+                <input type="password" inputmode="numeric" id="input-code-suppression-profil"
+                    placeholder="Code de validation" maxlength="10" autocomplete="off"
+                    style="width: 100%; text-align: center; font-size: 1.35rem; font-weight: 800; letter-spacing: 6px; padding: 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.08); color: #FFFFFF; border: 1.5px solid rgba(239, 68, 68, 0.5); outline: none;"
+                    onkeydown="if(event.key === 'Enter') { event.preventDefault(); validerCodeSuppressionProfil(); }">
+                <div id="erreur-code-suppression-profil"
+                    style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: 8px; background: rgba(239, 68, 68, 0.2); border: 1px solid #EF4444; color: #FCA5A5; font-size: 0.85rem; font-weight: 700;">
+                    ❌ Code incorrect. La suppression du profil est refusée.
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" class="btn-secondary" onclick="fermerModaleCodeSuppressionProfil()"
+                    style="margin: 0; padding: 11px 18px; font-size: 0.9rem; flex: 1;">
+                    Annuler
+                </button>
+                <button type="button" class="btn-danger" onclick="validerCodeSuppressionProfil()"
+                    style="margin: 0; padding: 11px 20px; font-size: 0.95rem; flex: 1.6; font-weight: 800;">
+                    🗑️ Valider et supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE CHOIX DU NOM DE FICHIER AVANT SAUVEGARDE JSON -->
     <div id="modale-sauvegarde-json" class="modale-flottante"
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99998; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
@@ -7155,6 +7199,9 @@
             alert(`Profil de ${j.prenom} ${j.nom} mis à jour avec succès !`);
         }
 
+        let idJoueurEnAttenteSuppression = null;
+        const CODE_VALIDATION_SUPPRESSION_PROFIL = '2026';
+
         function supprimerJoueurProfil(idJoueurCible = null, event = null) {
             if (event && typeof event.stopPropagation === 'function') {
                 event.stopPropagation();
@@ -7164,50 +7211,93 @@
             const j = joueursInscrits.find(joueur => joueur.id === cibleId);
             if (!j) return;
 
+            idJoueurEnAttenteSuppression = cibleId;
             const nomComplet = `${j.prenom} ${j.nom}`;
-            afficherConfirmationCustom(
-                `⚠️ Voulez-vous vraiment supprimer l'élève ${nomComplet} ?\n\nToutes ses statistiques, médailles et évaluations enregistrées sur cette tablette seront supprimées.`,
-                function () {
-                    joueursInscrits = joueursInscrits.filter(joueur => joueur.id !== cibleId);
 
-                    if (profilActifId === cibleId) {
-                        profilActifId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
-                    }
-                    if (joueurActifExerciceId === cibleId) {
-                        joueurActifExerciceId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
-                    }
+            const modale = document.getElementById('modale-code-suppression-profil');
+            const texteCible = document.getElementById('texte-cible-suppression-profil');
+            const inputCode = document.getElementById('input-code-suppression-profil');
+            const erreurEl = document.getElementById('erreur-code-suppression-profil');
 
-                    sauvegarderDansLocalStorage();
-                    fermerModaleModifierJoueur();
+            if (texteCible) {
+                texteCible.innerHTML = `Pour supprimer définitivement le profil de <strong style="color: #FFD54F;">${echapperTexteHtml(nomComplet)}</strong>, veuillez saisir le code de validation :`;
+            }
+            if (inputCode) {
+                inputCode.value = '';
+            }
+            if (erreurEl) {
+                erreurEl.style.display = 'none';
+            }
 
-                    genererBoutonsProfils();
-                    actualiserSuggestionsJoueurs();
-                    mettreAJourAffichageInscription();
-                    peuplerSelectsMatch();
-                    peuplerSelectJoueurAutoEval();
-                    peuplerSelectsJoueursExercice();
-                    if (typeof peuplerSelectsFichesDirectes === 'function') {
-                        peuplerSelectsFichesDirectes();
-                    }
+            if (modale) {
+                modale.style.display = 'flex';
+                setTimeout(() => {
+                    if (inputCode) inputCode.focus();
+                }, 60);
+            }
+        }
 
-                    const vueDetailActive = document.getElementById('vue-profil-detail')?.classList.contains('active');
-                    if (vueDetailActive) {
-                        naviguerVers('vue-profil-liste');
-                    }
+        function fermerModaleCodeSuppressionProfil() {
+            const modale = document.getElementById('modale-code-suppression-profil');
+            if (modale) modale.style.display = 'none';
+            idJoueurEnAttenteSuppression = null;
+        }
 
-                    afficherPopupCustom(`✅ Le profil de ${nomComplet} a bien été supprimé.`, {
-                        titre: "Élève supprimé",
-                        icone: "🗑️"
-                    });
-                },
-                null,
-                {
-                    titre: "Supprimer cet élève ?",
-                    icone: "🗑️",
-                    texteOk: "🗑️ Oui, supprimer",
-                    texteCancel: "Annuler"
+        function validerCodeSuppressionProfil() {
+            const inputCode = document.getElementById('input-code-suppression-profil');
+            const erreurEl = document.getElementById('erreur-code-suppression-profil');
+            const codeSaisi = inputCode ? inputCode.value.trim() : '';
+
+            if (codeSaisi !== CODE_VALIDATION_SUPPRESSION_PROFIL) {
+                if (erreurEl) {
+                    erreurEl.style.display = 'block';
                 }
-            );
+                if (inputCode) {
+                    inputCode.value = '';
+                    inputCode.focus();
+                }
+                return;
+            }
+
+            const cibleId = idJoueurEnAttenteSuppression;
+            fermerModaleCodeSuppressionProfil();
+
+            if (!cibleId) return;
+            const j = joueursInscrits.find(joueur => joueur.id === cibleId);
+            if (!j) return;
+
+            const nomComplet = `${j.prenom} ${j.nom}`;
+            joueursInscrits = joueursInscrits.filter(joueur => joueur.id !== cibleId);
+
+            if (profilActifId === cibleId) {
+                profilActifId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+            }
+            if (joueurActifExerciceId === cibleId) {
+                joueurActifExerciceId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+            }
+
+            sauvegarderDansLocalStorage();
+            fermerModaleModifierJoueur();
+
+            genererBoutonsProfils();
+            actualiserSuggestionsJoueurs();
+            mettreAJourAffichageInscription();
+            peuplerSelectsMatch();
+            peuplerSelectJoueurAutoEval();
+            peuplerSelectsJoueursExercice();
+            if (typeof peuplerSelectsFichesDirectes === 'function') {
+                peuplerSelectsFichesDirectes();
+            }
+
+            const vueDetailActive = document.getElementById('vue-profil-detail')?.classList.contains('active');
+            if (vueDetailActive) {
+                naviguerVers('vue-profil-liste');
+            }
+
+            afficherPopupCustom(`✅ Code validé : le profil de ${nomComplet} a bien été supprimé.`, {
+                titre: "Élève supprimé",
+                icone: "🗑️"
+            });
         }
 
         function ouvrirFicheJoueur(idJoueur) {
