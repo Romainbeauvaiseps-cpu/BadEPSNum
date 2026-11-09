@@ -228,15 +228,105 @@
             border-radius: 12px !important;
         }
 
-        /* Conteneur en bas à droite pour les boutons Charger et Sauvegarder */
+        /* Conteneur en bas à droite pour les boutons Gérer le temps, Charger et Sauvegarder */
         #accueil-bottom-right-actions {
             position: absolute;
             bottom: calc(14px + env(safe-area-inset-bottom, 0px));
             right: calc(16px + env(safe-area-inset-right, 0px));
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
             gap: 10px;
             z-index: 30;
+        }
+
+        .btn-gerer-temps-accueil {
+            width: auto !important;
+            margin: 0 !important;
+            padding: 11px 18px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #E0F7FA;
+            background: rgba(0, 188, 212, 0.28);
+            border: 1.5px solid rgba(0, 229, 255, 0.75);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.28);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-gerer-temps-accueil:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 188, 212, 0.45);
+            box-shadow: 0 6px 22px rgba(0, 229, 255, 0.48);
+        }
+
+        /* Bandeau minuteur global persistant dans toute l'application sans masquer le contenu */
+        #bandeau-minuteur-global {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: rgba(17, 16, 27, 0.94);
+            border-bottom: 1.5px solid rgba(0, 229, 255, 0.45);
+            padding: 5px 14px;
+            z-index: 120;
+            flex-shrink: 0;
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+            position: relative;
+        }
+
+        #bandeau-minuteur-global.alerte-fin {
+            border-bottom-color: rgba(255, 23, 68, 0.8);
+            background: rgba(45, 12, 22, 0.95);
+        }
+
+        .minuteur-global-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+
+        #minuteur-global-progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #00E5FF 0%, #FFD600 65%, #FF1744 100%);
+            transition: width 0.35s linear;
+        }
+
+        .preset-temps-btn {
+            width: auto !important;
+            margin: 0 !important;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #E2E8F0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .preset-temps-btn:hover,
+        .preset-temps-btn.active {
+            background: rgba(0, 229, 255, 0.22);
+            border-color: #00E5FF;
+            color: #00E5FF;
         }
 
         .btn-charger-accueil {
@@ -303,6 +393,7 @@
                 min-height: 56px;
             }
 
+            .btn-gerer-temps-accueil,
             .btn-charger-accueil,
             .btn-sauvegarder-accueil {
                 padding: 9px 13px;
@@ -2423,7 +2514,36 @@
     <!-- Arrière-plan de l'application : image badeps.png du dossier -->
     <div id="background-app"></div>
 
-
+    <!-- Bandeau Minuteur Global Persistant (visible dans toute l'application sans gêner le contenu) -->
+    <div id="bandeau-minuteur-global">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1rem;">⏱️</span>
+            <span
+                style="font-size: 0.78rem; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Minuteur
+                :</span>
+            <span id="minuteur-global-affichage"
+                style="font-family: monospace; font-size: 1.15rem; font-weight: 900; color: #00E5FF; background: rgba(0, 0, 0, 0.45); padding: 2px 9px; border-radius: 6px; border: 1px solid rgba(0, 229, 255, 0.35); min-width: 62px; text-align: center;">
+                05:00
+            </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <button type="button" id="btn-minuteur-global-pause" onclick="togglePauseMinuteurGlobal()"
+                style="width: auto; margin: 0; padding: 4px 10px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer;">
+                ⏸️ Pause
+            </button>
+            <button type="button" onclick="ouvrirModaleGererTemps()" title="Régler le minuteur"
+                style="width: auto; margin: 0; padding: 4px 9px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; background: rgba(0, 229, 255, 0.15); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.35); cursor: pointer;">
+                ⚙️ Régler
+            </button>
+            <button type="button" onclick="arreterEtMasquerMinuteurGlobal()" title="Masquer le minuteur"
+                style="width: auto; margin: 0; padding: 4px 8px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.4); cursor: pointer;">
+                ✕
+            </button>
+        </div>
+        <div class="minuteur-global-progress-track">
+            <div id="minuteur-global-progress-bar"></div>
+        </div>
+    </div>
 
     <main id="app-content">
 
@@ -2450,8 +2570,11 @@
                     Auto-évaluation</button>
             </div>
 
-            <!-- Boutons Charger (orange) et Sauvegarder (vert transparent) en bas à droite -->
+            <!-- Boutons Gérer le temps, Charger (orange) et Sauvegarder (vert transparent) en bas à droite -->
             <div id="accueil-bottom-right-actions">
+                <button type="button" class="btn-gerer-temps-accueil" onclick="ouvrirModaleGererTemps()">
+                    ⏱️ Gérer le temps
+                </button>
                 <button type="button" class="btn-charger-accueil" onclick="declencherChargementJSONAccueil()">
                     📂 Charger
                 </button>
@@ -2534,6 +2657,9 @@
                         <button class="btn-secondary"
                             style="width: auto; margin: 0; padding: 8px 14px; font-size: 0.85rem;"
                             onclick="ouvrirModaleModifierJoueur()">✏️ Modifier</button>
+                        <button class="btn-danger"
+                            style="width: auto; margin: 0; padding: 8px 14px; font-size: 0.85rem;"
+                            onclick="supprimerJoueurProfil()">🗑️ Supprimer</button>
                         <button id="btn-profil-auto-eval" class="btn-secondary"
                             style="width: auto; margin: 0; padding: 8px 14px; font-size: 0.85rem; border: 1.5px solid #6366F1;"
                             onclick="ouvrirAutoEvalDepuisProfil()">📋 Auto-évaluation</button>
@@ -2664,24 +2790,6 @@
                     </p>
                 </div>
 
-                <!-- SÉLECTEUR DE L'ÉLÈVE DANS LE CAHIER D'EXERCICES -->
-                <div class="choix-joueur-cahier-wrapper">
-                    <div class="choix-joueur-label-row">
-                        <span class="choix-joueur-avatar-small">👤</span>
-                        <div style="flex: 1;">
-                            <label for="select-joueur-cahier-principal" class="choix-joueur-titre">Élève qui réalise les
-                                exercices :</label>
-                            <span class="choix-joueur-subtitle">Sélectionnez qui s'entraîne pour enregistrer ses
-                                réussites et médailles</span>
-                        </div>
-                    </div>
-                    <select id="select-joueur-cahier-principal"
-                        class="select-joueur-exercice-styled select-joueur-cahier-full"
-                        onchange="changerJoueurActifExercice(this.value)">
-                        <!-- Options générées dynamiquement -->
-                    </select>
-                </div>
-
                 <!-- 5 THÈMES PRINCIPAUX DU CAHIER D'EXERCICES -->
                 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto;">
                     <button class="btn-exercice-nav" style="padding: 18px; border-left: 5px solid #00E5FF;"
@@ -2772,23 +2880,6 @@
                     <p style="font-size: 0.9rem; color: #ccc; margin: 0 auto; max-width: 480px;">
                         Choisissez la compétence à entraîner et à évaluer :
                     </p>
-                </div>
-
-                <!-- SÉLECTEUR DU JOUEUR ÉVALUÉ DANS SERVICE & PLACEMENT -->
-                <div class="choix-joueur-cahier-wrapper">
-                    <div class="choix-joueur-label-row">
-                        <span class="choix-joueur-avatar-small">👤</span>
-                        <div style="flex: 1;">
-                            <label for="select-joueur-entrainement-global" class="choix-joueur-titre">Élève qui réalise
-                                l'exercice :</label>
-                            <span class="choix-joueur-subtitle">Enregistrement automatique sur sa fiche joueur</span>
-                        </div>
-                    </div>
-                    <select id="select-joueur-entrainement-global"
-                        class="select-joueur-exercice-styled select-joueur-cahier-full"
-                        onchange="changerJoueurActifExercice(this.value)">
-                        <!-- Options générées dynamiquement -->
-                    </select>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto;">
@@ -3955,22 +4046,6 @@
                         technique pour accéder aux niveaux d'apprentissage :</p>
                 </div>
 
-                <!-- SÉLECTEUR DU JOUEUR ÉVALUÉ DANS ARMES -->
-                <div class="choix-joueur-cahier-wrapper">
-                    <div class="choix-joueur-label-row">
-                        <span class="choix-joueur-avatar-small">👤</span>
-                        <div style="flex: 1;">
-                            <label for="select-joueur-entrainement-armes" class="choix-joueur-titre">Élève qui réalise
-                                l'exercice :</label>
-                            <span class="choix-joueur-subtitle">Enregistrement automatique sur sa fiche joueur</span>
-                        </div>
-                    </div>
-                    <select id="select-joueur-entrainement-armes"
-                        class="select-joueur-exercice-styled select-joueur-cahier-full"
-                        onchange="changerJoueurActifExercice(this.value)">
-                    </select>
-                </div>
-
                 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto;">
                     <button class="btn-exercice-nav" onclick="ouvrirPageAmorti(1)">
                         <span class="ex-icon">🪶</span>
@@ -4020,22 +4095,6 @@
                     <h2 class="text-gradient" style="margin: 8px 0 4px 0; font-size: 1.5rem;">🧠 Stratégie</h2>
                     <p style="font-size: 0.9rem; color: #ccc; margin: 0 auto; max-width: 480px;">Sélectionnez une
                         situation tactique :</p>
-                </div>
-
-                <!-- SÉLECTEUR DU JOUEUR ÉVALUÉ DANS STRATÉGIE -->
-                <div class="choix-joueur-cahier-wrapper">
-                    <div class="choix-joueur-label-row">
-                        <span class="choix-joueur-avatar-small">👤</span>
-                        <div style="flex: 1;">
-                            <label for="select-joueur-entrainement-strategie" class="choix-joueur-titre">Élève qui
-                                réalise l'exercice :</label>
-                            <span class="choix-joueur-subtitle">Enregistrement automatique sur sa fiche joueur</span>
-                        </div>
-                    </div>
-                    <select id="select-joueur-entrainement-strategie"
-                        class="select-joueur-exercice-styled select-joueur-cahier-full"
-                        onchange="changerJoueurActifExercice(this.value)">
-                    </select>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto;">
@@ -5317,6 +5376,7 @@
                 <option value="Débutant">Débutant (Niveau 1)</option>
                 <option value="Débrouillé">Débrouillé (Niveau 2)</option>
                 <option value="Expert">Expert (Niveau 3)</option>
+                <option value="Professionnel">Professionnel</option>
             </select>
 
             <div style="display: flex; gap: 10px;">
@@ -5324,6 +5384,9 @@
                 <button class="btn-action" style="flex: 2; margin: 0; padding: 12px;"
                     onclick="sauvegarderModificationsJoueur()">💾 Enregistrer</button>
             </div>
+            <button type="button" class="btn-danger"
+                style="width: 100%; margin-top: 12px; padding: 10px; font-size: 0.88rem;"
+                onclick="supprimerJoueurProfil()">🗑️ Supprimer cet élève</button>
         </div>
     </div>
 
@@ -5572,6 +5635,133 @@
         </div>
     </div>
 
+    <!-- MODALE GÉRER LE TEMPS (MINUTEUR GLOBAL PERSISTANT) -->
+    <div id="modale-gerer-temps" class="modale-flottante"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99998; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div class="custom-popup-box"
+            style="background: linear-gradient(160deg, #1C1A2B 0%, #11101B 100%); border: 1.5px solid rgba(0, 229, 255, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.22); border-radius: 20px; max-width: 460px; width: 100%; padding: 24px 22px; text-align: center; position: relative; animation: popupBounceIn 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-sizing: border-box;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 class="text-gradient-fire" style="font-size: 1.35rem; margin: 0; font-weight: 800;">
+                    ⏱️ Gérer le temps
+                </h3>
+                <button type="button" class="btn-retour" onclick="fermerModaleGererTemps()"
+                    style="padding: 4px 10px;">✕</button>
+            </div>
+
+            <p style="font-size: 0.88rem; color: #CBD5E1; margin: 0 0 14px 0; line-height: 1.4;">
+                Réglez la durée du minuteur. Une fois validé, il restera affiché en haut de l'application sur toutes les
+                pages.
+            </p>
+
+            <!-- Affichage digital et boutons +/- -->
+            <div
+                style="background: rgba(0, 0, 0, 0.45); border: 1.5px solid rgba(0, 229, 255, 0.35); border-radius: 14px; padding: 14px 12px; margin-bottom: 14px;">
+                <div id="reglage-minuteur-global-display"
+                    style="font-family: monospace; font-size: 2.5rem; font-weight: 900; color: #00E5FF; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 0 0 14px rgba(0, 229, 255, 0.35);">
+                    05:00
+                </div>
+                <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" class="preset-temps-btn" onclick="ajusterReglageMinuteurGlobal(-60)">-1
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="ajusterReglageMinuteurGlobal(-15)">-15
+                        s</button>
+                    <button type="button" class="preset-temps-btn" onclick="ajusterReglageMinuteurGlobal(15)">+15
+                        s</button>
+                    <button type="button" class="preset-temps-btn" onclick="ajusterReglageMinuteurGlobal(60)">+1
+                        min</button>
+                </div>
+            </div>
+
+            <!-- Durées rapides prédéfinies -->
+            <div style="margin-bottom: 18px;">
+                <div
+                    style="font-size: 0.78rem; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                    Durées rapides :
+                </div>
+                <div style="display: flex; justify-content: center; gap: 7px; flex-wrap: wrap;">
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(60)">1
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(120)">2
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(180)">3
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(300)">5
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(420)">7
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(600)">10
+                        min</button>
+                    <button type="button" class="preset-temps-btn" onclick="choisirPresetMinuteurGlobal(900)">15
+                        min</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" class="btn-secondary" onclick="fermerModaleGererTemps()"
+                    style="margin: 0; padding: 11px 16px; font-size: 0.9rem; flex: 1;">
+                    Fermer
+                </button>
+                <button type="button" id="btn-stopper-minuteur-modale" class="btn-danger"
+                    onclick="arreterEtMasquerMinuteurGlobal(); fermerModaleGererTemps();"
+                    style="display: none; margin: 0; padding: 11px 14px; font-size: 0.88rem; width: auto;">
+                    ⏹️ Stop
+                </button>
+                <button type="button" class="btn-action" onclick="validerEtLancerMinuteurGlobal()"
+                    style="margin: 0; padding: 11px 20px; font-size: 0.95rem; flex: 2; background: linear-gradient(135deg, #00B0FF 0%, #00E5FF 100%); color: #0F172A; font-weight: 800; box-shadow: 0 6px 20px rgba(0, 229, 255, 0.35);">
+                    ✅ Valider et lancer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE CHOIX DU NOM DE FICHIER AVANT SAUVEGARDE JSON -->
+    <div id="modale-sauvegarde-json" class="modale-flottante"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99998; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div class="custom-popup-box"
+            style="background: linear-gradient(160deg, #1C1A2B 0%, #11101B 100%); border: 1.5px solid rgba(76, 175, 80, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(76, 175, 80, 0.22); border-radius: 20px; max-width: 460px; width: 100%; padding: 24px 22px; text-align: center; position: relative; animation: popupBounceIn 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-sizing: border-box;">
+
+            <div
+                style="margin: 0 auto 12px auto; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: rgba(76, 175, 80, 0.15); border: 1.5px solid rgba(76, 175, 80, 0.45); box-shadow: 0 0 20px rgba(76, 175, 80, 0.25);">
+                <span>💾</span>
+            </div>
+
+            <h3 class="text-gradient-fire" style="font-size: 1.35rem; margin: 4px 0 8px 0; font-weight: 800;">
+                Sauvegarder les données
+            </h3>
+
+            <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0 0 14px 0; line-height: 1.45;">
+                Vous pouvez modifier le nom du fichier avant de lancer le téléchargement :
+            </p>
+
+            <div style="text-align: left; margin-bottom: 18px;">
+                <label for="input-nom-fichier-sauvegarde"
+                    style="display: block; font-size: 0.82rem; font-weight: 700; color: #69F0AE; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Nom du fichier (.json)
+                </label>
+                <div
+                    style="display: flex; align-items: center; background: rgba(255, 255, 255, 0.07); border: 1.5px solid rgba(76, 175, 80, 0.5); border-radius: 12px; padding: 4px 10px; gap: 6px;">
+                    <input type="text" id="input-nom-fichier-sauvegarde" placeholder="badeps_sauvegarde"
+                        style="flex: 1; background: transparent; border: none; color: #FFFFFF; font-size: 1rem; font-weight: 600; padding: 10px 4px; outline: none; margin: 0; width: 100%;"
+                        onkeydown="if(event.key === 'Enter') { event.preventDefault(); confirmerTelechargementJSON(); }">
+                    <span
+                        style="color: #69F0AE; font-weight: 700; font-size: 0.95rem; user-select: none; padding-right: 4px;">.json</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" class="btn-secondary" onclick="fermerModaleSauvegardeJSON()"
+                    style="margin: 0; padding: 11px 18px; font-size: 0.9rem; flex: 1;">
+                    Annuler
+                </button>
+                <button type="button" class="btn-action" onclick="confirmerTelechargementJSON()"
+                    style="margin: 0; padding: 11px 20px; font-size: 0.95rem; flex: 2; background: linear-gradient(135deg, #2E7D32 0%, #43A047 50%, #66BB6A 100%); box-shadow: 0 6px 20px rgba(76, 175, 80, 0.35);">
+                    ⬇️ Télécharger
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE POP-UP UNIFIÉE (STYLE APPLICATION BAD'EPS) -->
     <div id="modale-custom-popup" class="modale-flottante"
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99999; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
@@ -5768,13 +5958,194 @@
             afficherPopupCustom(message);
         };
 
+        // --- GESTION DU MINUTEUR GLOBAL PERSISTANT ("GÉRER LE TEMPS") ---
+        let minuteurGlobalState = {
+            dureeConfigureeSec: 300, // 5 minutes par défaut
+            restantSec: 300,
+            actif: false,
+            enPause: false,
+            intervalId: null
+        };
+
+        function formaterTempsMinuteurGlobal(totalSec) {
+            const sTotal = Math.max(0, Math.floor(totalSec || 0));
+            const min = Math.floor(sTotal / 60);
+            const sec = sTotal % 60;
+            return String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+        }
+
+        function actualiserAffichageModaleMinuteurGlobal() {
+            const el = document.getElementById('reglage-minuteur-global-display');
+            if (el) {
+                el.textContent = formaterTempsMinuteurGlobal(minuteurGlobalState.dureeConfigureeSec);
+            }
+            const btnStop = document.getElementById('btn-stopper-minuteur-modale');
+            if (btnStop) {
+                btnStop.style.display = minuteurGlobalState.actif ? 'inline-block' : 'none';
+            }
+        }
+
+        function ouvrirModaleGererTemps() {
+            const modale = document.getElementById('modale-gerer-temps');
+            if (!modale) return;
+            actualiserAffichageModaleMinuteurGlobal();
+            modale.style.display = 'flex';
+        }
+
+        function fermerModaleGererTemps() {
+            const modale = document.getElementById('modale-gerer-temps');
+            if (modale) modale.style.display = 'none';
+        }
+
+        function ajusterReglageMinuteurGlobal(deltaSec) {
+            let nouv = (minuteurGlobalState.dureeConfigureeSec || 60) + deltaSec;
+            if (nouv < 15) nouv = 15;
+            if (nouv > 3600) nouv = 3600;
+            minuteurGlobalState.dureeConfigureeSec = nouv;
+            actualiserAffichageModaleMinuteurGlobal();
+        }
+
+        function choisirPresetMinuteurGlobal(secondes) {
+            minuteurGlobalState.dureeConfigureeSec = secondes;
+            actualiserAffichageModaleMinuteurGlobal();
+        }
+
+        function actualiserBandeauMinuteurGlobal() {
+            const bandeau = document.getElementById('bandeau-minuteur-global');
+            const affichage = document.getElementById('minuteur-global-affichage');
+            const btnPause = document.getElementById('btn-minuteur-global-pause');
+            const progressBar = document.getElementById('minuteur-global-progress-bar');
+
+            if (!bandeau) return;
+
+            if (!minuteurGlobalState.actif) {
+                bandeau.style.display = 'none';
+                if (typeof ajusterHauteurIpad === 'function') ajusterHauteurIpad();
+                return;
+            }
+
+            bandeau.style.display = 'flex';
+
+            if (affichage) {
+                affichage.textContent = formaterTempsMinuteurGlobal(minuteurGlobalState.restantSec);
+                if (minuteurGlobalState.restantSec <= 30) {
+                    affichage.style.color = '#FF5252';
+                    affichage.style.borderColor = 'rgba(255, 82, 82, 0.6)';
+                    bandeau.classList.add('alerte-fin');
+                } else {
+                    affichage.style.color = '#00E5FF';
+                    affichage.style.borderColor = 'rgba(0, 229, 255, 0.35)';
+                    bandeau.classList.remove('alerte-fin');
+                }
+            }
+
+            if (btnPause) {
+                if (minuteurGlobalState.enPause) {
+                    btnPause.innerHTML = '▶️ Reprendre';
+                    btnPause.style.background = 'rgba(16, 185, 129, 0.28)';
+                    btnPause.style.borderColor = 'rgba(52, 211, 153, 0.6)';
+                    btnPause.style.color = '#6EE7B7';
+                } else {
+                    btnPause.innerHTML = '⏸️ Pause';
+                    btnPause.style.background = 'rgba(255, 255, 255, 0.12)';
+                    btnPause.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    btnPause.style.color = '#FFFFFF';
+                }
+            }
+
+            if (progressBar) {
+                const total = Math.max(1, minuteurGlobalState.dureeConfigureeSec || 1);
+                const pct = Math.max(0, Math.min(100, (minuteurGlobalState.restantSec / total) * 100));
+                progressBar.style.width = pct + '%';
+            }
+        }
+
+        function jouerSignalFinMinuteurGlobal() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const notes = [880, 1046.5, 880, 1318.5];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime + idx * 0.18);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.18 + 0.16);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + idx * 0.18);
+                    osc.stop(ctx.currentTime + idx * 0.18 + 0.17);
+                });
+            } catch (e) { }
+        }
+
+        function validerEtLancerMinuteurGlobal() {
+            if (minuteurGlobalState.intervalId) {
+                clearInterval(minuteurGlobalState.intervalId);
+                minuteurGlobalState.intervalId = null;
+            }
+
+            minuteurGlobalState.restantSec = minuteurGlobalState.dureeConfigureeSec || 300;
+            minuteurGlobalState.actif = true;
+            minuteurGlobalState.enPause = false;
+
+            fermerModaleGererTemps();
+            actualiserBandeauMinuteurGlobal();
+
+            minuteurGlobalState.intervalId = setInterval(() => {
+                if (!minuteurGlobalState.actif || minuteurGlobalState.enPause) return;
+
+                if (minuteurGlobalState.restantSec > 0) {
+                    minuteurGlobalState.restantSec -= 1;
+                    actualiserBandeauMinuteurGlobal();
+                }
+
+                if (minuteurGlobalState.restantSec <= 0) {
+                    clearInterval(minuteurGlobalState.intervalId);
+                    minuteurGlobalState.intervalId = null;
+                    minuteurGlobalState.enPause = true;
+                    actualiserBandeauMinuteurGlobal();
+                    jouerSignalFinMinuteurGlobal();
+
+                    const dureeTotaleTxt = formaterTempsMinuteurGlobal(minuteurGlobalState.dureeConfigureeSec);
+                    afficherPopupCustom(
+                        `🎉 Le minuteur est terminé !\n\n` +
+                        `⏱️ Temps écoulé : ${dureeTotaleTxt}\n` +
+                        `➡️ Vous pouvez clôturer la rotation, le match ou l'exercice en cours.`,
+                        {
+                            titre: "⏰ Fin du Minuteur !",
+                            icone: "⏰",
+                            texteOk: "Compris 👍"
+                        },
+                        function () {
+                            arreterEtMasquerMinuteurGlobal();
+                        }
+                    );
+                }
+            }, 1000);
+        }
+
+        function togglePauseMinuteurGlobal() {
+            if (!minuteurGlobalState.actif) return;
+            minuteurGlobalState.enPause = !minuteurGlobalState.enPause;
+            actualiserBandeauMinuteurGlobal();
+        }
+
+        function arreterEtMasquerMinuteurGlobal() {
+            if (minuteurGlobalState.intervalId) {
+                clearInterval(minuteurGlobalState.intervalId);
+                minuteurGlobalState.intervalId = null;
+            }
+            minuteurGlobalState.actif = false;
+            minuteurGlobalState.enPause = false;
+            actualiserBandeauMinuteurGlobal();
+        }
+
         // --- GESTION DU JOUEUR SÉLECTIONNÉ POUR LES EXERCICES ---
         function peuplerSelectsJoueursExercice() {
             const idsSelects = [
-                'select-joueur-cahier-principal',
-                'select-joueur-entrainement-global',
-                'select-joueur-entrainement-armes',
-                'select-joueur-entrainement-strategie',
                 'select-joueur-exercice-service',
                 'select-joueur-exercice-placement',
                 'select-joueur-exercice-amorti',
@@ -5828,10 +6199,6 @@
             joueurActifExerciceId = idJoueur;
 
             const idsSelects = [
-                'select-joueur-cahier-principal',
-                'select-joueur-entrainement-global',
-                'select-joueur-entrainement-armes',
-                'select-joueur-entrainement-strategie',
                 'select-joueur-exercice-service',
                 'select-joueur-exercice-placement',
                 'select-joueur-exercice-amorti',
@@ -6027,9 +6394,14 @@
                 genererBoutonsProfils();
             } else if (idVue === 'vue-match-config') {
                 reinitialiserVueMatchConfig();
-            } else if (idVue === 'vue-entrainement' || idVue.startsWith('vue-entrainement') || idVue.startsWith('vue-exercice')) {
-                afficherSituationsEntrainement();
+            } else if (idVue === 'vue-entrainement' || idVue.startsWith('vue-entrainement') || idVue.startsWith('vue-exercice') || idVue.startsWith('vue-fiche')) {
+                if (typeof afficherSituationsEntrainement === 'function') {
+                    afficherSituationsEntrainement();
+                }
                 peuplerSelectsJoueursExercice();
+                if (typeof peuplerSelectsFichesDirectes === 'function') {
+                    peuplerSelectsFichesDirectes();
+                }
             } else if (idVue === 'vue-auto-evaluation') {
                 initialiserVueAutoEval();
             } else if (idVue === 'vue-aide-video') {
@@ -6131,6 +6503,10 @@
             joueursInscrits.push(nouveauJoueur);
             sauvegarderDansLocalStorage();
             mettreAJourAffichageInscription();
+            peuplerSelectsJoueursExercice();
+            if (typeof peuplerSelectsFichesDirectes === 'function') {
+                peuplerSelectsFichesDirectes();
+            }
 
             // Reset des champs
             document.getElementById('ins-nom').value = '';
@@ -6162,6 +6538,10 @@
             genererBoutonsProfils();
             peuplerSelectsMatch();
             peuplerSelectJoueurAutoEval();
+            peuplerSelectsJoueursExercice();
+            if (typeof peuplerSelectsFichesDirectes === 'function') {
+                peuplerSelectsFichesDirectes();
+            }
             naviguerVers('vue-profil-liste');
         }
 
@@ -6688,11 +7068,21 @@
                 const d = j.stats.defaites || 0;
                 const arb = j.stats.matchsArbitres || 0;
                 grille.innerHTML += `
-                    <div class="carte-element" onclick="ouvrirFicheJoueur('${j.id}')">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">👤</div>
-                        <h3 style="color:white; font-size: 1.1rem;">${j.prenom} ${j.nom}</h3>
-                        <p class="text-gradient-fire" style="font-size:0.85rem; margin-top:5px; font-weight: bold;">${j.niveau}</p>
-                        <p style="font-size:0.8rem; color:#aaa; margin-top:4px;">${j.stats.matchsJoues} match(s) (${v}V / ${d}D) • 👨‍⚖️ ${arb} arb.</p>
+                    <div class="carte-element" onclick="ouvrirFicheJoueur('${j.id}')" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 2rem; margin-bottom: 8px;">👤</div>
+                            <h3 style="color:white; font-size: 1.1rem;">${j.prenom} ${j.nom}</h3>
+                            <p class="text-gradient-fire" style="font-size:0.85rem; margin-top:5px; font-weight: bold;">${j.niveau} (${j.age} ans)</p>
+                            <p style="font-size:0.8rem; color:#aaa; margin-top:4px;">${j.stats.matchsJoues} match(s) (${v}V / ${d}D) • 👨‍⚖️ ${arb} arb.</p>
+                        </div>
+                        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <button type="button" class="btn-secondary"
+                                style="flex: 1; margin: 0; padding: 7px 10px; font-size: 0.8rem;"
+                                onclick="ouvrirModaleModifierJoueur('${j.id}', event)">✏️ Modifier</button>
+                            <button type="button" class="btn-danger"
+                                style="flex: 1; margin: 0; padding: 7px 10px; font-size: 0.8rem;"
+                                onclick="supprimerJoueurProfil('${j.id}', event)">🗑️ Supprimer</button>
+                        </div>
                     </div>`;
             });
             if (medaillesMisAJour) {
@@ -6700,12 +7090,17 @@
             }
         }
 
-        // --- MODIFICATION DU PROFIL JOUEUR ---
-        function ouvrirModaleModifierJoueur() {
-            if (!profilActifId) return;
-            const j = joueursInscrits.find(joueur => joueur.id === profilActifId);
+        // --- MODIFICATION & SUPPRESSION DU PROFIL JOUEUR ---
+        function ouvrirModaleModifierJoueur(idJoueurCible = null, event = null) {
+            if (event && typeof event.stopPropagation === 'function') {
+                event.stopPropagation();
+            }
+            const cibleId = idJoueurCible || profilActifId;
+            if (!cibleId) return;
+            const j = joueursInscrits.find(joueur => joueur.id === cibleId);
             if (!j) return;
 
+            profilActifId = cibleId;
             document.getElementById('edit-nom').value = j.nom || '';
             document.getElementById('edit-prenom').value = j.prenom || '';
             document.getElementById('edit-age').value = j.age || '';
@@ -6742,12 +7137,76 @@
             fermerModaleModifierJoueur();
 
             // Actualiser l'affichage partout
-            ouvrirFicheJoueur(profilActifId);
+            const vueDetailActive = document.getElementById('vue-profil-detail')?.classList.contains('active');
+            if (vueDetailActive) {
+                ouvrirFicheJoueur(profilActifId);
+            }
             genererBoutonsProfils();
             actualiserSuggestionsJoueurs();
             mettreAJourAffichageInscription();
+            peuplerSelectsMatch();
+            peuplerSelectJoueurAutoEval();
+            peuplerSelectsJoueursExercice();
+            if (typeof peuplerSelectsFichesDirectes === 'function') {
+                peuplerSelectsFichesDirectes();
+            }
 
             alert(`Profil de ${j.prenom} ${j.nom} mis à jour avec succès !`);
+        }
+
+        function supprimerJoueurProfil(idJoueurCible = null, event = null) {
+            if (event && typeof event.stopPropagation === 'function') {
+                event.stopPropagation();
+            }
+            const cibleId = idJoueurCible || profilActifId;
+            if (!cibleId) return;
+            const j = joueursInscrits.find(joueur => joueur.id === cibleId);
+            if (!j) return;
+
+            const nomComplet = `${j.prenom} ${j.nom}`;
+            afficherConfirmationCustom(
+                `⚠️ Voulez-vous vraiment supprimer l'élève ${nomComplet} ?\n\nToutes ses statistiques, médailles et évaluations enregistrées sur cette tablette seront supprimées.`,
+                function () {
+                    joueursInscrits = joueursInscrits.filter(joueur => joueur.id !== cibleId);
+
+                    if (profilActifId === cibleId) {
+                        profilActifId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+                    }
+                    if (joueurActifExerciceId === cibleId) {
+                        joueurActifExerciceId = joueursInscrits.length > 0 ? joueursInscrits[0].id : null;
+                    }
+
+                    sauvegarderDansLocalStorage();
+                    fermerModaleModifierJoueur();
+
+                    genererBoutonsProfils();
+                    actualiserSuggestionsJoueurs();
+                    mettreAJourAffichageInscription();
+                    peuplerSelectsMatch();
+                    peuplerSelectJoueurAutoEval();
+                    peuplerSelectsJoueursExercice();
+                    if (typeof peuplerSelectsFichesDirectes === 'function') {
+                        peuplerSelectsFichesDirectes();
+                    }
+
+                    const vueDetailActive = document.getElementById('vue-profil-detail')?.classList.contains('active');
+                    if (vueDetailActive) {
+                        naviguerVers('vue-profil-liste');
+                    }
+
+                    afficherPopupCustom(`✅ Le profil de ${nomComplet} a bien été supprimé.`, {
+                        titre: "Élève supprimé",
+                        icone: "🗑️"
+                    });
+                },
+                null,
+                {
+                    titre: "Supprimer cet élève ?",
+                    icone: "🗑️",
+                    texteOk: "🗑️ Oui, supprimer",
+                    texteCancel: "Annuler"
+                }
+            );
         }
 
         function ouvrirFicheJoueur(idJoueur) {
@@ -8768,6 +9227,55 @@
             } catch (e) { }
 
             const maintenant = new Date();
+            const dateFichier = maintenant.toISOString().slice(0, 10);
+            const nomParDefaut = `badeps_sauvegarde_${dateFichier}`;
+
+            const modale = document.getElementById('modale-sauvegarde-json');
+            const inputNom = document.getElementById('input-nom-fichier-sauvegarde');
+            if (modale && inputNom) {
+                inputNom.value = nomParDefaut;
+                modale.style.display = 'flex';
+                setTimeout(() => {
+                    inputNom.focus();
+                    inputNom.select();
+                }, 60);
+            } else {
+                executerTelechargementJSON(nomParDefaut + '.json');
+            }
+        }
+
+        function fermerModaleSauvegardeJSON() {
+            const modale = document.getElementById('modale-sauvegarde-json');
+            if (modale) modale.style.display = 'none';
+        }
+
+        function confirmerTelechargementJSON() {
+            const inputNom = document.getElementById('input-nom-fichier-sauvegarde');
+            const maintenant = new Date();
+            const dateFichier = maintenant.toISOString().slice(0, 10);
+            let nomSaisi = inputNom ? inputNom.value.trim() : '';
+
+            if (!nomSaisi) {
+                nomSaisi = `badeps_sauvegarde_${dateFichier}`;
+            }
+
+            // Nettoyage des caractères interdits dans un nom de fichier
+            nomSaisi = nomSaisi.replace(/[\\/:*?"<>|]/g, '_').trim();
+            if (!nomSaisi.toLowerCase().endsWith('.json')) {
+                nomSaisi += '.json';
+            }
+
+            fermerModaleSauvegardeJSON();
+            executerTelechargementJSON(nomSaisi);
+        }
+
+        function executerTelechargementJSON(nomFichier) {
+            synchroniserToutesDonneesJoueurs();
+            try {
+                localStorage.setItem(CLE_STORAGE_JOUEURS, JSON.stringify(joueursInscrits));
+            } catch (e) { }
+
+            const maintenant = new Date();
             const dateLisible = maintenant.toLocaleDateString('fr-FR', {
                 day: '2-digit',
                 month: '2-digit',
@@ -8818,8 +9326,10 @@
             };
 
             const jsonStr = JSON.stringify(donneesCompletesExport, null, 2);
-            const dateFichier = maintenant.toISOString().slice(0, 10);
-            const nomFichier = `badeps_sauvegarde_${dateFichier}.json`;
+            if (!nomFichier) {
+                const dateFichier = maintenant.toISOString().slice(0, 10);
+                nomFichier = `badeps_sauvegarde_${dateFichier}.json`;
+            }
 
             try {
                 const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
